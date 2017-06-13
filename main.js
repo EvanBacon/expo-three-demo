@@ -8,7 +8,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 import Navigation from './Navigation'
-
+import {Loader} from './components'
 import './utils/THREEglobal';
 
 class App extends React.Component {
@@ -45,7 +45,13 @@ class App extends React.Component {
   }
   render() {
     if (this.state.appIsReady) {
-      return (<Navigation />);
+      return (
+        <View style={{flex: 1}}>
+          <Navigation
+          />
+          {/* <Loader/> */}
+        </View>
+      );
     }
     return <AppLoading />
   }
