@@ -30,14 +30,15 @@ var gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 var TIMESTEP = 18 / 1000;
 var TIMESTEP_SQ = TIMESTEP * TIMESTEP;
 
-export var pins = [];
+export var pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
 
 
 export var wind = true;
 export var windStrength = 2;
 export var windForce = new THREE.Vector3( 0, 0, 0 );
 
-var ballPosition = new THREE.Vector3( 0, - 45, 0 );
+export var ballPosition = new THREE.Vector3( 0, - 45, 0 );
 export var ballSize = 60; //40
 
 var tmpForce = new THREE.Vector3();
@@ -223,7 +224,7 @@ function Cloth( w, h ) {
 
 }
 
-export function simulate( time, clothGeometry, sphere ) {
+export function simulate( time, clothGeometry, sphere, pins, wind, windForce ) {
 
 	if ( ! lastTime ) {
 

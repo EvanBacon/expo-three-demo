@@ -4,7 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 class App extends React.Component {
   componentWillMount() {
-    this._loadAssetsAsync();
+    this.setState({ appIsReady: true });
+
+    // this._loadAssetsAsync();
   }
 
   async _loadAssetsAsync() {
