@@ -2,6 +2,7 @@ import Expo, {AppLoading} from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
+import Navigation from './Navigation'
 class App extends React.Component {
   componentWillMount() {
     this.setState({ appIsReady: true });
@@ -36,7 +37,7 @@ class App extends React.Component {
   }
   render() {
     if (this.state.appIsReady) {
-      return (<AnimationCloth />);
+      return (<Navigation />);
     }
     return <AppLoading />
   }
