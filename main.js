@@ -34,10 +34,7 @@ class App extends React.Component {
   }
   render() {
     if (this.state.appIsReady) {
-      return (
-        <View style={styles.container}>
-          <AnimationCloth />
-      </View>);
+      return (<AnimationCloth />);
     }
     return <AppLoading />
   }
