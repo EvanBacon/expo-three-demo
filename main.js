@@ -1,8 +1,16 @@
+//
+// Copyright (c) 2017-present, by Evan Bacon. All Rights Reserved.
+// @author Evan Bacon / https://github.com/EvanBacon
+//
+
 import Expo, {AppLoading} from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 import Navigation from './Navigation'
+
+import './utils/THREEglobal';
+
 class App extends React.Component {
   componentWillMount() {
     this.setState({ appIsReady: true });

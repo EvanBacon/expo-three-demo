@@ -1,3 +1,8 @@
+//
+// Copyright (c) 2017-present, by Evan Bacon. All Rights Reserved.
+// @author Evan Bacon / https://github.com/EvanBacon
+//
+
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { Constants } from 'expo';

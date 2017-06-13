@@ -3,4 +3,4 @@
 // @author Evan Bacon / https://github.com/EvanBacon
 //
 
-export {default as AnimationCloth} from './AnimationCloth';
+export {default as Button} from './Button';

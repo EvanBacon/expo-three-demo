@@ -1,3 +1,8 @@
+//
+// Copyright (c) 2017-present, by Evan Bacon. All Rights Reserved.
+// @author Evan Bacon / https://github.com/EvanBacon
+//
+
 import React, { Component } from 'react';
 
 import { StackNavigator } from 'react-navigation';
@@ -5,6 +10,7 @@ import {Platform} from 'react-native';
 import * as Scenes from './Scenes';
 import * as Screens from './Screens';
 import Colors from './Colors'
+import Settings from './Settings'
 
 export const Routes = {
   AnimationCloth: {
@@ -50,7 +56,7 @@ const AppNavigator = StackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: Settings.initialRouteName,
     navigationOptions
     // headerMode: 'none',
     // mode: Platform.OS === 'ios' ? 'modal' : 'card',
