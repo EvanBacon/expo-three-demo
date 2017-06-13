@@ -4,3 +4,4 @@
 //
 
 export {default as AnimationCloth} from './AnimationCloth';
+export {default as ParticleSystem} from './ParticleSystem';

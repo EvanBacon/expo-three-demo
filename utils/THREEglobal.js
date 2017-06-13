@@ -13,7 +13,7 @@ require('three/examples/js/loaders/OBJLoader');
 // require('three/src/loaders/FontLoader');
 // require('three/src/geometries/TextGeometry');
 
-
+document = {};
 if (!console.time) {
   console.time = () => {};
 }

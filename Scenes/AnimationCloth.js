@@ -125,15 +125,6 @@ export default class AnimationCloth extends React.Component {
     this.setState({camera})
     await this.configureCloth()
 
-
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({
-      // NOTE: How to create an Expo-compatible THREE texture
-      map: await ExpoTHREE.createTextureAsync({
-        asset: Expo.Asset.fromModule(require('../assets/icons/app.png')),
-      }),
-    });
-
     const render = () => {
       requestAnimationFrame(render);
       var time = Date.now();

@@ -20,6 +20,13 @@ export const Routes = {
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
+  ParticleSystem: {
+    title: 'Particle System',
+    key: 'ParticleSystem',
+    description: 'GPU Particle System',
+    link: 'https://threejs.org/examples/?q=particl#webgl_gpu_particle_system',
+    screen: Scenes.ParticleSystem,
+  }
 };
 
 const navigationOptions = {
@@ -42,7 +49,7 @@ export const configuration = [
     title: "Particle",
     key: "Particle",
     data: [
-      Routes.AnimationCloth,
+      Routes.ParticleSystem,
     ]
   },
 ]
