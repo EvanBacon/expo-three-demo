@@ -26,6 +26,13 @@ export const Routes = {
     description: 'GPU Particle System',
     link: 'https://threejs.org/examples/?q=particl#webgl_gpu_particle_system',
     screen: Scenes.ParticleSystem,
+  },
+  VoxelPainter: {
+    title: 'Voxel Painter',
+    key: 'VoxelPainter',
+    description: 'Interactive Voxel Scene',
+    link: 'https://threejs.org/examples/#webgl_interactive_voxelpainter',
+    screen: Scenes.VoxelPainter,
   }
 };
 
@@ -50,6 +57,13 @@ export const configuration = [
     key: "Particle",
     data: [
       Routes.ParticleSystem,
+    ]
+  },
+  {
+    title: "Interactive",
+    key: "Interactive",
+    data: [
+      Routes.VoxelPainter,
     ]
   },
 ]
