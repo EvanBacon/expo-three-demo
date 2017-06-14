@@ -1,5 +1,5 @@
 # [expo-three-demo](https://exp.host/@bacon/three-demo)
-----
+
 Collection of Demos for THREE.js in Expo
 
 Try it now: https://exp.host/@bacon/three-demo
