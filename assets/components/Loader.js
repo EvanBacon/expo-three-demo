@@ -141,11 +141,11 @@ export default class APP {
     if ( this.renderer ) {
       this.renderer.setSize( this.width, this.height );
 
-      if (this.renderer.canvas) {
-        this.renderer.canvas.width = width;
-        this.renderer.canvas.height = height;
-        this.renderer.canvas.clientHeight = height;
-      }
+      // if (this.renderer.canvas) {
+      //   this.renderer.canvas.width = width;
+      //   this.renderer.canvas.height = height;
+      //   this.renderer.canvas.clientHeight = height;
+      // }
     }
   }
 

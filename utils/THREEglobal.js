@@ -9,16 +9,11 @@ global.THREE = THREE;
 export {THREE};
 require('three/examples/js/effects/OutlineEffect');
 require('three/examples/js/loaders/OBJLoader');
+
+import './FakeBrowser';
 // require('three/src/math/Vector3');
 // require('three/src/loaders/FontLoader');
 // require('three/src/geometries/TextGeometry');
-
-document = {};
-
-document.createElementNS = _ => {
-
-}
-
 
 if (!console.time) {
   console.time = () => {};

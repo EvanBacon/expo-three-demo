@@ -20,6 +20,13 @@ export const Routes = {
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
+  SkinningBlending: {
+    title: 'Skinning Blending',
+    key: 'SkinningBlending',
+    description: 'Skinning And Blending Models',
+    link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
+    screen: Scenes.SkinningBlending,
+  },
   ParticleSystem: {
     title: 'Particle System',
     key: 'ParticleSystem',
@@ -57,6 +64,7 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
+      Routes.SkinningBlending
     ]
   },
   {
