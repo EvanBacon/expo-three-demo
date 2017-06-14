@@ -3,10 +3,10 @@ Collection of Demos for THREE.js in Expo
 
 Try it now: https://exp.host/@bacon/three-demo
 
-![yaas](/preview/a.png?raw=true "Hey beautiful")
-![yaas](/preview/b.png?raw=true "Hey beautiful")
-![yaas](/preview/c.png?raw=true "Hey beautiful")
-![yaas](/preview/d.png?raw=true "Hey beautiful")
+<img src="./preview/a.png" width="281" height="500" />
+<img src="./preview/b.png" width="281" height="500" />
+<img src="./preview/c.png" width="281" height="500" />
+<img src="./preview/d.png" width="281" height="500" />
 
 ## Why?
 
