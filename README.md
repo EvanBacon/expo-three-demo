@@ -25,8 +25,6 @@ Also demos are fun! 🤡
 - [THREE.js](https://threejs.org/)
 - [React Navigation](https://reactnavigation.org/)
 
-More to come!
-
 ----
 
 ## Special Thanks
