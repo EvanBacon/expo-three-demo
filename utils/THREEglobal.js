@@ -14,6 +14,12 @@ require('three/examples/js/loaders/OBJLoader');
 // require('three/src/geometries/TextGeometry');
 
 document = {};
+
+document.createElementNS = _ => {
+
+}
+
+
 if (!console.time) {
   console.time = () => {};
 }

@@ -6,3 +6,4 @@
 export {default as AnimationCloth} from './AnimationCloth';
 export {default as ParticleSystem} from './ParticleSystem';
 export {default as VoxelPainter} from './VoxelPainter';
+export {default as EditorLoader} from './EditorLoader';

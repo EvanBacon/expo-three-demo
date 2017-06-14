@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'Home', //Home
+  initialRouteName: 'EditorLoader', //Home
 }

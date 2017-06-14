@@ -33,6 +33,13 @@ export const Routes = {
     description: 'Interactive Voxel Scene',
     link: 'https://threejs.org/examples/#webgl_interactive_voxelpainter',
     screen: Scenes.VoxelPainter,
+  },
+  EditorLoader: {
+    title: 'Editor Loader',
+    key: 'EditorLoader',
+    description: 'Loader for app.json exported from editor',
+    link: 'https://threejs.org/editor/',
+    screen: Scenes.EditorLoader,
   }
 };
 
@@ -66,6 +73,13 @@ export const configuration = [
       Routes.VoxelPainter,
     ]
   },
+  {
+    title: "Loader",
+    key: "Loader",
+    data: [
+      Routes.EditorLoader
+    ]
+  }
 ]
 
 
