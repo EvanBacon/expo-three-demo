@@ -3,7 +3,7 @@ Collection of Demos for THREE.js in Expo
 
 Try it now: https://exp.host/@bacon/three-demo
 
-![yaas](/preview.png?raw=true "Hey beautiful")
+![yaas](/preview/a.png?raw=true =562.5x1000 "Hey beautiful")
 https://threejs.org/examples/#webgl_animation_cloth
 
 ## Why?
