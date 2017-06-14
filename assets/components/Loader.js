@@ -1,7 +1,8 @@
 
 export default class APP {
   loader = new THREE.ObjectLoader();
-
+  prevTime;
+  request;
   camera;
   scene;
   renderer;
@@ -16,22 +17,25 @@ export default class APP {
     this.height = 500;
   }
 
-  load = ( gl, json ) => {
+  load = ( gl, json,devicePixelRatio ) => {
     this.gl = gl;
     this.isVR = json.project.vr;
 
     this.renderer = new THREE.WebGLRenderer( {
       canvas: {
-     width: gl.drawingBufferWidth,
-     height: gl.drawingBufferHeight,
-     style: {},
-     addEventListener: () => {},
+        width: gl.drawingBufferWidth,
+        height: gl.drawingBufferHeight,
+        style: {},
+        addEventListener: () => {},
         removeEventListener: () => {},
         clientHeight: gl.drawingBufferHeight,
       },
       context: gl,
       antialias: true
     } );
+    console.warn(devicePixelRatio)
+    this.renderer.setPixelRatio( devicePixelRatio || 1 );
+
     this.renderer.setClearColor( 0x000000 );
 
     if ( json.project.gammaInput ) this.renderer.gammaInput = true;
@@ -136,6 +140,12 @@ export default class APP {
 
     if ( this.renderer ) {
       this.renderer.setSize( this.width, this.height );
+
+      if (this.renderer.canvas) {
+        this.renderer.canvas.width = width;
+        this.renderer.canvas.height = height;
+        this.renderer.canvas.clientHeight = height;
+      }
     }
   }
 
@@ -145,25 +155,16 @@ export default class APP {
     }
   }
 
-  prevTime;
-  request;
-
   animate = ( time ) => {
-
     this.request = requestAnimationFrame( this.animate );
-
     try {
-
       this.dispatch( this.events.update, { time: time, delta: time - this.prevTime } );
-
     } catch ( e ) {
       console.error( ( e.message || e ), ( e.stack || "" ) );
     }
 
     if ( this.isVR === true ) {
-
       this.camera.updateMatrixWorld();
-
       this.controls.update();
       this.effect.render( this.scene, this.cameraVR );
     } else {
@@ -178,56 +179,34 @@ export default class APP {
 
     this.request = requestAnimationFrame( this.animate );
     this.prevTime = global.nativePerformanceNow();
-
-  };
+  }
 
   stop = () => {
     this.dispatch( this.events.stop, arguments );
-
     cancelAnimationFrame( this.request );
   }
 
   dispose = () => {
-
     this.renderer.dispose();
 
     this.camera = undefined;
     this.scene = undefined;
     this.renderer = undefined;
-
-  };
-
-  //
-
-  onDocumentKeyDown = ( event ) => {
-    this.dispatch( this.events.keydown, event );
   }
 
-  onDocumentKeyUp = ( event ) => {
-    this.dispatch( this.events.keyup, event );
-  }
+  onDocumentKeyDown = event => this.dispatch(this.events.keydown, event );
 
-  onDocumentMouseDown = ( event ) => {
-    this.dispatch( this.events.mousedown, event );
-  }
+  onDocumentKeyUp = event => this.dispatch(this.events.keyup, event );
 
-  onDocumentMouseUp = ( event ) => {
-    this.dispatch( this.events.mouseup, event );
-  }
+  onDocumentMouseDown = event => this.dispatch(this.events.mousedown, event );
 
-  onDocumentMouseMove = ( event ) => {
-    this.dispatch( this.events.mousemove, event );
-  }
+  onDocumentMouseUp = event => this.dispatch(this.events.mouseup, event );
 
-  onDocumentTouchStart = ( event ) => {
-    this.dispatch( this.events.touchstart, event );
-  }
+  onDocumentMouseMove = event => this.dispatch(this.events.mousemove, event );
 
-  onDocumentTouchEnd = ( event ) => {
-    this.dispatch( this.events.touchend, event );
-  }
+  onDocumentTouchStart = event => this.dispatch(this.events.touchstart, event );
 
-  onDocumentTouchMove = ( event ) => {
-    this.dispatch( this.events.touchmove, event );
-  }
-};
+  onDocumentTouchEnd = event => this.dispatch(this.events.touchend, event );
+
+  onDocumentTouchMove = event => this.dispatch(this.events.touchmove, event );
+}

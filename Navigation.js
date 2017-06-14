@@ -38,7 +38,7 @@ export const Routes = {
     title: 'Editor Loader',
     key: 'EditorLoader',
     description: 'Loader for app.json exported from editor',
-    link: 'https://threejs.org/editor/',
+    link: 'https://github.com/mrdoob/three.js/tree/master/editor',
     screen: Scenes.EditorLoader,
   }
 };

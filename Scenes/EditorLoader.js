@@ -20,52 +20,47 @@ export default class EditorLoader extends React.Component {
     title: 'Editor Loader',
   }
 
-  componentWillMount() {
-    this.configureApp();
+  async componentWillMount() {
+    let json = await this.configureApp();
 
     this.panResponder = new PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onPanResponderGrant: (({nativeEvent}, gestureState) => this.loader.onDocumentTouchStart(nativeEvent)),
-      onPanResponderMove: (({nativeEvent}, gestureState) => this.loader.onDocumentTouchMove(nativeEvent)),
-      onPanResponderRelease: (({nativeEvent}, gestureState) => this.loader.onDocumentTouchEnd(nativeEvent)),
-      onPanResponderTerminate: (({nativeEvent}, gestureState) => this.loader.onDocumentTouchEnd(nativeEvent)),
+      onPanResponderGrant: (({nativeEvent}, gestureState) => this.player.onDocumentTouchStart(nativeEvent)),
+      onPanResponderMove: (({nativeEvent}, gestureState) => this.player.onDocumentTouchMove(nativeEvent)),
+      onPanResponderRelease: (({nativeEvent}, gestureState) => this.player.onDocumentTouchEnd(nativeEvent)),
+      onPanResponderTerminate: (({nativeEvent}, gestureState) => this.player.onDocumentTouchEnd(nativeEvent)),
     })
+    this.setState({isReady: json})
 
   }
 
   configureApp = async () => {
-    this.loader = new THREE.FileLoader();
-    console.warn("load App")
-    let json = require('../assets/meta/app.json');
-    // let json = await Expo.Asset.fromModule(require('../assets/meta/app.json'))
-    console.warn("JSON", JSON.stringify(json));
-    // this.loader.load( json, function ( text ) {
-      console.warn("Is Ready")
-      this.setState({isReady: json})
-      // document.body.appendChild( player.dom );
 
+    //TODO: Make this load live
+    // this.loader = new THREE.FileLoader();
+    // let json = await Expo.Asset.fromModule(require('../assets/meta/app.json'))
+
+    let json = require('../assets/meta/app.json');
+
+
+    //TODO: implement location
+    var location = {};
+    if ( location.search === '?edit' ) {
+      this.url  = `https://threejs.org/editor/#file=${location.href.split( '/' ).slice( 0, - 1 ).join( '/' )}/app.json`;
+    }
+    //TODO: implement resize
       // window.addEventListener( 'resize', function () {
       //   player.setSize( window.innerWidth, window.innerHeight );
       // } );
 
-      // if ( location.search === '?edit' ) {
-      //   var button = document.createElement( 'a' );
-      //   button.id = 'edit';
-      //   button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';
-      //   button.target = '_blank';
-      //   button.textContent = 'EDIT';
-      //   document.body.appendChild( button );
-      // }
-    // });
-
+      return json;
   }
 
   state = {
     isReady: null
-
   }
 
   render = () =>{
@@ -73,55 +68,38 @@ export default class EditorLoader extends React.Component {
       return null;
     }
     return (
+      <View style={{flex: 1}}>
       <Expo.GLView
+        {...this.panResponder.panHandlers}
         // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}/>
+
+      {
+        this.url &&
+        <Button.Link style={{position: 'absolute', bottom: 4, right: 4, width: 48, height: 24}}>{this.url}</Button.Link>
+      }
+
+    </View>
     );
   }
+
   _onGLContextCreate = async (gl) => {
     const {drawingBufferWidth: width, drawingBufferHeight: height} = gl;
+    const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
-    var player = new APP();
+    let devicePixelRatio = width / screenWidth;
+
+    this.player = new APP();
     if (typeof this.state.isReady === 'string') {
-      player.load( gl, JSON.parse( this.state.isReady ) );
+      this.player.load( gl, JSON.parse( this.state.isReady ), devicePixelRatio);
     } else {
-      player.load( gl, this.state.isReady);
+      this.player.load( gl, this.state.isReady, devicePixelRatio);
     }
 
-    player.setSize( width, height );
-    player.play();
+    this.player.setSize( screenWidth, screenHeight );
+    this.player.play();
 
-    //
-    // this.scene = this.configureScene();
-    // const camera = this.configureCamera({width, height});
-    //
-    // this.configureLights();
-    // // NOTE: How to create an `Expo.GLView`-compatible THREE renderer
-    // this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
-    // this.renderer.setSize(width, height);
-    // this.renderer.setClearColor( this.scene.fog.color );
-    // this.renderer.gammaInput = true;
-    // this.renderer.gammaOutput = true;
-    // this.renderer.shadowMap.enabled = true;
-    //
-    // this.configurePins();
-    //
-    // this.setState({camera})
-    // await this.configureCloth()
-    //
-    // const render = () => {
-    //   requestAnimationFrame(render);
-    //   var time = Date.now();
-    //   windStrength = Math.cos( time / 7000 ) * 20 + 40;
-    //   windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), Math.sin( time / 1000 ) ).normalize().multiplyScalar( windStrength );
-    //   simulate( time, this.clothGeometry, this.sphere, pins, wind, windForce );
-    //   this.animate();
-    //
-    //   // NOTE: At the end of each frame, notify `Expo.GLView` with the below
-    //   gl.endFrameEXP();
-    // }
-    // render();
   }
 
   onResize = ({width, height}) => {
