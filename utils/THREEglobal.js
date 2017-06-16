@@ -10,6 +10,18 @@ export {THREE};
 require('three/examples/js/effects/OutlineEffect');
 require('three/examples/js/loaders/OBJLoader');
 
+require('three/examples/js/shaders/ConvolutionShader');
+require('three/examples/js/shaders/CopyShader');
+require('three/examples/js/shaders/FilmShader');
+
+require('three/examples/js/postprocessing/EffectComposer');
+require('three/examples/js/postprocessing/ShaderPass');
+require('three/examples/js/postprocessing/MaskPass');
+require('three/examples/js/postprocessing/RenderPass');
+require('three/examples/js/postprocessing/BloomPass');
+require('three/examples/js/postprocessing/FilmPass');
+
+
 import './FakeBrowser';
 // require('three/src/math/Vector3');
 // require('three/src/loaders/FontLoader');

@@ -10,3 +10,4 @@ export {default as EditorLoader} from './EditorLoader';
 export {default as SkinningBlending} from './SkinningBlending';
 export {default as SkyShader} from './SkyShader';
 export {default as OceanShader} from './OceanShader';
+export {default as LavaShader} from './LavaShader';

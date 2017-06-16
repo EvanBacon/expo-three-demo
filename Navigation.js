@@ -34,6 +34,13 @@ export const Routes = {
     link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
     screen: Scenes.OceanShader,
   },
+  LavaShader: {
+    title: 'Lava Shader',
+    key: 'LavaShader',
+    description: 'Lava Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.LavaShader,
+  },
   SkinningBlending: {
     title: 'Skinning Blending',
     key: 'SkinningBlending',
@@ -86,7 +93,8 @@ export const configuration = [
     key: "Shader",
     data: [
       Routes.SkyShader,
-      Routes.OceanShader
+      Routes.LavaShader,
+      Routes.OceanShader,
     ]
   },
   {

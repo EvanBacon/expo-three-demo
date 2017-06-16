@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'SkyShader', //Home
+  initialRouteName: 'LavaShader', //Home
 }
