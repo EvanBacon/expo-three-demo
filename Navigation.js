@@ -20,6 +20,20 @@ export const Routes = {
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
+  SkyShader: {
+    title: 'Sky Shader',
+    key: 'SkyShader',
+    description: 'Sky Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_sky',
+    screen: Scenes.SkyShader,
+  },
+  OceanShader: {
+    title: 'Ocean Shader',
+    key: 'OceanShader',
+    description: 'Ocean Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.OceanShader,
+  },
   SkinningBlending: {
     title: 'Skinning Blending',
     key: 'SkinningBlending',
@@ -65,6 +79,14 @@ export const configuration = [
     data: [
       Routes.AnimationCloth,
       Routes.SkinningBlending
+    ]
+  },
+  {
+    title: "Shader",
+    key: "Shader",
+    data: [
+      Routes.SkyShader,
+      Routes.OceanShader
     ]
   },
   {

@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'SkinningBlending', //Home
+  initialRouteName: 'SkyShader', //Home
 }
