@@ -9,7 +9,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 import Navigation from './Navigation'
 import {Loader} from './components'
-import './utils/THREEglobal';
 
 export default class App extends React.Component {
   componentWillMount() {
@@ -21,15 +20,7 @@ export default class App extends React.Component {
   async _loadAssetsAsync() {
     try {
       await cacheAssetsAsync({
-        // images: arrayFromObject(Images),
-        // fonts: [
-        //   {"retro": require('./assets/fonts/retro.ttf')},
-        // ],
-        // audio: arrayFromObject(AudioPhiles)
       });
-
-      // await modelLoader.loadModels();
-
     } catch (e) {
       console.warn(
         'There was an error caching assets (see: main.js), perhaps due to a ' +

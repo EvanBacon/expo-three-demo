@@ -11,3 +11,9 @@ export {default as SkinningBlending} from './SkinningBlending';
 export {default as SkyShader} from './SkyShader';
 export {default as OceanShader} from './OceanShader';
 export {default as LavaShader} from './LavaShader';
+
+export {default as GlitchApp} from './GlitchApp';
+export {default as HatchApp} from './HatchApp';
+export {default as ToonApp} from './ToonApp';
+export {default as VignetteApp} from './VignetteApp';
+export {default as WaterApp} from './WaterApp';

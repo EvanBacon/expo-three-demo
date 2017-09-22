@@ -68,7 +68,44 @@ export const Routes = {
     description: 'Loader for app.json exported from editor',
     link: 'https://github.com/mrdoob/three.js/tree/master/editor',
     screen: Scenes.EditorLoader,
-  }
+  },
+
+  GlitchEffect: {
+    title: 'Glitch Effect',
+    key: 'GlitchEffect',
+    description: '',
+    link: 'https://threejs.org/examples/?q=glitch#webgl_postprocessing_glitch',
+    screen: Scenes.GlitchApp,
+  },
+  HatchShader: {
+    title: 'Hatch Shader',
+    key: 'HatchShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/xgEBPX',
+    screen: Scenes.HatchApp,
+  },
+  ToonShader: {
+    title: 'Toon Shader',
+    key: 'ToonShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/oBzVzo',
+    screen: Scenes.ToonApp,
+  },
+  VignetteEffect: {
+    title: 'VignetteEffect',
+    key: 'VignetteEffect',
+    description: '',
+    link: '',
+    screen: Scenes.VignetteApp,
+  },
+  WaterShader: {
+    title: 'Water Shader',
+    key: 'WaterShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/yJQwbZ',
+    screen: Scenes.WaterApp,
+  },
+  
 };
 
 const navigationOptions = {
@@ -81,20 +118,32 @@ const navigationOptions = {
 
 export const configuration = [
   {
-    title: "Animation",
-    key: "Animation",
+    title: "Effects",
+    key: "Effects",
     data: [
-      Routes.AnimationCloth,
-      Routes.SkinningBlending
+      Routes.GlitchEffect,
+      Routes.VignetteEffect
     ]
   },
   {
     title: "Shader",
     key: "Shader",
     data: [
+      Routes.WaterShader,
+      Routes.ToonShader,
+      Routes.HatchShader,
+
       Routes.SkyShader,
       Routes.LavaShader,
-      Routes.OceanShader,
+      Routes.OceanShader,      
+    ]
+  },
+  {
+    title: "Animation",
+    key: "Animation",
+    data: [
+      Routes.AnimationCloth,
+      Routes.SkinningBlending
     ]
   },
   {
