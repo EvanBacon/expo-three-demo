@@ -92,7 +92,7 @@ export const Routes = {
     screen: Scenes.ToonApp,
   },
   VignetteEffect: {
-    title: 'VignetteEffect',
+    title: 'Vignette Effect',
     key: 'VignetteEffect',
     description: '',
     link: '',
@@ -157,8 +157,8 @@ export const configuration = [
       Routes.FlameShader,
       
       Routes.SkyShader,
-      Routes.LavaShader,
-      Routes.OceanShader,      
+      // Routes.LavaShader,
+      // Routes.OceanShader,      
     ]
   },
   {
@@ -173,7 +173,7 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
-      Routes.SkinningBlending
+      // Routes.SkinningBlending
     ]
   },
   {
