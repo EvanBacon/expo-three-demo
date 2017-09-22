@@ -12,6 +12,9 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
+  static navigationOptions = {
+    title: 'Orbit Controls',
+  }
   render = () => (
     <ThreeView
       style={{ flex: 1 }}

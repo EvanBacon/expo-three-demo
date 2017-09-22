@@ -23,6 +23,9 @@ THREE.PointLight.prototype.changeColor = function (value) {
 }
 
 class App extends React.Component {
+    static navigationOptions = {
+        title: 'Toon Shader',
+    }
     render = () => (
         <View style={{ flex: 1 }}>
             <ThreeView

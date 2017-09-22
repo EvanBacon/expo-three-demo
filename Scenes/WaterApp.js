@@ -10,6 +10,9 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
+    static navigationOptions = {
+        title: 'Water Shader',
+    }
     render = () => (
         <View style={{ flex: 1 }}>
             <ThreeView
@@ -82,7 +85,7 @@ class App extends React.Component {
         });
         // Assign Material to mesh
         const mesh = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(width, height, 40), 
+            new THREE.PlaneBufferGeometry(width, height, 40),
             material
         );
         // Add Mesh to the scene
@@ -92,7 +95,7 @@ class App extends React.Component {
         // Add Touch Listener
         window.document.addEventListener('touchstart', (e) => {
             const { innerWidth: width, innerHeight: height } = window;
-            
+
             // Get First Touch
             const touch = e.touches[0];
 
@@ -105,7 +108,7 @@ class App extends React.Component {
 
     _onWindowResize = () => {
         const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
-        
+
         // On Orientation Change, or split screen on android.
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();

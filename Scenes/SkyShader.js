@@ -4,33 +4,94 @@
 //
 
 import Shader from '../assets/components/SkyShader';
-import React from 'react';
 import Expo from 'expo';
-import * as THREE from 'three';
+import React from 'react';
+import { View } from 'react-native';
 import ExpoTHREE from 'expo-three';
-import OrbitControls from 'expo-three-orbit-controls'
+const OrbitControls = require('three-orbit-controls')(THREE);
 
-import {View} from 'react-native';
+import ThreeView from '../ThreeView';
 
-export default class SkyShader extends React.Component {
+import '../Three';
+import '../window/domElement';
+import '../window/resize';
+import Touches from '../window/Touches';
+
+class App extends React.Component {
   static navigationOptions = {
     title: 'Sky Shader',
   }
+  
+  render = () => (
+    <ThreeView
+      style={{ flex: 1 }}
+      onContextCreate={this._onContextCreate}
+      render={this._animate}
+    />
+  );
+  //render={_=> {}} to disable loop
 
-  setupSky = () => {
+  _onContextCreate = async (gl) => {
+
+    const { innerWidth: width, innerHeight: height } = window;
+
+    // renderer
+
+    this.renderer = ExpoTHREE.createRenderer({ gl });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(width, height);
+    this.renderer.setClearColor(0x000000, 1.0);
+
+    // scene
+
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0xcccccc);
+    this.scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
+
+    // camera
+
+    this.camera = new THREE.PerspectiveCamera(60, width / height, 1, 20000);
+    this.camera.position.set(0, 100, 2000);
+    this.camera.lookAt(new THREE.Vector3());
+
+    // controls
+
+    this.controls = new OrbitControls(this.camera);
+
+    // lights
+
+    /// General Lighting
+    const ambientLight = new THREE.AmbientLight(0xcccccc);
+    this.scene.add(ambientLight);
+
+    /// Directional Lighting
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(1, 1, 0.5).normalize();
+    this.scene.add(directionalLight);
+
+
+    this._setupScene();
+    // resize listener
+
+    window.addEventListener('resize', this._onWindowResize, false);
+  }
+
+  _setupScene = () => {
+    this.scene.add(new THREE.GridHelper(10000, 2, 0xffffff, 0xffffff));
+
     // Add Sky Mesh
     let sky = new Shader();
-    this.scene.add( sky.mesh );
+    this.scene.add(sky.mesh);
 
     // Add Sun Helper
     let sunSphere = new THREE.Mesh(
-      new THREE.SphereBufferGeometry( 2000, 16, 8 ),
-      new THREE.MeshBasicMaterial( { color: 0xffffff } )
+      new THREE.SphereBufferGeometry(2000, 16, 8),
+      new THREE.MeshBasicMaterial({ color: 0xffffff })
     );
     sunSphere.position.y = - 700000;
-    this.scene.add( sunSphere );
+    this.scene.add(sunSphere);
 
-    var effectController  = {
+    let effectController = {
       turbidity: 10,
       rayleigh: 2,
       mieCoefficient: 0.005,
@@ -41,115 +102,42 @@ export default class SkyShader extends React.Component {
       sun: true
     };
 
-    var distance = 400000;
-    var uniforms = sky.uniforms;
+    let distance = 400000;
+    let uniforms = sky.uniforms;
     uniforms.turbidity.value = effectController.turbidity;
     uniforms.rayleigh.value = effectController.rayleigh;
     uniforms.luminance.value = effectController.luminance;
     uniforms.mieCoefficient.value = effectController.mieCoefficient;
     uniforms.mieDirectionalG.value = effectController.mieDirectionalG;
-    var theta = Math.PI * ( effectController.inclination - 0.5 );
-    var phi = 2 * Math.PI * ( effectController.azimuth - 0.5 );
-    sunSphere.position.x = distance * Math.cos( phi );
-    sunSphere.position.y = distance * Math.sin( phi ) * Math.sin( theta );
-    sunSphere.position.z = distance * Math.sin( phi ) * Math.cos( theta );
+    let theta = Math.PI * (effectController.inclination - 0.5);
+    let phi = 2 * Math.PI * (effectController.azimuth - 0.5);
+    sunSphere.position.x = distance * Math.cos(phi);
+    sunSphere.position.y = distance * Math.sin(phi) * Math.sin(theta);
+    sunSphere.position.z = distance * Math.sin(phi) * Math.cos(theta);
     sunSphere.visible = effectController.sun;
-    sky.uniforms.sunPosition.value.copy( sunSphere.position );
-  }
-  setupLights = () => {
-  /// General Lighting
-  var ambientLight = new THREE.AmbientLight( 0xcccccc );
-  this.scene.add( ambientLight );
+    sky.uniforms.sunPosition.value.copy(sunSphere.position);
 
-  /// Directional Lighting
-  var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-  directionalLight.position.set( 1, 1, 0.5 ).normalize();
-  this.scene.add( directionalLight );
-}
-
-
-  state = {
-    camera: null
   }
 
-  render = () => (
-    <OrbitControls
-      style={{flex: 1}}
-      camera={this.state.camera}>
-      <Expo.GLView
-        // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
-        style={{ flex: 1 }}
-        onContextCreate={this._onGLContextCreate}
-      />
-    </OrbitControls>
-  );
-
-  _onGLContextCreate = async (gl) => {
-    const {drawingBufferWidth: width, drawingBufferHeight: height} = gl;
-
-
-    this.scene = this.configureScene();
-    const camera = this.configureCamera({width, height});
-    this.setupSky();
-    this.setupLights();
-
-    var helper = new THREE.GridHelper( 10000, 2, 0xffffff, 0xffffff );
-    this.scene.add( helper );
-
-
-    // this.configureLights();
-    // NOTE: How to create an `Expo.GLView`-compatible THREE renderer
-    this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
-    this.renderer.setSize(width, height);
-    this.renderer.setClearColor( 0x000000 );
-
-
-    this.setState({camera})
-    let lastFrameTime;
-
-    const render = () => {
-      this._requestAnimationFrameID = requestAnimationFrame(render);
-
-      const now = 0.001 * global.nativePerformanceNow();
-      const dt = typeof lastFrameTime !== 'undefined'
-      ? now - lastFrameTime
-      : 0.16666;
-
-      this.renderer.render( this.scene, camera );
-
-      // NOTE: At the end of each frame, notify `Expo.GLView` with the below
-      gl.endFrameEXP();
-      lastFrameTime = now;
-    }
-    render();
+  _onWindowResize = () => {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
-  componentWillUnmount() {
-    if (this._requestAnimationFrameID) {
-      cancelAnimationFrame(this._requestAnimationFrameID);
-    }
+  _animate = (delta) => {
+    const { renderer, scene, camera } = this;
+    //const { width, height } = this.renderer.getSize();
+
+    // this.controls.update();  // required if controls.enableDamping = true, or if controls.autoRotate = true
+    this._render();
   }
 
-  configureScene = () => {
-    // scene
-    let scene = new THREE.Scene();
-    return scene;
-  }
-
-  configureCamera = ({width, height}) => {
-    // camera
-    let camera = new THREE.PerspectiveCamera( 60, width / height, 1, 20000 );
-    camera.position.set( 0, 100, 2000 );
-    return camera
-  }
-
-  onResize = ({width, height}) => {
-    if (this.state.camera) {
-      this.state.camera.aspect = width / height;
-      this.state.camera.updateProjectionMatrix();
-    }
-    if (this.renderer) {
-      this.renderer.setSize( width, height );
-    }
+  _render = () => {
+    this.renderer.render(this.scene, this.camera);
   }
 }
+
+// Wrap Touches Event Listener
+export default Touches(App);

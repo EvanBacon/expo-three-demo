@@ -11,6 +11,9 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
+    static navigationOptions = {
+        title: 'Hatch Shader',
+    }
     render = () => (
         <ThreeView
             style={{ flex: 1, backgroundColor: 'black' }}
