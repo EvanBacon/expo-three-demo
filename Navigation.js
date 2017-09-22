@@ -20,6 +20,34 @@ export const Routes = {
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
+  SkyShader: {
+    title: 'Sky Shader',
+    key: 'SkyShader',
+    description: 'Sky Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_sky',
+    screen: Scenes.SkyShader,
+  },
+  OceanShader: {
+    title: 'Ocean Shader',
+    key: 'OceanShader',
+    description: 'Ocean Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.OceanShader,
+  },
+  LavaShader: {
+    title: 'Lava Shader',
+    key: 'LavaShader',
+    description: 'Lava Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.LavaShader,
+  },
+  SkinningBlending: {
+    title: 'Skinning Blending',
+    key: 'SkinningBlending',
+    description: 'Skinning And Blending Models',
+    link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
+    screen: Scenes.SkinningBlending,
+  },
   ParticleSystem: {
     title: 'Particle System',
     key: 'ParticleSystem',
@@ -40,8 +68,67 @@ export const Routes = {
     description: 'Loader for app.json exported from editor',
     link: 'https://github.com/mrdoob/three.js/tree/master/editor',
     screen: Scenes.EditorLoader,
+  },
+
+  GlitchEffect: {
+    title: 'Glitch Effect',
+    key: 'GlitchEffect',
+    description: '',
+    link: 'https://threejs.org/examples/?q=glitch#webgl_postprocessing_glitch',
+    screen: Scenes.GlitchApp,
+  },
+  HatchShader: {
+    title: 'Hatch Shader',
+    key: 'HatchShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/xgEBPX',
+    screen: Scenes.HatchApp,
+  },
+  ToonShader: {
+    title: 'Toon Shader',
+    key: 'ToonShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/oBzVzo',
+    screen: Scenes.ToonApp,
+  },
+  VignetteEffect: {
+    title: 'VignetteEffect',
+    key: 'VignetteEffect',
+    description: '',
+    link: '',
+    screen: Scenes.VignetteApp,
+  },
+  WaterShader: {
+    title: 'Water Shader',
+    key: 'WaterShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/pen/yJQwbZ',
+    screen: Scenes.WaterApp,
+  },
+  
+  OrbitControls: {
+    title: 'Orbit Controls',
+    key: 'OrbitControls',
+    description: '',
+    link: '',
+    screen: Scenes.OrbitControlsApp,
+    
+  },
+  FlameShader: {
+    title: 'Flame Shader',
+    key: 'FlameShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/full/LzGpda',
+    screen: Scenes.FlameApp,
   }
 };
+
+Object.keys(Routes).map(key => {
+  const obj = Routes[key];
+  obj.screen.navigationOptions = { 
+    title: obj.title 
+  }
+});
 
 const navigationOptions = {
   headerTintColor: Colors.tintColor,
@@ -53,10 +140,40 @@ const navigationOptions = {
 
 export const configuration = [
   {
+    title: "Effects",
+    key: "Effects",
+    data: [
+      Routes.GlitchEffect,
+      Routes.VignetteEffect
+    ]
+  },
+  {
+    title: "Shader",
+    key: "Shader",
+    data: [
+      Routes.WaterShader,
+      Routes.ToonShader,
+      Routes.HatchShader,
+      Routes.FlameShader,
+      
+      Routes.SkyShader,
+      Routes.LavaShader,
+      Routes.OceanShader,      
+    ]
+  },
+  {
+    title: "Controls",
+    key: "Controls",
+    data: [
+      Routes.OrbitControls,
+    ]
+  },
+  {
     title: "Animation",
     key: "Animation",
     data: [
       Routes.AnimationCloth,
+      Routes.SkinningBlending
     ]
   },
   {

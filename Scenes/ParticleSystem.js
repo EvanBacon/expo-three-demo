@@ -10,15 +10,12 @@ import ExpoTHREE from 'expo-three';
 
 import OrbitControls from 'expo-three-orbit-controls'
 
-import {Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import {Button} from '../components';
+import { Button } from '../components';
 require('../assets/components/GPUParticleSystem');
 
 export default class ParticleSystem extends React.Component {
-  static navigationOptions = {
-    title: 'Particle System',
-  }
 
   // options passed during each spawned
   options = {
@@ -47,14 +44,14 @@ export default class ParticleSystem extends React.Component {
     camera: null
   }
 
-  button = ({text, onPress}) => (
-    <Button.Link style={{backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical:12, margin: 4}} onPress={onPress}>{text}
+  button = ({ text, onPress }) => (
+    <Button.Link style={{ backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical: 12, margin: 4 }} onPress={onPress}>{text}
     </Button.Link>
   )
 
   renderScene = () => (
     <OrbitControls
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       camera={this.state.camera}>
       <Expo.GLView
         // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
@@ -85,61 +82,61 @@ export default class ParticleSystem extends React.Component {
   // )
 
   render = () => (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {this.renderScene()}
       {/* {this.renderInfo()} */}
     </View>
   );
 
   _onGLContextCreate = async (gl) => {
-    const {drawingBufferWidth: width, drawingBufferHeight: height} = gl;
+    const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
 
     this.scene = this.configureScene();
-    const camera = this.configureCamera({width, height});
+    const camera = this.configureCamera({ width, height });
     await this.configureParticles();
 
     // this.configureLights();
     // NOTE: How to create an `Expo.GLView`-compatible THREE renderer
     this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
     this.renderer.setSize(width, height);
-    this.renderer.setClearColor( 0x000000 );
+    this.renderer.setClearColor(0x000000);
 
 
-    this.setState({camera})
+    this.setState({ camera })
     let lastFrameTime;
 
     const render = () => {
       this._requestAnimationFrameID = requestAnimationFrame(render);
 
-const now = 0.001 * global.nativePerformanceNow();
-const dt = typeof lastFrameTime !== 'undefined'
-  ? now - lastFrameTime
-  : 0.16666;
+      const now = 0.001 * global.nativePerformanceNow();
+      const dt = typeof lastFrameTime !== 'undefined'
+        ? now - lastFrameTime
+        : 0.16666;
 
 
 
-      let {spawnerOptions, clock} = this;
+      let { spawnerOptions, clock } = this;
       var delta = dt * spawnerOptions.timeScale;
       this.tick += delta;
 
 
-      if ( this.tick < 0 ) this.tick = 0;
-      if ( delta > 0 ) {
-        this.options.position.x = Math.sin( this.tick * spawnerOptions.horizontalSpeed ) * 20;
-        this.options.position.y = Math.sin( this.tick * spawnerOptions.verticalSpeed ) * 10;
-        this.options.position.z = Math.sin( this.tick * spawnerOptions.horizontalSpeed + spawnerOptions.verticalSpeed ) * 5;
-        for ( var x = 0; x < spawnerOptions.spawnRate * delta; x++ ) {
+      if (this.tick < 0) this.tick = 0;
+      if (delta > 0) {
+        this.options.position.x = Math.sin(this.tick * spawnerOptions.horizontalSpeed) * 20;
+        this.options.position.y = Math.sin(this.tick * spawnerOptions.verticalSpeed) * 10;
+        this.options.position.z = Math.sin(this.tick * spawnerOptions.horizontalSpeed + spawnerOptions.verticalSpeed) * 5;
+        for (var x = 0; x < spawnerOptions.spawnRate * delta; x++) {
           // Yep, that's really it.	Spawning particles is super cheap, and once you spawn them, the rest of
           // their lifecycle is handled entirely on the GPU, driven by a time uniform updated below
-          this.particleSystem.spawnParticle( this.options );
+          this.particleSystem.spawnParticle(this.options);
         }
       }
-      this.particleSystem.update( this.tick );
+      this.particleSystem.update(this.tick);
 
       // stats.update();
 
-      camera.lookAt( this.scene.position );
-      this.renderer.render( this.scene, camera );
+      camera.lookAt(this.scene.position);
+      this.renderer.render(this.scene, camera);
 
       // NOTE: At the end of each frame, notify `Expo.GLView` with the below
       gl.endFrameEXP();
@@ -163,9 +160,9 @@ const dt = typeof lastFrameTime !== 'undefined'
     return scene;
   }
 
-  configureCamera = ({width, height}) => {
+  configureCamera = ({ width, height }) => {
     // camera
-    let camera = new THREE.PerspectiveCamera( 28, width / height, 1, 10000 );
+    let camera = new THREE.PerspectiveCamera(28, width / height, 1, 10000);
     camera.position.z = 150;
     return camera
   }
@@ -182,12 +179,12 @@ const dt = typeof lastFrameTime !== 'undefined'
     // as you would any other scene graph component.	Particle positions will be
     // relative to the position of the particle system, but you will probably only need one
     // system for your whole scene
-    this.particleSystem = new THREE.GPUParticleSystem( {
+    this.particleSystem = new THREE.GPUParticleSystem({
       maxParticles: 500,
       particleNoiseTex,
-    	particleSpriteTex,
-    } );
-    this.scene.add( this.particleSystem );
+      particleSpriteTex,
+    });
+    this.scene.add(this.particleSystem);
   }
 
   ///TODO: Build Options componnet
@@ -204,13 +201,13 @@ const dt = typeof lastFrameTime !== 'undefined'
 
   }
 
-  onResize = ({width, height}) => {
+  onResize = ({ width, height }) => {
     if (this.state.camera) {
       this.state.camera.aspect = width / height;
       this.state.camera.updateProjectionMatrix();
     }
     if (this.renderer) {
-      this.renderer.setSize( width, height );
+      this.renderer.setSize(width, height);
     }
   }
 }

@@ -50,10 +50,6 @@ void main() {
 `;
 
 export default class AnimationCloth extends React.Component {
-  static navigationOptions = {
-    title: 'Cloth',
-  }
-
   state = {
     camera: null
   }

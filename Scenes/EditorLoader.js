@@ -16,9 +16,6 @@ import {Button} from '../components';
 import APP from '../assets/components/Loader';
 
 export default class EditorLoader extends React.Component {
-  static navigationOptions = {
-    title: 'Editor Loader',
-  }
 
   async componentWillMount() {
     let json = await this.configureApp();

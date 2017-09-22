@@ -5,13 +5,12 @@
 
 import Expo, {AppLoading} from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,StatusBar, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 import Navigation from './Navigation'
 import {Loader} from './components'
-import './utils/THREEglobal';
 
-class App extends React.Component {
+export default class App extends React.Component {
   componentWillMount() {
     this.setState({ appIsReady: true });
 
@@ -21,15 +20,7 @@ class App extends React.Component {
   async _loadAssetsAsync() {
     try {
       await cacheAssetsAsync({
-        // images: arrayFromObject(Images),
-        // fonts: [
-        //   {"retro": require('./assets/fonts/retro.ttf')},
-        // ],
-        // audio: arrayFromObject(AudioPhiles)
       });
-
-      // await modelLoader.loadModels();
-
     } catch (e) {
       console.warn(
         'There was an error caching assets (see: main.js), perhaps due to a ' +
@@ -47,6 +38,7 @@ class App extends React.Component {
     if (this.state.appIsReady) {
       return (
         <View style={{flex: 1}}>
+          <StatusBar barStyle={'dark-content'} />
           <Navigation
           />
           {/* <Loader/> */}
@@ -65,5 +57,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-Expo.registerRootComponent(App);
