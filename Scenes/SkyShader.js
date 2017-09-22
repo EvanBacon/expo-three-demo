@@ -18,10 +18,6 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-  static navigationOptions = {
-    title: 'Sky Shader',
-  }
-  
   render = () => (
     <ThreeView
       style={{ flex: 1 }}
@@ -50,7 +46,7 @@ class App extends React.Component {
 
     // camera
 
-    this.camera = new THREE.PerspectiveCamera(60, width / height, 1, 20000);
+    this.camera = new THREE.PerspectiveCamera(60, width / height, 1, 200000);
     this.camera.position.set(0, 100, 2000);
     this.camera.lookAt(new THREE.Vector3());
 

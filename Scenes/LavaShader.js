@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
 import OrbitControls from 'expo-three-orbit-controls'
 
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 
 const fragmentShader = `
@@ -57,20 +57,16 @@ void main()
 `;
 
 export default class LavaShader extends React.Component {
-  static navigationOptions = {
-    title: 'Lava Shader',
-  }
-
 
   setupLights = () => {
     /// General Lighting
-    var ambientLight = new THREE.AmbientLight( 0xcccccc );
-    this.scene.add( ambientLight );
+    var ambientLight = new THREE.AmbientLight(0xcccccc);
+    this.scene.add(ambientLight);
 
     /// Directional Lighting
-    var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-    directionalLight.position.set( 1, 1, 0.5 ).normalize();
-    this.scene.add( directionalLight );
+    var directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(1, 1, 0.5).normalize();
+    this.scene.add(directionalLight);
   }
 
 
@@ -80,7 +76,7 @@ export default class LavaShader extends React.Component {
 
   render = () => (
     <OrbitControls
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       camera={this.state.camera}>
       <Expo.GLView
         // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
@@ -91,17 +87,17 @@ export default class LavaShader extends React.Component {
   );
 
   _onGLContextCreate = async (gl) => {
-    const {drawingBufferWidth: width, drawingBufferHeight: height} = gl;
+    const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
 
     gl.createFramebuffer = () => null;
     gl.createRenderbuffer = () => null;
-    gl.bindRenderbuffer = (target, renderbuffer) => {};
-    gl.renderbufferStorage = (target, internalFormat, width, height) => {};
-    gl.framebufferTexture2D = (target, attachment, textarget, texture, level) => {};
-    gl.framebufferRenderbuffer = (target, attachmebt, renderbuffertarget, renderbuffer) => {};
+    gl.bindRenderbuffer = (target, renderbuffer) => { };
+    gl.renderbufferStorage = (target, internalFormat, width, height) => { };
+    gl.framebufferTexture2D = (target, attachment, textarget, texture, level) => { };
+    gl.framebufferRenderbuffer = (target, attachmebt, renderbuffertarget, renderbuffer) => { };
 
     this.scene = this.configureScene();
-    const camera = this.configureCamera({width, height});
+    const camera = this.configureCamera({ width, height });
 
     this.setupLights();
 
@@ -115,24 +111,24 @@ export default class LavaShader extends React.Component {
     var textureLoader = new THREE.TextureLoader();
     let uniforms = {
       fogDensity: { value: 0.45 },
-      fogColor:   { value: new THREE.Vector3( 0, 0, 0 ) },
-      time:       { value: 1.0 },
+      fogColor: { value: new THREE.Vector3(0, 0, 0) },
+      time: { value: 1.0 },
       resolution: { value: new THREE.Vector2() },
-      uvScale:    { value: new THREE.Vector2( 3.0, 1.0 ) },
-      texture1:   { value: cloud },
-      texture2:   { value: lavatile }
+      uvScale: { value: new THREE.Vector2(3.0, 1.0) },
+      texture1: { value: cloud },
+      texture2: { value: lavatile }
     };
     uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
     uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
     var size = 0.65;
-    let material = new THREE.ShaderMaterial( {
+    let material = new THREE.ShaderMaterial({
       uniforms: uniforms,
       vertexShader: vertexShader,
       fragmentShader: fragmentShader
-    } );
-    let mesh = new THREE.Mesh( new THREE.TorusGeometry( size, 0.3, 30, 30 ), material );
+    });
+    let mesh = new THREE.Mesh(new THREE.TorusGeometry(size, 0.3, 30, 30), material);
     mesh.rotation.x = 0.3;
-    this.scene.add( mesh );
+    this.scene.add(mesh);
     //
 
 
@@ -141,20 +137,20 @@ export default class LavaShader extends React.Component {
     // NOTE: How to create an `Expo.GLView`-compatible THREE renderer
     this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
     this.renderer.setSize(width, height);
-    this.renderer.setClearColor( 0x000000 );
+    this.renderer.setClearColor(0x000000);
     this.renderer.autoClear = false;
     this.scene.add(camera)
-    var renderModel = new THREE.RenderPass( this.scene, camera );
-    var effectBloom = new THREE.BloomPass( 1.25 );
-    var effectFilm = new THREE.FilmPass( 0.35, 0.95, 2048, false );
+    var renderModel = new THREE.RenderPass(this.scene, camera);
+    var effectBloom = new THREE.BloomPass(1.25);
+    var effectFilm = new THREE.FilmPass(0.35, 0.95, 2048, false);
     effectFilm.renderToScreen = true;
-    this.composer = new THREE.EffectComposer( this.renderer );
-    this.composer.addPass( renderModel );
-    this.composer.addPass( effectBloom );
-    this.composer.addPass( effectFilm );
+    this.composer = new THREE.EffectComposer(this.renderer);
+    this.composer.addPass(renderModel);
+    this.composer.addPass(effectBloom);
+    this.composer.addPass(effectFilm);
 
 
-    this.setState({camera})
+    this.setState({ camera })
     let lastFrameTime;
 
     const render = () => {
@@ -162,8 +158,8 @@ export default class LavaShader extends React.Component {
 
       const now = 0.001 * global.nativePerformanceNow();
       const dt = typeof lastFrameTime !== 'undefined'
-      ? now - lastFrameTime
-      : 0.16666;
+        ? now - lastFrameTime
+        : 0.16666;
 
 
       var delta = 5 * dt;
@@ -171,7 +167,7 @@ export default class LavaShader extends React.Component {
       mesh.rotation.y += 0.0125 * delta;
       mesh.rotation.x += 0.05 * delta;
       this.renderer.clear();
-      this.composer.render( 0.01 );
+      this.composer.render(0.01);
 
       // this.renderer.render( this.scene, camera );
 
@@ -194,20 +190,20 @@ export default class LavaShader extends React.Component {
     return scene;
   }
 
-  configureCamera = ({width, height}) => {
+  configureCamera = ({ width, height }) => {
     // camera
-    let camera = new THREE.PerspectiveCamera( 60, width / height, 1, 20000 );
-    camera.position.set( 0, 100, 2000 );
+    let camera = new THREE.PerspectiveCamera(60, width / height, 1, 20000);
+    camera.position.set(0, 100, 2000);
     return camera
   }
 
-  onResize = ({width, height}) => {
+  onResize = ({ width, height }) => {
     if (this.state.camera) {
       this.state.camera.aspect = width / height;
       this.state.camera.updateProjectionMatrix();
     }
     if (this.renderer) {
-      this.renderer.setSize( width, height );
+      this.renderer.setSize(width, height);
     }
   }
 }

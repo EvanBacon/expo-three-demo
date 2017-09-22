@@ -11,60 +11,57 @@ import ExpoTHREE from 'expo-three';
 
 import OrbitControls from 'expo-three-orbit-controls'
 
-import {Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 
-import {Button} from '../components';
+import { Button } from '../components';
 
 const model = require('../assets/meta/marine_anims_core.json');
 export default class SkinningBlending extends React.Component {
-  static navigationOptions = {
-    title: 'Skinning Blending',
-  }
 
 
-            mesh;
-             skeleton;
-             mixer;
-             crossFadeControls = [];
-             idleAction;
-             walkAction;
-             runAction;
-             idleWeight;
-             walkWeight;
-             runWeight;
-             actions;
-             settings;
-             singleStepMode = false;
-    sizeOfNextStep = 0;
-            
+	mesh;
+	skeleton;
+	mixer;
+	crossFadeControls = [];
+	idleAction;
+	walkAction;
+	runAction;
+	idleWeight;
+	walkWeight;
+	runWeight;
+	actions;
+	settings;
+	singleStepMode = false;
+	sizeOfNextStep = 0;
 
-  state = {
-    camera: null
-  }
 
-  button = ({text, onPress}) => (
-    <Button.Link style={{backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical:12, margin: 4}} onPress={onPress}>{text}
-    </Button.Link>
-  )
+	state = {
+		camera: null
+	}
 
-  renderScene = () => (
-    <OrbitControls
-      maxPolarAngle={Math.PI * 0.5}
-      minDistance={1000}
-      maxDistance={7500}
-      style={{flex: 1}}
-      camera={this.state.camera}>
-      <Expo.GLView
-        // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
-        style={{ flex: 1 }}
-        onContextCreate={this._onGLContextCreate}
-      />
-    </OrbitControls>
-  )
+	button = ({ text, onPress }) => (
+		<Button.Link style={{ backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical: 12, margin: 4 }} onPress={onPress}>{text}
+		</Button.Link>
+	)
 
-  renderInfo = () => (
-    <View style={{position: 'absolute',padding: 24, top: 20, left: 0, right: 0, justifyContent: 'space-around',}}>
-      {/*<Text style={{textAlign: 'center', marginBottom: 8, backgroundColor: 'transparent'}}>
+	renderScene = () => (
+		<OrbitControls
+			maxPolarAngle={Math.PI * 0.5}
+			minDistance={1000}
+			maxDistance={7500}
+			style={{ flex: 1 }}
+			camera={this.state.camera}>
+			<Expo.GLView
+				// onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
+				style={{ flex: 1 }}
+				onContextCreate={this._onGLContextCreate}
+			/>
+		</OrbitControls>
+	)
+
+	renderInfo = () => (
+		<View style={{ position: 'absolute', padding: 24, top: 20, left: 0, right: 0, justifyContent: 'space-around', }}>
+			{/*<Text style={{textAlign: 'center', marginBottom: 8, backgroundColor: 'transparent'}}>
         Simple Cloth Simulation Verlet integration with relaxed constraints
       </Text>
       <View style={{justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row'}}>
@@ -79,197 +76,197 @@ export default class SkinningBlending extends React.Component {
           this.togglePins();
         })})}
       </View>*/}
-    </View>
-  )
+		</View>
+	)
 
-  render = () => (
-    <View style={{flex: 1}}>
-      {this.renderScene()}
-      {this.renderInfo()}
-    </View>
-  );
+	render = () => (
+		<View style={{ flex: 1 }}>
+			{this.renderScene()}
+			{this.renderInfo()}
+		</View>
+	);
 
-componentWillUnmount() {
-        if (this._requestAnimationFrameID) {
-            cancelAnimationFrame(this._requestAnimationFrameID);
-        }
-    }
+	componentWillUnmount() {
+		if (this._requestAnimationFrameID) {
+			cancelAnimationFrame(this._requestAnimationFrameID);
+		}
+	}
 
 
-        modifyTimeScale = ( speed ) => this.mixer.timeScale = speed;
-			
-        deactivateAllActions = () => this.actions.forEach( action => action.stop());
+	modifyTimeScale = (speed) => this.mixer.timeScale = speed;
 
-    setWeight = ( action, weight ) => {
-				action.enabled = true;
-				action.setEffectiveTimeScale( 1 );
-				action.setEffectiveWeight( weight );
+	deactivateAllActions = () => this.actions.forEach(action => action.stop());
+
+	setWeight = (action, weight) => {
+		action.enabled = true;
+		action.setEffectiveTimeScale(1);
+		action.setEffectiveWeight(weight);
+	}
+
+	activateAllActions = () => {
+		this.setWeight(this.idleAction, this.settings['modify idle weight']);
+		this.setWeight(this.walkAction, this.settings['modify walk weight']);
+		this.setWeight(this.runAction, this.settings['modify run weight']);
+		this.actions.forEach(action => {
+			action.play();
+		});
+	}
+
+
+	_onGLContextCreate = async (gl) => {
+		const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
+		const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+		this.scene = this.configureScene();
+		// const camera = this.configureCamera({width, height});
+
+		// this.configureLights();
+		// NOTE: How to create an `Expo.GLView`-compatible THREE renderer
+		this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
+		this.renderer.setSize(width, height);
+		this.renderer.setClearColor(this.scene.fog.color);
+		this.renderer.setPixelRatio(width / screenWidth);
+		this.renderer.gammaInput = true;
+		this.renderer.gammaOutput = true;
+		this.renderer.shadowMap.enabled = true;
+
+
+
+
+
+		let lastFrameTime;
+
+		const render = () => {
+			this._requestAnimationFrameID = requestAnimationFrame(render);
+
+			const now = 0.001 * global.nativePerformanceNow();
+			const dt = typeof lastFrameTime !== 'undefined'
+				? now - lastFrameTime
+				: 0.16666;
+
+
+			this.idleWeight = this.idleAction.getEffectiveWeight();
+			this.walkWeight = this.walkAction.getEffectiveWeight();
+			this.runWeight = this.runAction.getEffectiveWeight();
+			// Update the panel values if weights are modified from "outside" (by crossfadings)
+			// updateWeightSliders();
+			// Enable/disable crossfade controls according to current weight values
+			// updateCrossFadeControls();
+			// Get the time elapsed since the last frame, used for mixer update (if not in single step mode)
+			// let mixerUpdateDelta = clock.getDelta();
+			// If in single step mode, make one step and then do nothing (until the user clicks again)
+			if (this.singleStepMode) {
+				this.mixerUpdateDelta = this.sizeOfNextStep;
+				this.sizeOfNextStep = 0;
 			}
+			// Update the animation mixer, the skeleton and the stats panel, and render this frame
+			this.mixer.update(dt);
+			this.skeleton.update();
 
-    activateAllActions = () => {
-				this.setWeight( this.idleAction, this.settings[ 'modify idle weight' ] );
-				this.setWeight( this.walkAction, this.settings[ 'modify walk weight' ] );
-				this.setWeight( this.runAction, this.settings[ 'modify run weight' ] );
-				this.actions.forEach( action => {
-					action.play();
-				} );
+			this.renderer.render(this.scene, camera)
+
+			gl.endFrameEXP();
+			lastFrameTime = now;
+		}
+
+
+		const loader = new THREE.ObjectLoader();
+		// Load skinned mesh
+		let loadedObject;
+		try {
+			loadedObject = loader.parse(model)
+		} catch (error) {
+			console.error(error);
+		}
+
+
+		loadedObject.traverse(child => {
+			if (child instanceof THREE.SkinnedMesh) {
+				mesh = child;
 			}
+		});
+		if (mesh === undefined) {
+			alert(`Unable to find a SkinnedMesh in this place:\n\n$\n\n`);
+			return;
+		}
+		// Add mesh and skeleton helper to scene
+		mesh.rotation.y = - 135 * Math.PI / 180;
+		this.scene.add(mesh);
+		this.skeleton = new THREE.SkeletonHelper(mesh);
+		this.skeleton.visible = false;
+		this.scene.add(this.skeleton);
+		// Initialize camera and camera controls
+		const radius = mesh.geometry.boundingSphere.radius;
+		const aspect = screenWidth / screenHeight;
+		camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
+		camera.position.set(0.0, radius, radius * 3.5);
+		this.setState({ camera })
+
+		// Create the control panel
+		// createPanel();
+		// Initialize mixer and clip actions
+		this.mixer = new THREE.AnimationMixer(mesh);
+		this.idleAction = this.mixer.clipAction('idle');
+		this.walkAction = this.mixer.clipAction('walk');
+		this.runAction = this.mixer.clipAction('run');
+		this.actions = [this.idleAction, this.walkAction, this.runAction];
+
+		this.settings = {
+			'show model': true,
+			'show skeleton': false,
+			'deactivate all': this.deactivateAllActions,
+			'activate all': this.activateAllActions,
+			'pause/continue': this.pauseContinue,
+			'make single step': this.toSingleStepMode,
+			'modify step size': 0.05,
+			'from walk to idle'() { this.prepareCrossFade(this.walkAction, this.idleAction, 1.0) },
+			'from idle to walk'() { this.prepareCrossFade(this.idleAction, this.walkAction, 0.5) },
+			'from walk to run'() { this.prepareCrossFade(this.walkAction, this.runAction, 2.5) },
+			'from run to walk'() { this.prepareCrossFade(this.runAction, this.walkAction, 5.0) },
+			'use default duration': true,
+			'set custom duration': 3.5,
+			'modify idle weight': 0.0,
+			'modify walk weight': 1.0,
+			'modify run weight': 0.0,
+			'modify time scale': 1.0
+		};
+
+		this.activateAllActions();
+		// Listen on window resizing and start the render loop
+		// window.addEventListener( 'resize', onWindowResize, false );
+		// animate();
+		render();
+
+	}
 
 
-  _onGLContextCreate = async (gl) => {
-    const {drawingBufferWidth: width, drawingBufferHeight: height} = gl;
-    const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-
-    this.scene = this.configureScene();
-    // const camera = this.configureCamera({width, height});
-
-    // this.configureLights();
-    // NOTE: How to create an `Expo.GLView`-compatible THREE renderer
-    this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
-    this.renderer.setSize(width, height);
-    this.renderer.setClearColor( this.scene.fog.color );
-    this.renderer.setPixelRatio(width / screenWidth);
-    this.renderer.gammaInput = true;
-    this.renderer.gammaOutput = true;
-    this.renderer.shadowMap.enabled = true;
 
 
+	configureScene = () => {
+		// scene
+		let scene = new THREE.Scene();
+		scene.fog = new THREE.Fog(0xcce0ff, 500, 10000);
+		return scene
+	}
 
+	configureCamera = ({ width, height }) => {
+		// camera
+		let camera = new THREE.PerspectiveCamera(30, width / height, 1, 10000);
+		camera.position.x = 1000;
+		camera.position.y = 50;
+		camera.position.z = 1500;
+		return camera
+	}
 
-
-   let lastFrameTime;
-
-    const render = () => {
-      this._requestAnimationFrameID = requestAnimationFrame(render);
-
-const now = 0.001 * global.nativePerformanceNow();
-const dt = typeof lastFrameTime !== 'undefined'
-  ? now - lastFrameTime
-  : 0.16666;
-
-    
-                this.idleWeight = this.idleAction.getEffectiveWeight();
-				this.walkWeight = this.walkAction.getEffectiveWeight();
-				this.runWeight = this.runAction.getEffectiveWeight();
-				// Update the panel values if weights are modified from "outside" (by crossfadings)
-				// updateWeightSliders();
-				// Enable/disable crossfade controls according to current weight values
-				// updateCrossFadeControls();
-				// Get the time elapsed since the last frame, used for mixer update (if not in single step mode)
-				// let mixerUpdateDelta = clock.getDelta();
-				// If in single step mode, make one step and then do nothing (until the user clicks again)
-				if ( this.singleStepMode ) {
-					this.mixerUpdateDelta = this.sizeOfNextStep;
-					this.sizeOfNextStep = 0;
-				}
-				// Update the animation mixer, the skeleton and the stats panel, and render this frame
-				this.mixer.update( dt );
-				this.skeleton.update();
-
-                this.renderer.render(this.scene, camera)
-
-      gl.endFrameEXP();
-      lastFrameTime = now;
-    }
-
-
-const loader = new THREE.ObjectLoader();
- // Load skinned mesh
- let loadedObject;
-  try {
-    loadedObject = loader.parse(model)
-  } catch (error) {
-    console.error(error);
-  }
-
-      
-				loadedObject.traverse( child => {
-					if ( child instanceof THREE.SkinnedMesh ) {
-						mesh = child;
-					}
-				} );
-				if ( mesh === undefined ) {
-					alert( `Unable to find a SkinnedMesh in this place:\n\n$\n\n` );
-					return;
-				}
-				// Add mesh and skeleton helper to scene
-				mesh.rotation.y = - 135 * Math.PI / 180;
-				this.scene.add( mesh );
-				this.skeleton = new THREE.SkeletonHelper( mesh );
-				this.skeleton.visible = false;
-				this.scene.add( this.skeleton );
-				// Initialize camera and camera controls
-				const radius = mesh.geometry.boundingSphere.radius;
-				const aspect = screenWidth / screenHeight;
-				camera = new THREE.PerspectiveCamera( 45, aspect, 1, 10000 );
-				camera.position.set( 0.0, radius, radius * 3.5 );
-                    this.setState({camera})
-
-				// Create the control panel
-				// createPanel();
-				// Initialize mixer and clip actions
-				this.mixer = new THREE.AnimationMixer( mesh );
-				this.idleAction = this.mixer.clipAction( 'idle' );
-				this.walkAction = this.mixer.clipAction( 'walk' );
-				this.runAction = this.mixer.clipAction( 'run' );
-				this.actions = [ this.idleAction, this.walkAction, this.runAction ];
-
-                 this.settings = {
-					'show model':            true,
-					'show skeleton':         false,
-					'deactivate all':        this.deactivateAllActions,
-					'activate all':          this.activateAllActions,
-					'pause/continue':        this.pauseContinue,
-					'make single step':      this.toSingleStepMode,
-					'modify step size':      0.05,
-					'from walk to idle'() { this.prepareCrossFade( this.walkAction, this.idleAction, 1.0 ) },
-					'from idle to walk'() { this.prepareCrossFade( this.idleAction, this.walkAction, 0.5 ) },
-					'from walk to run'() { this.prepareCrossFade( this.walkAction, this.runAction, 2.5 ) },
-					'from run to walk'() { this.prepareCrossFade( this.runAction, this.walkAction, 5.0 ) },
-					'use default duration':  true,
-					'set custom duration':   3.5,
-					'modify idle weight':    0.0,
-					'modify walk weight':    1.0,
-					'modify run weight':     0.0,
-					'modify time scale':     1.0
-				};
-
-				this.activateAllActions();
-				// Listen on window resizing and start the render loop
-				// window.addEventListener( 'resize', onWindowResize, false );
-				// animate();
-                    render();
-
-  }
-
-    
-
-
-  configureScene = () => {
-    // scene
-    let scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
-    return scene
-  }
-
-  configureCamera = ({width, height}) => {
-    // camera
-    let camera = new THREE.PerspectiveCamera( 30, width / height, 1, 10000 );
-    camera.position.x = 1000;
-    camera.position.y = 50;
-    camera.position.z = 1500;
-    return camera
-  }
-
-  onResize = ({width, height}) => {
-    // if (this.state.camera) {
-    //   this.state.camera.aspect = width / height;
-    //   this.state.camera.updateProjectionMatrix();
-    // }
-    // if (this.renderer) {
-    //   this.renderer.setSize( width, height );
-    // }
-  }
+	onResize = ({ width, height }) => {
+		// if (this.state.camera) {
+		//   this.state.camera.aspect = width / height;
+		//   this.state.camera.updateProjectionMatrix();
+		// }
+		// if (this.renderer) {
+		//   this.renderer.setSize( width, height );
+		// }
+	}
 
 }
 
@@ -301,7 +298,7 @@ const loader = new THREE.ObjectLoader();
             // renderer.setPixelRatio( window.devicePixelRatio );
             // renderer.setSize( window.innerWidth, window.innerHeight );
             // container.appendChild( renderer.domElement );
-           
+
 
             // function createPanel() {
 			// 	const panel = new dat.GUI( { width: 310 } );

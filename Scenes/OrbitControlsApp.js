@@ -12,9 +12,7 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-  static navigationOptions = {
-    title: 'Orbit Controls',
-  }
+
   render = () => (
     <ThreeView
       style={{ flex: 1 }}
@@ -22,7 +20,6 @@ class App extends React.Component {
       render={this._animate}
     />
   );
-  //render={_=> {}} to disable loop
 
   _onContextCreate = async (gl) => {
 
@@ -31,7 +28,7 @@ class App extends React.Component {
     // renderer
 
     this.renderer = ExpoTHREE.createRenderer({ gl });
-    this.renderer.setPixelRatio( window.devicePixelRatio );    
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(width, height);
     this.renderer.setClearColor(0x000000, 1.0);
 
@@ -90,7 +87,7 @@ class App extends React.Component {
   _onWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setPixelRatio( window.devicePixelRatio );
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 

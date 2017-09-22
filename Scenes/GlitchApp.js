@@ -12,9 +12,7 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-    static navigationOptions = {
-        title: 'Glitch Effect',
-      }
+   
     render = () => (
         <ThreeView
             style={{ flex: 1 }}

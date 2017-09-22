@@ -12,9 +12,7 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-  static navigationOptions = {
-    title: 'Vignette Effect',
-  }
+
   render = () => (
     <ThreeView
       style={{ flex: 1 }}
@@ -25,13 +23,13 @@ class App extends React.Component {
   //render={_=> {}} to disable loop
 
   _onContextCreate = async (gl) => {
-    
+
     const { innerWidth: width, innerHeight: height } = window;
 
     // renderer
 
     this.renderer = ExpoTHREE.createRenderer({ gl });
-    this.renderer.setPixelRatio( window.devicePixelRatio );    
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(width, height);
     this.renderer.setClearColor(0x000000, 1.0);
 
@@ -46,7 +44,7 @@ class App extends React.Component {
     this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
     this.camera.position.z = 500;
     this.camera.lookAt(new THREE.Vector3());
-    
+
     // controls
 
     this.controls = new OrbitControls(this.camera);
@@ -92,25 +90,25 @@ class App extends React.Component {
     const { renderer, scene, camera, controls } = this;
 
     // Initialize Three.JS
-    
-    
-    camera.position.set( 1000, - 300, 1000 );
-    
+
+
+    camera.position.set(1000, - 300, 1000);
+
     // post-processing
-    this.composer = new THREE.EffectComposer( renderer );
-    var renderPass = new THREE.RenderPass( scene, camera );
-    var copyPass = new THREE.ShaderPass( THREE.CopyShader );
-    this.composer.addPass( renderPass );
+    this.composer = new THREE.EffectComposer(renderer);
+    var renderPass = new THREE.RenderPass(scene, camera);
+    var copyPass = new THREE.ShaderPass(THREE.CopyShader);
+    this.composer.addPass(renderPass);
 
     var vh = 1.4, vl = 1.2;
-    var colorCorrectionPass = new THREE.ShaderPass( THREE.ColorCorrectionShader );
-    colorCorrectionPass.uniforms[ "powRGB" ].value = new THREE.Vector3( vh, vh, vh );
-    colorCorrectionPass.uniforms[ "mulRGB" ].value = new THREE.Vector3( vl, vl, vl );
-    this.composer.addPass( colorCorrectionPass );
-    var vignettePass = new THREE.ShaderPass( THREE.VignetteShader );
-    vignettePass.uniforms[ "darkness" ].value = 1.0;
-    this.composer.addPass( vignettePass );
-    this.composer.addPass( copyPass );
+    var colorCorrectionPass = new THREE.ShaderPass(THREE.ColorCorrectionShader);
+    colorCorrectionPass.uniforms["powRGB"].value = new THREE.Vector3(vh, vh, vh);
+    colorCorrectionPass.uniforms["mulRGB"].value = new THREE.Vector3(vl, vl, vl);
+    this.composer.addPass(colorCorrectionPass);
+    var vignettePass = new THREE.ShaderPass(THREE.VignetteShader);
+    vignettePass.uniforms["darkness"].value = 1.0;
+    this.composer.addPass(vignettePass);
+    this.composer.addPass(copyPass);
     copyPass.renderToScreen = true;
 
     //
@@ -133,16 +131,16 @@ class App extends React.Component {
     //
 
 
-    
-    
+
+
   }
 
   _onWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setPixelRatio( window.devicePixelRatio );
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.composer.setSize( window.innerWidth, window.innerHeight );
+    this.composer.setSize(window.innerWidth, window.innerHeight);
   }
 
   _animate = (delta) => {
@@ -150,11 +148,11 @@ class App extends React.Component {
     //const { width, height } = this.renderer.getSize();
 
     // THREE.SEA3D.AnimationHandler.update( delta );    
-    this.composer.render( delta );
-    
+    this.composer.render(delta);
+
     // this.controls.update();  // required if controls.enableDamping = true, or if controls.autoRotate = true
     // this._render();
-    
+
   }
 
   _render = () => {

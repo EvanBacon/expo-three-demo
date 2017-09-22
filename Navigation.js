@@ -116,6 +116,13 @@ export const Routes = {
   }
 };
 
+Object.keys(Routes).map(key => {
+  const obj = Routes[key];
+  obj.screen.navigationOptions = { 
+    title: obj.title 
+  }
+});
+
 const navigationOptions = {
   headerTintColor: Colors.tintColor,
   headerStyle: {

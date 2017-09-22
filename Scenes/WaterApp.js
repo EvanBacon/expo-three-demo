@@ -10,9 +10,7 @@ import '../window/resize';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-    static navigationOptions = {
-        title: 'Water Shader',
-    }
+
     render = () => (
         <View style={{ flex: 1 }}>
             <ThreeView
