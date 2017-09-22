@@ -11,7 +11,7 @@ import Navigation from './Navigation'
 import {Loader} from './components'
 import './utils/THREEglobal';
 
-class App extends React.Component {
+export default class App extends React.Component {
   componentWillMount() {
     this.setState({ appIsReady: true });
 
@@ -65,5 +65,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-Expo.registerRootComponent(App);

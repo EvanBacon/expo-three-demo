@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Three Demo",
+    "description": "3D Demos",
+    "slug": "three-demo",
+    "privacy": "public",
+    "sdkVersion": "20.0.0",
+    "version": "1.0.0",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icons/app.png",
+    "loading": {
+      "icon": "./assets/icons/loading.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "mp4"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

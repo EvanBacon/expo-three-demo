@@ -1,21 +1,24 @@
 {
-  "name": "three-demo",
-  "version": "0.0.0",
-  "description": "Hello Expo!",
-  "author": null,
-  "private": true,
-  "main": "main.js",
-  "dependencies": {
-    "expo": "17.0.0",
-    "expo-three": "^1.0.0",
-    "expo-three-orbit-controls": "^1.0.1",
-    "react": "16.0.0-alpha.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
-    "react-navigation": "^1.0.0-beta.11",
-    "three": "^0.85.2"
-  },
-  "devDependencies": {
-    "eslint": "^4.0.0",
-    "eslint-config-google": "^0.8.0"
+  "expo": {
+    "name": "three-demo",
+    "version": "0.0.0",
+    "description": "Hello Expo!",
+    "author": null,
+    "private": true,
+    "main": "main.js",
+    "dependencies": {
+      "expo": "^20.0.0",
+      "expo-three": "^1.0.4",
+      "react": "16.0.0-alpha.12",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
+      "three": "^0.87.1",
+      "three-orbit-controls": "^82.1.0",
+      "expo-three-orbit-controls": "^1.0.1",
+      "react-navigation": "^1.0.0-beta.11"
+    },
+    "devDependencies": {
+      "eslint": "^4.0.0",
+      "eslint-config-google": "^0.8.0"
+    }
   }
 }
