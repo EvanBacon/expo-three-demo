@@ -106,6 +106,14 @@ export const Routes = {
     screen: Scenes.WaterApp,
   },
   
+  OrbitControls: {
+    title: 'Orbit Controls',
+    key: 'OrbitControls',
+    description: '',
+    link: '',
+    screen: Scenes.OrbitControlsApp,
+    
+  }
 };
 
 const navigationOptions = {
@@ -136,6 +144,13 @@ export const configuration = [
       Routes.SkyShader,
       Routes.LavaShader,
       Routes.OceanShader,      
+    ]
+  },
+  {
+    title: "Controls",
+    key: "Controls",
+    data: [
+      Routes.OrbitControls,
     ]
   },
   {

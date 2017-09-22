@@ -5,7 +5,7 @@
 
 import Expo, {AppLoading} from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,StatusBar, Text, View } from 'react-native';
 import {AnimationCloth} from './Scenes'
 import Navigation from './Navigation'
 import {Loader} from './components'
@@ -38,6 +38,7 @@ export default class App extends React.Component {
     if (this.state.appIsReady) {
       return (
         <View style={{flex: 1}}>
+          <StatusBar barStyle={'dark-content'} />
           <Navigation
           />
           {/* <Loader/> */}
