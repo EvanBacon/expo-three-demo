@@ -19,3 +19,5 @@ export {default as VignetteApp} from './VignetteApp';
 export {default as WaterApp} from './WaterApp';
 
 export {default as OrbitControlsApp} from './OrbitControlsApp';
+
+export {default as FlameApp} from './FlameApp';

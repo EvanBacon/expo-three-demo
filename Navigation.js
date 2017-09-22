@@ -113,6 +113,13 @@ export const Routes = {
     link: '',
     screen: Scenes.OrbitControlsApp,
     
+  },
+  FlameShader: {
+    title: 'Flame Shader',
+    key: 'FlameShader',
+    description: '',
+    link: 'https://codepen.io/EvanBacon/full/LzGpda',
+    screen: Scenes.FlameApp,
   }
 };
 
@@ -147,7 +154,8 @@ export const configuration = [
       Routes.WaterShader,
       Routes.ToonShader,
       Routes.HatchShader,
-
+      Routes.FlameShader,
+      
       Routes.SkyShader,
       Routes.LavaShader,
       Routes.OceanShader,      
