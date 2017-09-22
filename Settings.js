@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'LavaShader', //Home
+  initialRouteName: 'Home', //Home
 }

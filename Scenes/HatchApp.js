@@ -3,7 +3,7 @@ import Expo from 'expo';
 import React from 'react';
 import { View, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
-import ThreeView from './ThreeView';
+import ThreeView from '../ThreeView';
 
 import '../Three';
 import '../window/domElement';
