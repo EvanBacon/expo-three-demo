@@ -18,6 +18,8 @@ export {default as ToonApp} from './ToonApp';
 export {default as VignetteApp} from './VignetteApp';
 export {default as WaterApp} from './WaterApp';
 
+export {default as VrHelloWorldApp} from './VrHelloWorldApp';
+
 export {default as OrbitControlsApp} from './OrbitControlsApp';
 
 export {default as FlameApp} from './FlameApp';

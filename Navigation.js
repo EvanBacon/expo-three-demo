@@ -120,8 +120,17 @@ export const Routes = {
     description: '',
     link: 'https://codepen.io/EvanBacon/full/LzGpda',
     screen: Scenes.FlameApp,
+  },
+  VrHelloWorldApp: {
+    title: 'Hello World',
+    key: 'VrHelloWorldApp',
+    description: '',
+    link: '',
+    screen: Scenes.VrHelloWorldApp,
   }
 };
+
+
 
 Object.keys(Routes).map(key => {
   const obj = Routes[key];
@@ -139,6 +148,13 @@ const navigationOptions = {
 }
 
 export const configuration = [
+  {
+    title: "VR",
+    key: "vr",
+    data: [
+      Routes.VrHelloWorldApp
+    ]
+  },
   {
     title: "Effects",
     key: "Effects",

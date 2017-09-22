@@ -22,6 +22,9 @@ require('three/examples/js/shaders/FilmShader');
 
 require('three/examples/js/effects/OutlineEffect');
 
+require('three/examples/js/controls/DeviceOrientationControls');
+
+
 // const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');
 // global.SEA3D = SEA3D;
 // require('three/examples/js/loaders/sea3d/SEA3DLoader');
