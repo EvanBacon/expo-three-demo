@@ -51,7 +51,7 @@ class App extends React.Component {
         this.scene.fog = new THREE.Fog(0x000000, 1, 1000);
 
         // camera
-        this.camera = new THREE.ParallaxBarrierEffect(70, width / height, 1, 1000);
+        this.camera = new THREE.PerspectiveCamera(70, width / height, 1, 1000);
         this.camera.position.z = 400;
         this.camera.lookAt(new THREE.Vector3());
 
@@ -60,7 +60,7 @@ class App extends React.Component {
 
         await this._setupScene();
 
-        this.effect = new THREE.AnaglyphEffect(this.renderer);
+        this.effect = new THREE.ParallaxBarrierEffect(this.renderer);
         this.effect.setSize(width, height);
         // resize listener
 
