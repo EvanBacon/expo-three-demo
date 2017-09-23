@@ -48,6 +48,26 @@ class DOMElement extends DOMNode {
     get innerHeight() {
         return window.innerHeight;
     }
+
+
+    getContext(contextType) {
+        // if (global.canvasContext) {
+        //   return global.canvasContext;
+        // }
+        return {
+            fillRect: (_ => { }),
+            drawImage: (_ => { }),
+            getImageData: (_ => { }),
+            getContextAttributes: (_ => ({
+                stencil: true
+            })),
+            getExtension: (_ => ({
+                loseContext: (_ => {
+
+                })
+            })),
+        }
+    }
 }
 
 class DOMDocument extends DOMElement {
@@ -98,3 +118,76 @@ global.document = window.document;
 global.performance = null;
 
 require('./DOMParser.js');
+global.HTMLCanvasElement = require('./HTMLCanvasElement');
+
+
+
+import Expo from 'expo';
+
+import { Image } from 'react-native';
+import { RGBAFormat, RGBFormat } from 'three/src/constants';
+import { ImageLoader } from 'three/src/loaders/ImageLoader';
+import { Texture } from 'three/src/textures/Texture';
+import { DefaultLoadingManager } from 'three/src/loaders/LoadingManager';
+
+import ExpoTHREE from 'expo-three';
+
+THREE.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError) {
+
+    var loader = new ImageLoader(this.manager);
+    loader.setCrossOrigin(this.crossOrigin);
+    loader.setPath(this.path);
+
+    // console.warn("Tickle", url,this.crossOrigin,  onLoad, this.path);
+
+    // const img = Image.prefetch(this.path + this.crossOrigin + url);
+    // console.warn("img", img);
+
+    // const _path = '../' + this.crossOrigin + url;
+    // // this.path +
+    //     const asset = require(_path);
+
+    const texture = new THREE.Texture();
+
+
+    texture.minFilter = THREE.LinearFilter; // Pass-through non-power-of-two
+
+    (async () => {
+        const asset = Expo.Asset.fromModule(require("../assets/models/stormtrooper/Stormtrooper_D.jpg"));
+        if (!asset.localUri) {
+            await asset.downloadAsync();
+        }
+        texture.image = {
+            data: asset,
+            width: asset.width,
+            height: asset.height,
+        };
+        texture.needsUpdate = true;
+        texture.isDataTexture = true; // Forces passing to `gl.texImage2D(...)` verbatim
+
+        if (onLoad !== undefined) {
+            onLoad(texture);
+        }
+    })();
+
+    return texture
+    // var texture = new Texture();
+    // texture.image = loader.load(url, function () {
+
+    //     // JPEGs can't have an alpha channel, so memory can be saved by storing them as RGB.
+    //     var isJPEG = url.search(/\.(jpg|jpeg)$/) > 0 || url.search(/^data\:image\/jpeg/) === 0;
+
+    //     texture.format = isJPEG ? RGBFormat : RGBAFormat;
+    //     texture.needsUpdate = true;
+
+    //     if (onLoad !== undefined) {
+
+    //         onLoad(texture);
+
+    //     }
+
+    // }, onProgress, onError);
+
+    // return texture;
+
+};

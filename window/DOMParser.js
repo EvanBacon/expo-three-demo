@@ -1,10 +1,11 @@
-class DOMParser {
-    constructor() {
+// class DOMParser {
+//     constructor() {
 
-    }
-    parseFromString(source, mimeType) {
-        return [];
-    }
-}
+//     }
+//     parseFromString(source, mimeType) {
+//         return [];
+//     }
+// }
 
-global.DOMParser = DOMParser;
+// global.DOMParser = DOMParser;
+window.DOMParser = require('xmldom').DOMParser;

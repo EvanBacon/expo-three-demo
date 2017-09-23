@@ -64,11 +64,13 @@ class App extends React.Component {
 
         var loader = new THREE.ColladaLoader();
         loader.options.convertUpAxis = true;
-        loader.load(asset.localUri, function (collada) {
+        loader.setCrossOrigin('assets/models/stormtrooper/');
+        loader.load(asset.localUri, (collada) => {
             const animations = collada.animations;
             const avatar = collada.scene;
             this.mixer = new THREE.AnimationMixer(avatar);
             const action = this.mixer.clipAction(animations[0]).play();
+            
             this.scene.add(avatar);
         });
         //
@@ -100,6 +102,7 @@ class App extends React.Component {
         this.controls.update();
 
         if (this.mixer !== undefined) {
+            
             this.mixer.update(delta);
         }
 
@@ -115,41 +118,3 @@ class App extends React.Component {
 
 // Wrap Touches Event Listener
 export default Touches(App);
-
-
-// Define Shaders
-const shaders = {
-    vertex: `
-    varying vec3 vPos;
-    varying vec3 vNormal;
-    void main() {
-      vPos = (modelMatrix * vec4(position, 1.0 )).xyz;
-      vNormal = normalMatrix * normal;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-    }
-    `,
-    fragment: `
-    uniform vec3 diffuse;
-    uniform float steps;
-    uniform float intensity;
-    varying vec3 vPos;
-    varying vec3 vNormal;
-    uniform vec3 pointLightColor[1];
-    uniform vec3 pointLightPosition[1];
-    uniform float pointLightDistance[1];
-    
-    void main() {
-      vec3 n = normalize(vNormal);
-      float i = intensity;
-      for(int l = 0; l < 1; l++) {
-        vec3 lightDirection = normalize(vPos - pointLightPosition[l]);
-        i += dot(vec3(-lightDirection),n);
-      }
-      i = ceil(i * steps)/steps;
-      gl_FragColor = vec4(diffuse, 1.0) + vec4(i);
-    }
-    `
-};
-
-
-
