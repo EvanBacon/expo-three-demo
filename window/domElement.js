@@ -96,3 +96,5 @@ window.document.body = new DOMElement('body');
 global.document = window.document;
 
 global.performance = null;
+
+require('./DOMParser.js');

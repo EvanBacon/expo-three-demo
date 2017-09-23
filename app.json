@@ -15,7 +15,9 @@
     "packagerOpts": {
       "assetExts": [
         "ttf",
-        "mp4"
+        "mp4",
+        "dae",
+        "obj"
       ]
     },
     "ios": {

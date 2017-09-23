@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'ParallaxBarrierApp', //Home
+  initialRouteName: 'ColladaApp', //Home
 }

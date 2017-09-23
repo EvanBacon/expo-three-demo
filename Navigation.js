@@ -142,6 +142,13 @@ export const Routes = {
     link: '',
     screen: Scenes.ParallaxBarrierApp,
   },
+  ColladaApp: {
+    title: 'Collada',
+    key: 'ColladaAppApp',
+    description: '',
+    link: '',
+    screen: Scenes.ColladaApp,
+  }
 };
 
 
@@ -205,6 +212,7 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
+      Routes.ColladaApp
       // Routes.SkinningBlending
     ]
   },
@@ -228,7 +236,7 @@ export const configuration = [
     data: [
       Routes.EditorLoader
     ]
-  }
+  },
 ]
 
 
