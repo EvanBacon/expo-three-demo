@@ -64,14 +64,18 @@ class App extends React.Component {
 
         var loader = new THREE.ColladaLoader();
         loader.options.convertUpAxis = true;
-        loader.setCrossOrigin('assets/models/stormtrooper/');
+        // loader.setCrossOrigin('assets/models/stormtrooper/');
         loader.load(asset.localUri, (collada) => {
             const animations = collada.animations;
             const avatar = collada.scene;
             this.mixer = new THREE.AnimationMixer(avatar);
             const action = this.mixer.clipAction(animations[0]).play();
-            
             this.scene.add(avatar);
+
+            var helper = new THREE.SkeletonHelper( avatar );
+            helper.material.linewidth = 3;
+            this.scene.add( helper );
+        
         });
         //
         var gridHelper = new THREE.GridHelper(10, 20);
