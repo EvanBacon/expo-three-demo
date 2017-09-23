@@ -46,10 +46,10 @@ export default (WrappedComponent) => {
 
         componentWillMount() {
             // DeviceMotion.setUpdateInterval(16);
-            this._subscription = DeviceMotion.addListener(this._onDeviceOrientationChangeEvent);
+            // this._subscription = DeviceMotion.addListener(this._onDeviceOrientationChangeEvent);
         }
         componentWillUnmount() {
-            DeviceMotion.removeListener(this._subscription);
+            // DeviceMotion.removeListener(this._subscription);
             this._subscription = null;
         }
 

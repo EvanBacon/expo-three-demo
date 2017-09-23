@@ -1600,7 +1600,7 @@ expo-three@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/expo-three/-/expo-three-2.0.1.tgz#18f5e75037ad93c6e0d7bc0bd844374ef92b19cb"
 
-expo@^21.0.0:
+expo@^21.0.1:
   version "21.0.1"
   resolved "https://registry.yarnpkg.com/expo/-/expo-21.0.1.tgz#c0e9da91041cf974a9157db6a4d9e8ac95755bc7"
   dependencies:

@@ -6,7 +6,7 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "expo": "^21.0.0",
+    "expo": "^21.0.1",
     "expo-three": "^2.0.1",
     "expo-three-orbit-controls": "^1.0.1",
     "react": "16.0.0-alpha.12",

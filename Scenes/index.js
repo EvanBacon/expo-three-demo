@@ -23,3 +23,4 @@ export {default as VrHelloWorldApp} from './VrHelloWorldApp';
 export {default as OrbitControlsApp} from './OrbitControlsApp';
 
 export {default as FlameApp} from './FlameApp';
+export {default as Anaglyph3dApp} from './Anaglyph3dApp';

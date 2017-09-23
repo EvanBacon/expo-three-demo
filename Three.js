@@ -21,6 +21,8 @@ require('three/examples/js/shaders/ConvolutionShader');
 require('three/examples/js/shaders/FilmShader');
 
 require('three/examples/js/effects/OutlineEffect');
+require('three/examples/js/effects/AnaglyphEffect');
+require('three/examples/js/effects/ParallaxBarrierEffect');
 
 require('three/examples/js/controls/DeviceOrientationControls');
 

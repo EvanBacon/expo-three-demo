@@ -127,7 +127,21 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.VrHelloWorldApp,
-  }
+  },
+  Anaglyph3dApp: {
+    title: 'Anaglyph',
+    key: 'Anaglyph3dApp',
+    description: '',
+    link: '',
+    screen: Scenes.Anaglyph3dApp,
+  },
+  ParallaxBarrierApp: {
+    title: 'Parallax Barrier',
+    key: 'ParallaxBarrierApp',
+    description: '',
+    link: '',
+    screen: Scenes.ParallaxBarrierApp,
+  },
 };
 
 
@@ -160,7 +174,9 @@ export const configuration = [
     key: "Effects",
     data: [
       Routes.GlitchEffect,
-      Routes.VignetteEffect
+      Routes.VignetteEffect,
+      Routes.ParallaxBarrierApp,
+      Routes.Anaglyph3dApp,
     ]
   },
   {
