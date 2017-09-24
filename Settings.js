@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'ColladaApp', //Home
+  initialRouteName: 'Home', //Home
 }

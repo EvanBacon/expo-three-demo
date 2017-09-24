@@ -169,13 +169,13 @@ const navigationOptions = {
 }
 
 export const configuration = [
-  {
-    title: "VR",
-    key: "vr",
-    data: [
-      Routes.VrHelloWorldApp
-    ]
-  },
+  // {
+  //   title: "VR",
+  //   key: "vr",
+  //   data: [
+  //     Routes.VrHelloWorldApp
+  //   ]
+  // },
   {
     title: "Effects",
     key: "Effects",
@@ -212,7 +212,7 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
-      Routes.ColladaApp
+      // Routes.ColladaApp
       // Routes.SkinningBlending
     ]
   },
