@@ -120,8 +120,38 @@ export const Routes = {
     description: '',
     link: 'https://codepen.io/EvanBacon/full/LzGpda',
     screen: Scenes.FlameApp,
+  },
+  VrHelloWorldApp: {
+    title: 'Hello World',
+    key: 'VrHelloWorldApp',
+    description: '',
+    link: '',
+    screen: Scenes.VrHelloWorldApp,
+  },
+  Anaglyph3dApp: {
+    title: 'Anaglyph',
+    key: 'Anaglyph3dApp',
+    description: '',
+    link: '',
+    screen: Scenes.Anaglyph3dApp,
+  },
+  ParallaxBarrierApp: {
+    title: 'Parallax Barrier',
+    key: 'ParallaxBarrierApp',
+    description: '',
+    link: '',
+    screen: Scenes.ParallaxBarrierApp,
+  },
+  ColladaApp: {
+    title: 'Collada',
+    key: 'ColladaAppApp',
+    description: '',
+    link: '',
+    screen: Scenes.ColladaApp,
   }
 };
+
+
 
 Object.keys(Routes).map(key => {
   const obj = Routes[key];
@@ -139,12 +169,21 @@ const navigationOptions = {
 }
 
 export const configuration = [
+  // {
+  //   title: "VR",
+  //   key: "vr",
+  //   data: [
+  //     Routes.VrHelloWorldApp
+  //   ]
+  // },
   {
     title: "Effects",
     key: "Effects",
     data: [
       Routes.GlitchEffect,
-      Routes.VignetteEffect
+      Routes.VignetteEffect,
+      Routes.ParallaxBarrierApp,
+      Routes.Anaglyph3dApp,
     ]
   },
   {
@@ -173,6 +212,7 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
+      // Routes.ColladaApp
       // Routes.SkinningBlending
     ]
   },
@@ -196,7 +236,7 @@ export const configuration = [
     data: [
       Routes.EditorLoader
     ]
-  }
+  },
 ]
 
 

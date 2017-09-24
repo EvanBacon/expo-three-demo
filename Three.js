@@ -5,6 +5,10 @@ global.THREE = THREE;
 export default THREE;
 
 require('three/examples/js/loaders/OBJLoader');
+require('three/examples/js/loaders/STLLoader');
+require('three/examples/js/loaders/ColladaLoader2');
+require('three/examples/js/loaders/OBJLoader2');
+
 require('three/examples/js/postprocessing/EffectComposer');
 require('three/examples/js/postprocessing/RenderPass');
 require('three/examples/js/postprocessing/ShaderPass');
@@ -21,6 +25,11 @@ require('three/examples/js/shaders/ConvolutionShader');
 require('three/examples/js/shaders/FilmShader');
 
 require('three/examples/js/effects/OutlineEffect');
+require('three/examples/js/effects/AnaglyphEffect');
+require('three/examples/js/effects/ParallaxBarrierEffect');
+
+require('three/examples/js/controls/DeviceOrientationControls');
+
 
 // const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');
 // global.SEA3D = SEA3D;

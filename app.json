@@ -4,7 +4,7 @@
     "description": "3D Demos",
     "slug": "three-demo",
     "privacy": "public",
-    "sdkVersion": "20.0.0",
+    "sdkVersion": "21.0.0",
     "version": "1.0.0",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app.png",
@@ -15,7 +15,9 @@
     "packagerOpts": {
       "assetExts": [
         "ttf",
-        "mp4"
+        "mp4",
+        "dae",
+        "obj"
       ]
     },
     "ios": {

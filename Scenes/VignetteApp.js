@@ -80,13 +80,13 @@ class App extends React.Component {
     light = new THREE.AmbientLight(0x222222);
     this.scene.add(light);
 
-    this._setupSea3D();
+    this._setupScene();
     // resize listener
 
     window.addEventListener('resize', this._onWindowResize, false);
   }
 
-  _setupSea3D = () => {
+  _setupScene = () => {
     const { renderer, scene, camera, controls } = this;
 
     // Initialize Three.JS
