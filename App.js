@@ -3,12 +3,12 @@
 // @author Evan Bacon / https://github.com/EvanBacon
 //
 
-import Expo, {AppLoading} from 'expo';
+import Expo, { AppLoading } from 'expo';
 import React from 'react';
-import { StyleSheet,StatusBar, Text, View } from 'react-native';
-import {AnimationCloth} from './Scenes'
+import { Platform, StyleSheet, StatusBar, Text, View } from 'react-native';
+import { AnimationCloth } from './Scenes'
 import Navigation from './Navigation'
-import {Loader} from './components'
+import { Loader } from './components'
 
 export default class App extends React.Component {
   componentWillMount() {
@@ -37,11 +37,11 @@ export default class App extends React.Component {
   render() {
     if (this.state.appIsReady) {
       return (
-        <View style={{flex: 1}}>
-          <StatusBar barStyle={'dark-content'} />
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
           <Navigation
           />
-          {/* <Loader/> */}
         </View>
       );
     }
@@ -55,5 +55,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  statusBarUnderlay: {
+    height: 24,
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
 });

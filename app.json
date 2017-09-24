@@ -6,11 +6,12 @@
     "privacy": "public",
     "sdkVersion": "21.0.0",
     "version": "1.0.0",
-    "primaryColor": "#cccccc",
+    "primaryColor": "#056ECF",
     "icon": "./assets/icons/app.png",
     "loading": {
       "icon": "./assets/icons/loading.png",
-      "hideExponentText": false
+      "hideExponentText": false,
+      "backgroundColor": "#ffffff"
     },
     "packagerOpts": {
       "assetExts": [
