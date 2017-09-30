@@ -29,6 +29,7 @@ require('three/examples/js/effects/AnaglyphEffect');
 require('three/examples/js/effects/ParallaxBarrierEffect');
 
 require('three/examples/js/controls/DeviceOrientationControls');
+require('three/examples/js/controls/OrbitControls');
 
 
 // const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');

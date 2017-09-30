@@ -3,11 +3,22 @@
 // @author Evan Bacon / https://github.com/EvanBacon
 //
 
-import React, { PropTypes } from "react";
+import React from "react";
 import {Image, Text, View, TouchableOpacity} from 'react-native'
 import Colors from '../../Colors'
-class Button extends React.PureComponent {
+import PropTypes from 'prop-types';
 
+export default class Button extends React.PureComponent {
+
+  static propTypes = {
+    textStyle: PropTypes.object
+  }
+  static defaultProps = {
+    textStyle: {},
+    activeOpacity: 0.6,
+    onPress: _=> {}
+  }
+  
   render = () => (
     <TouchableOpacity activeOpacity={this.props.activeOpacity} style={{height: 56, maxHeight: 56, flex: 1}} onPress={this.props.onPress}>
       <View style={[{borderRadius: 2, flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}, this.props.style]}>
@@ -17,14 +28,3 @@ class Button extends React.PureComponent {
     </TouchableOpacity>
   );
 }
-
-Button.propTypes = {
-  textStyle: PropTypes.object
-};
-Button.defaultProps = {
-  textStyle: {},
-  activeOpacity: 0.6,
-  onPress: _=> {}
-}
-
-export default Button;
