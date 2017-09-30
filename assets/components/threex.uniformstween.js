@@ -6,25 +6,25 @@
 // TODO for each uniforms, does a tween function, do a total delay
 THREEx.UniformsTween	= function(uniforms, tweenFns) {
 	// add EventDispatcher in this object
-	// THREE.EventDispatcher.apply(this);
-	
+	// THREE.EventDispatcher.prototype.apply(this)
+
 	let srcUniforms	= THREE.UniformsUtils.clone(uniforms);
 	let dstUniforms	= THREE.UniformsUtils.clone(uniforms);
 	this.dstUniforms= dstUniforms;
 
 	this.needsUpdate= true;
 	this.tweenDelay	= 2;
-	console.warn("again");
+
 	let time	= null;
-	this.update	= (delta, now) => {
+	this.update	= function(delta, now) {
 		if ( this.needsUpdate ) {
 			time		= this.tweenDelay;
 			srcUniforms	= THREE.UniformsUtils.clone(uniforms);
 			this.needsUpdate= false;
 		}
+
 		// if no tweening is in progress, return now
 		if ( time === null )	return;
-
 		// descrease the time remaining to tween
 		time	-= delta;
 		// if tweening is going on after decrease, update value
@@ -37,10 +37,9 @@ THREEx.UniformsTween	= function(uniforms, tweenFns) {
 			// make tweening as over
 			time	= null;
 			// dispatch an event
-			// THREE.EventDispatcher.dispatchEvent({type: 'completed'});
+			// this.dispatchEvent({ type: 'completed' })
 		}
 	};
-	// this.update(0, 0);
 	this.copy	= function() {
 		this.value	= THREE.UniformsUtils.clone(uniforms);
 	};
@@ -56,16 +55,16 @@ THREEx.UniformsTween	= function(uniforms, tweenFns) {
 		// go thru each uniforms
 		// - srcUniforms and dstUniforms are assumed to have the same value
 		Object.keys(tweenFns).forEach(function(uniformKey) {
-			let srcUniform	= srcUniforms[uniformKey] || {};
-			let dstUniform	= dstUniforms[uniformKey] || {};
-			let tweenFn	= tweenFns[uniformKey] || {};
+			let srcUniform	= srcUniforms[uniformKey];
+			let dstUniform	= dstUniforms[uniformKey];
+			let tweenFn	= tweenFns[uniformKey];
 			// compute the lerp depending on the type	
 			if ( srcUniform.type === 'f' ) {
 				let value	= lerpFloat(srcUniform.value, dstUniform.value, tweenFn(amount));
 // console.log('lerp src', uniformKey, amount, value)
 				uniforms[uniformKey].value	= value;
 				// console.log('lerp src', uniformKey, amount, value)
-			} else{
+			}else {
 				console.assert('unhandled type of uniform', srcUniform.type);
 			}
 		});
@@ -248,9 +247,7 @@ a = 1; s = p / 4;
 			if ( k === 0 ) return 0;
 			if ( k === 1 ) return 1;
 			if ( !a || a < 1 ) {
-a = 1; s = p / 4;
-}
-			else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+a = 1; s = p / 4;} else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
 			if ( ( k *= 2 ) < 1 ) return - 0.5 * ( a * Math.pow( 2, 10 * ( k -= 1 ) ) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) );
 			return a * Math.pow( 2, -10 * ( k -= 1 ) ) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) * 0.5 + 1;
 		},
