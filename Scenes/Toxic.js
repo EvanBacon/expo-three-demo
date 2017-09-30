@@ -1,63 +1,79 @@
 import Expo from 'expo';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import ThreeView from '../ThreeView';
 
 import '../Three';
 import '../window/domElement';
 import '../window/resize';
-import Touches from '../window/Touches';
 
-THREE.PointLight.prototype.addSphere = function () {
-    this.sphere = new THREE.Mesh(new THREE.SphereGeometry(2, 16, 16), new THREE.MeshBasicMaterial({
-        color: this.color
-    }))
-    this.add(this.sphere);
+const ToxicTypes = {
+    buzzed: 'buzzed',
+    drunk: 'drunk',
+    high: 'high',
+    wasted: 'wasted',
 }
-THREE.PointLight.prototype.changeColor = function (value) {
-    this.color.setRGB(value[0] / 255, value[1] / 255, value[2] / 255);
-    this.sphere.material.color.setRGB(value[0] / 255, value[1] / 255, value[2] / 255);
-}
-
 class App extends React.Component {
-
-    render = () => (
-        <View style={{ flex: 1 }}>
-            <ThreeView
-                style={{ flex: 1 }}
-                onContextCreate={this._onContextCreate}
-                render={this._animate}
-            />
-            <Text style={{ color: 'white', textAlign: 'center', position: 'absolute', left: 0, right: 0, bottom: 8, backgroundColor: 'transparent' }}>Double Tap to change geometry
-        </Text>
+    selectedToxin = ToxicTypes.drunk;
+    _renderSelector = () => (
+        <View style={{ position: 'absolute', flexDirection: 'row', bottom: 8, left: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: 4, borderColor: 'white', borderWidth: StyleSheet.hairlineWidth }}>
+            {
+                Object.keys(ToxicTypes).map((toxin, index) => {
+                    return (
+                        <View key={index} style={{ flex: 1 }}>
+                            <TouchableHighlight style={{ flex: 1, padding: 8, justifyContent: 'center', alignItems: 'center', }} onPress={_ => this._setToxin(toxin)}>
+                                <Text style={{ color: 'white', fontSize: 12, textAlign: 'center' }}>{toxin}</Text>
+                            </TouchableHighlight>
+                        </View>
+                    )
+                })
+            }
         </View>
-    );
+    )
+    _setToxin = toxin => {
+        if (this.selectedToxin === toxin) { return }
+        this.selectedToxin = toxin;
+        this.toxicPasses.setPreset && this.toxicPasses.setPreset(toxin);
 
-    _onContextCreate = async (gl) => {
+    }
+    shouldComponentUpdate = () => false
+    render = () => {
+        return (
+            <View style={{ flex: 1 }}>
+                <ThreeView
+                    style={{ flex: 1 }}
+                    onContextCreate={this._onContextCreate}
+                    render={this._animate}
+                    enableAR={true}
+
+                />
+
+                {this._renderSelector()}
+            </View>
+        );
+    }
+
+    _onContextCreate = async (gl, arSession) => {
 
         const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
 
         // renderer
 
-        
+
         this.renderer = ExpoTHREE.createRenderer({ gl });
         this.renderer.setPixelRatio(scale);
         this.renderer.setSize(width, height);
-        this.renderer.setClearColor(0x339ce2);
+        this.renderer.setClearColor(0x000000, 1.0);
 
         // scene
         this.scene = new THREE.Scene();
+        this.scene.background = ExpoTHREE.createARBackgroundTexture(arSession, this.renderer);
+
         // camera
 
-        this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
-        this.camera.position.z = 500;
-        this.camera.lookAt(new THREE.Vector3());
+        this.camera = ExpoTHREE.createARCamera(arSession, width, height, 0.01, 1000);
 
-        // this.orthCamera	= new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2,  window.innerHeight / 2, window.innerHeight / -2, -100, 100);
-
-        
-        this.controls = new THREE.OrbitControls(this.camera);
         // custom scene
 
         this._setupScene();
@@ -77,80 +93,14 @@ class App extends React.Component {
         this.copyPass = new THREE.ShaderPass(THREE.CopyShader);
         this.composer.addPass(this.renderPass);
 
-        console.warn(Object.keys(THREEx.ToxicPproc));
-        this.toxicPasses = new THREEx.ToxicPproc.Passes('high')
-        // onRenderFcts.push(function(delta, now){
-        //     toxicPasses.update(delta, now)
-        // })
-        // THREEx.addToxicPasses2DatGui(this.toxicPasses)
-        //////////////////////////////////////////////////////////////////////////////////
-        //		EffectComposer							//
-        //////////////////////////////////////////////////////////////////////////////////
-        this.composer	= new THREE.EffectComposer(this.renderer);
-        var renderPass	= new THREE.RenderPass( this.scene, this.camera );
-        this.composer.addPass( renderPass );
+        this.toxicPasses = new THREEx.ToxicPproc.Passes(this.selectedToxin);
+
+        this.composer = new THREE.EffectComposer(this.renderer);
+        var renderPass = new THREE.RenderPass(this.scene, this.camera);
+        this.composer.addPass(renderPass);
         // add toxicPasses to composer	
         this.toxicPasses.addPassesTo(this.composer)
-        this.composer.passes[this.composer.passes.length -1 ].renderToScreen	= true;
- 
-        
-
-
-        const geoms = [
-            new THREE.TorusKnotGeometry(),
-            new THREE.BoxGeometry(200, 200, 200),
-            new THREE.SphereGeometry(200, 20, 20)
-        ];
-        let index = 0;
-
-        // Add lights.
-        this.light1 = new THREE.PointLight(0xff0000);
-        this.light1.addSphere();
-        this.light1.position.set(250, 0, 0);
-        this.scene.add(this.light1);
-
-        this.light2 = new THREE.PointLight(0x00ff00);
-        this.light2.addSphere();
-        this.light2.position.set(0, 250, 0);
-        this.scene.add(this.light2);
-
-        const uniforms = THREE.UniformsUtils.merge(
-            [THREE.UniformsLib['lights'], {
-                diffuse: {
-                    type: 'c',
-                    value: new THREE.Color(0x0000ff)
-                },
-                steps: {
-                    type: 'f',
-                    value: 4
-                },
-                intensity: {
-                    type: 'f',
-                    value: 0.5,
-                }
-            }]
-        )
-
-        const material = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            vertexShader: shaders.vertex,
-            fragmentShader: shaders.fragment,
-            lights: true
-        });
-
-        this.mesh = new THREE.Mesh(geoms[index], material);
-        this.scene.add(this.mesh);
-
-
-        // Add Touch Listener
-        window.document.addEventListener('touchstart', (e) => {
-
-            if (e.touches.length > 1) {
-                index = (index + 1) % geoms.length;
-                this.mesh.geometry = geoms[index];
-            }
-
-        });
+        this.composer.passes[this.composer.passes.length - 1].renderToScreen = true;
 
     }
 
@@ -170,54 +120,9 @@ class App extends React.Component {
         const now = Date.now();
 
         this.toxicPasses.update(delta, now);
-        this.composer.render(delta)
-        
-        this._render();
-    }
-
-    _render = () => {
-        // Render Scene!
-        // this.renderer.render(this.scene, this.camera);
+        this.composer.render(delta);
     }
 }
 
 // Wrap Touches Event Listener
-export default Touches(App);
-
-
-// Define Shaders
-const shaders = {
-    vertex: `
-    varying vec3 vPos;
-    varying vec3 vNormal;
-    void main() {
-      vPos = (modelMatrix * vec4(position, 1.0 )).xyz;
-      vNormal = normalMatrix * normal;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-    }
-    `,
-    fragment: `
-    uniform vec3 diffuse;
-    uniform float steps;
-    uniform float intensity;
-    varying vec3 vPos;
-    varying vec3 vNormal;
-    uniform vec3 pointLightColor[1];
-    uniform vec3 pointLightPosition[1];
-    uniform float pointLightDistance[1];
-    
-    void main() {
-      vec3 n = normalize(vNormal);
-      float i = intensity;
-      for(int l = 0; l < 1; l++) {
-        vec3 lightDirection = normalize(vPos - pointLightPosition[l]);
-        i += dot(vec3(-lightDirection),n);
-      }
-      i = ceil(i * steps)/steps;
-      gl_FragColor = vec4(diffuse, 1.0) + vec4(i);
-    }
-    `
-};
-
-
-
+export default App;

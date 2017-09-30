@@ -1,48 +1,48 @@
 
-THREEx.ToxicPproc	= {};
+THREEx.ToxicPproc = {};
 
-THREEx.ToxicPproc.baseURL	= '../';
+THREEx.ToxicPproc.baseURL = '../';
 
 // ////////////////////////////////////////////////////////////////////////////////
 //		comment								//
 // ////////////////////////////////////////////////////////////////////////////////
 
-THREEx.ToxicPproc.passesPreset	= {};
+THREEx.ToxicPproc.passesPreset = {};
 
 // ////////////////////////////////////////////////////////////////////////////////
 //		reset preset							//
 // ////////////////////////////////////////////////////////////////////////////////
 
 
-THREEx.ToxicPproc.passesPreset['sober']	= {
-	init: function() {
+THREEx.ToxicPproc.passesPreset['buzzed'] = {
+	init: function () {
 		// hBlurPass
-		var uniforms	= this.hBlurTween.dstUniforms;
-		uniforms.h.value	= 0;
+		var uniforms = this.hBlurTween.dstUniforms;
+		uniforms.h.value = 0;
 
 		// vBlurPass
-		var uniforms	= this.vBlurTween.dstUniforms;
-		uniforms.v.value	= 0;
+		var uniforms = this.vBlurTween.dstUniforms;
+		uniforms.v.value = 0;
 
 		// rgbRadialPass
-		var uniforms	= this.rgbRadialTween.dstUniforms;
-		uniforms.factor.value	= 0;
-		uniforms.power.value	= 3.0;
+		var uniforms = this.rgbRadialTween.dstUniforms;
+		uniforms.factor.value = 0;
+		uniforms.power.value = 3.0;
 
 		// seeDoublePass
-		var uniforms	= this.seeDoubleTween.dstUniforms;
-		uniforms.radius.value	= 0;
-		uniforms.timeSpeed.value= 0;
-		uniforms.mixRatio.value	= 0.5;
-		uniforms.opacity.value	= 1.0;
+		var uniforms = this.seeDoubleTween.dstUniforms;
+		uniforms.radius.value = 0;
+		uniforms.timeSpeed.value = 0;
+		uniforms.mixRatio.value = 0.5;
+		uniforms.opacity.value = 1.0;
 
 		// refractionPass
-		var uniforms	= this.refractionTween.dstUniforms;
-		uniforms.timeSpeed.value	= 0;
-		uniforms.Frequency.value	= 0.0;
-		uniforms.Amplitude.value	= 0;
+		var uniforms = this.refractionTween.dstUniforms;
+		uniforms.timeSpeed.value = 0;
+		uniforms.Frequency.value = 0.0;
+		uniforms.Amplitude.value = 0;
 	},
-	update: function(delta, now) {
+	update: function (delta, now) {
 	},
 };
 
@@ -51,28 +51,28 @@ THREEx.ToxicPproc.passesPreset['sober']	= {
 // ////////////////////////////////////////////////////////////////////////////////
 
 
-THREEx.ToxicPproc.passesPreset['drunk']	= {
-	init: function() {
+THREEx.ToxicPproc.passesPreset['drunk'] = {
+	init: function () {
 		// hBlurPass
-		var uniforms	= this.hBlurTween.dstUniforms;
-		uniforms.h.value= 0.001;
+		var uniforms = this.hBlurTween.dstUniforms;
+		uniforms.h.value = 0.001;
 
 		// vBlurPass
-		var uniforms	= this.vBlurTween.dstUniforms;
-		uniforms.v.value= 0.001;
+		var uniforms = this.vBlurTween.dstUniforms;
+		uniforms.v.value = 0.001;
 
 		// seeDoublePass
-		var uniforms	= this.seeDoubleTween.dstUniforms;
-		uniforms.radius.value	= 0.03;
-		uniforms.timeSpeed.value= 1.0;
+		var uniforms = this.seeDoubleTween.dstUniforms;
+		uniforms.radius.value = 0.03;
+		uniforms.timeSpeed.value = 1.0;
 
 		// refractionPass
-		var uniforms	= this.refractionTween.dstUniforms;
-		uniforms.timeSpeed.value	= 0.2;
-		uniforms.Frequency.value	= 1.1;
-		uniforms.Amplitude.value	= 40;
+		var uniforms = this.refractionTween.dstUniforms;
+		uniforms.timeSpeed.value = 0.2;
+		uniforms.Frequency.value = 1.1;
+		uniforms.Amplitude.value = 40;
 	},
-	update: function(delta, now) {
+	update: function (delta, now) {
 	},
 };
 
@@ -80,20 +80,20 @@ THREEx.ToxicPproc.passesPreset['drunk']	= {
 //		high preset							//
 // ////////////////////////////////////////////////////////////////////////////////
 
-THREEx.ToxicPproc.passesPreset['high']	= {
-	init: function() {
+THREEx.ToxicPproc.passesPreset['high'] = {
+	init: function () {
 		// hBlurPass
-		var uniforms	= this.hBlurTween.dstUniforms;
-		uniforms.h.value= 0.001;
+		var uniforms = this.hBlurTween.dstUniforms;
+		uniforms.h.value = 0.001;
 
 		// vBlurPass
-		var uniforms	= this.vBlurTween.dstUniforms;
-		uniforms.v.value= 0.001;
+		var uniforms = this.vBlurTween.dstUniforms;
+		uniforms.v.value = 0.001;
 
 		// rgbRadialPass
-		var uniforms	= this.rgbRadialTween.dstUniforms;
-		uniforms.factor.value	= 0.02;
-		uniforms.power.value	= 3.0;
+		var uniforms = this.rgbRadialTween.dstUniforms;
+		uniforms.factor.value = 0.02;
+		uniforms.power.value = 3.0;
 
 		// seeDoublePass
 		// var uniforms	= this.seeDoubleTween.dstUniforms
@@ -101,12 +101,12 @@ THREEx.ToxicPproc.passesPreset['high']	= {
 		// uniforms.timeSpeed.value= 1.0
 
 		// refractionPass
-		var uniforms	= this.refractionTween.dstUniforms;
-		uniforms.timeSpeed.value	= 0.25;
-		uniforms.Frequency.value	= 1.1;
-		uniforms.Amplitude.value	= 40;
+		var uniforms = this.refractionTween.dstUniforms;
+		uniforms.timeSpeed.value = 0.25;
+		uniforms.Frequency.value = 1.1;
+		uniforms.Amplitude.value = 40;
 	},
-	update: function(delta, now) {
+	update: function (delta, now) {
 	},
 };
 
@@ -114,20 +114,20 @@ THREEx.ToxicPproc.passesPreset['high']	= {
 //		wasted preset							//
 // ////////////////////////////////////////////////////////////////////////////////
 
-THREEx.ToxicPproc.passesPreset['wasted']	= {
-	init: function() {
+THREEx.ToxicPproc.passesPreset['wasted'] = {
+	init: function () {
 		// hBlurPass
-		var uniforms	= this.hBlurTween.dstUniforms;
-		uniforms.h.value= 0.001;
+		var uniforms = this.hBlurTween.dstUniforms;
+		uniforms.h.value = 0.001;
 
 		// vBlurPass
-		var uniforms	= this.vBlurTween.dstUniforms;
-		uniforms.v.value= 0.001;
+		var uniforms = this.vBlurTween.dstUniforms;
+		uniforms.v.value = 0.001;
 
 		// rgbRadialPass
-		var uniforms	= this.rgbRadialTween.dstUniforms;
-		uniforms.factor.value	= 0.05;
-		uniforms.power.value	= 3.0;
+		var uniforms = this.rgbRadialTween.dstUniforms;
+		uniforms.factor.value = 0.05;
+		uniforms.power.value = 3.0;
 
 		// seeDoublePass
 		// var uniforms	= this.seeDoubleTween.dstUniforms
@@ -135,12 +135,12 @@ THREEx.ToxicPproc.passesPreset['wasted']	= {
 		// uniforms.timeSpeed.value= 1.0
 
 		// refractionPass
-		var uniforms	= this.refractionTween.dstUniforms;
-		uniforms.timeSpeed.value	= 0.5;
-		uniforms.Frequency.value	= 2.2;
-		uniforms.Amplitude.value	= 60;
+		var uniforms = this.refractionTween.dstUniforms;
+		uniforms.timeSpeed.value = 0.5;
+		uniforms.Frequency.value = 2.2;
+		uniforms.Amplitude.value = 60;
 	},
-	update: function(delta, now) {
+	update: function (delta, now) {
 	},
 };
 
@@ -155,35 +155,35 @@ THREEx.ToxicPproc.passesPreset['wasted']	= {
  *   - put the renderer in another
  */
 
-THREEx.ToxicPproc.Passes	= function(presetLabel) {
+THREEx.ToxicPproc.Passes = function (presetLabel) {
 	// default value arguments
-	presetLabel	= presetLabel	|| 'sober';
+	presetLabel = presetLabel || 'buzzed';
 	// internal update function
-	let onUpdateFcts= [];
-	this.update	= function(delta, now) {
-		onUpdateFcts.forEach(function(onUpdateFct) {
+	let onUpdateFcts = [];
+	this.update = function (delta, now) {
+		onUpdateFcts.forEach(function (onUpdateFct) {
 			onUpdateFct(delta, now);
 		});
 	};
 
 	// Presets
-	let preset	= THREEx.ToxicPproc.passesPreset[presetLabel];
-	this.setPreset	= function(label) {
+	let preset = THREEx.ToxicPproc.passesPreset[presetLabel];
+	this.setPreset = function (label) {
 		// reset of all values
-		THREEx.ToxicPproc.passesPreset['sober'].init.apply(this);
+		THREEx.ToxicPproc.passesPreset['buzzed'].init.apply(this);
 
-		preset	= THREEx.ToxicPproc.passesPreset[label];
+		preset = THREEx.ToxicPproc.passesPreset[label];
 		preset.init.apply(this);
 
-		hBlurTween.needsUpdate		= true;
-		vBlurTween.needsUpdate		= true;
-		rgbRadialTween.needsUpdate	= true;
-		seeDoubleTween.needsUpdate	= true;
-		refractionTween.needsUpdate	= true;
+		hBlurTween.needsUpdate = true;
+		vBlurTween.needsUpdate = true;
+		rgbRadialTween.needsUpdate = true;
+		seeDoubleTween.needsUpdate = true;
+		refractionTween.needsUpdate = true;
 	};
 
 	// update all tween
-	onUpdateFcts.push(function(delta, now) {
+	onUpdateFcts.push(function (delta, now) {
 		hBlurTween.update(delta, now);
 		vBlurTween.update(delta, now);
 		rgbRadialTween.update(delta, now);
@@ -196,7 +196,7 @@ THREEx.ToxicPproc.Passes	= function(presetLabel) {
 	 * to add toxicPasses to a THREE.EffectComposer
 	 * @param {THREE.EffectComposer} composer the composer to which it is added
 	 */
-	this.addPassesTo	= function(composer) {
+	this.addPassesTo = function (composer) {
 		composer.addPass(hBlurPass);
 		composer.addPass(vBlurPass);
 		composer.addPass(rgbRadialPass);
@@ -211,33 +211,33 @@ THREEx.ToxicPproc.Passes	= function(presetLabel) {
 
 
 	// hBlurPass
-	var hBlurPass	= this.hBlurPass	= new THREE.ShaderPass( THREE.HorizontalBlurShader );
-	var hBlurTween	= this.hBlurTween	= new THREEx.UniformsTween(hBlurPass.uniforms, {
+	var hBlurPass = this.hBlurPass = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+	var hBlurTween = this.hBlurTween = new THREEx.UniformsTween(hBlurPass.uniforms, {
 		h: THREEx.UniformsTween.Easing.Linear.None,
 	});
 
 	// vBlurPass
-	var vBlurPass	= this.vBlurPass	= new THREE.ShaderPass( THREE.VerticalBlurShader );
-	var vBlurTween	= this.vBlurTween	= new THREEx.UniformsTween(vBlurPass.uniforms, {
+	var vBlurPass = this.vBlurPass = new THREE.ShaderPass(THREE.VerticalBlurShader);
+	var vBlurTween = this.vBlurTween = new THREEx.UniformsTween(vBlurPass.uniforms, {
 		v: THREEx.UniformsTween.Easing.Linear.None,
 	});
 
 	// rgbRadialPass
-	var rgbRadialPass	= this.rgbRadialPass	= new THREE.ShaderPass( THREEx.ToxicPproc.RGBShiftRadialShader);
-	var rgbRadialTween	= this.rgbRadialTween	= new THREEx.UniformsTween(rgbRadialPass.uniforms, {
+	var rgbRadialPass = this.rgbRadialPass = new THREE.ShaderPass(THREEx.ToxicPproc.RGBShiftRadialShader);
+	var rgbRadialTween = this.rgbRadialTween = new THREEx.UniformsTween(rgbRadialPass.uniforms, {
 		factor: THREEx.UniformsTween.Easing.Linear.None,
 	});
 
 	// seeDoublePass
-	var seeDoublePass	= this.seeDoublePass	= new THREE.ShaderPass( THREEx.ToxicPproc.SeeDoubleShader);
-	var seeDoubleTween	= this.seeDoubleTween	= new THREEx.UniformsTween(seeDoublePass.uniforms, {
+	var seeDoublePass = this.seeDoublePass = new THREE.ShaderPass(THREEx.ToxicPproc.SeeDoubleShader);
+	var seeDoubleTween = this.seeDoubleTween = new THREEx.UniformsTween(seeDoublePass.uniforms, {
 		radius: THREEx.UniformsTween.Easing.Linear.None,
 		timeSpeed: THREEx.UniformsTween.Easing.Linear.None,
 	});
 
 	// refractionPass
-	var refractionPass	= this.refractionPass	= new THREE.ShaderPass( THREEx.ToxicPproc.RefractionShader);
-	var refractionTween	= this.refractionTween	= new THREEx.UniformsTween(refractionPass.uniforms, {
+	var refractionPass = this.refractionPass = new THREE.ShaderPass(THREEx.ToxicPproc.RefractionShader);
+	var refractionTween = this.refractionTween = new THREEx.UniformsTween(refractionPass.uniforms, {
 		timeSpeed: THREEx.UniformsTween.Easing.Linear.None,
 		RandomNumber: THREEx.UniformsTween.Easing.Linear.None,
 		Period: THREEx.UniformsTween.Easing.Linear.None,
@@ -252,17 +252,17 @@ THREEx.ToxicPproc.Passes	= function(presetLabel) {
 
 
 	// reset of all values
-	THREEx.ToxicPproc.passesPreset['sober'].init.apply(this);
+	THREEx.ToxicPproc.passesPreset['buzzed'].init.apply(this);
 	// init current preset
 	preset.init.apply(this);
-	onUpdateFcts.push(function(delta, now) {
+	onUpdateFcts.push(function (delta, now) {
 		// update .time in the needed Pass
 		// seeDoublePass
-		var uniforms	= seeDoublePass.uniforms;
-		uniforms.time.value	+= delta * uniforms.timeSpeed.value;
+		var uniforms = seeDoublePass.uniforms;
+		uniforms.time.value += delta * uniforms.timeSpeed.value;
 		// refractionPass
-		var uniforms	= refractionPass.uniforms;
-		uniforms.time.value	+= delta * uniforms.timeSpeed.value;
+		var uniforms = refractionPass.uniforms;
+		uniforms.time.value += delta * uniforms.timeSpeed.value;
 
 		// update current preset
 		preset.update.apply(this, [delta, now]);
@@ -276,16 +276,16 @@ THREEx.ToxicPproc.Passes	= function(presetLabel) {
 
 THREEx.ToxicPproc.RGBShiftRadialShader = {
 	uniforms: {
-		'tDiffuse': {type: 't', value: null},
-		'factor': {type: 'f', value: 0},
-		'power': {type: 'f', value: 3},
+		'tDiffuse': { type: 't', value: null },
+		'factor': { type: 'f', value: 0 },
+		'power': { type: 'f', value: 3 },
 	},
 
 	vertexShader: [
 		'varying vec2 vUv;',
 		'void main() {',
-			'vUv = uv;',
-			'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+		'vUv = uv;',
+		'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
 		'}',
 	].join('\n'),
 
@@ -300,23 +300,23 @@ THREEx.ToxicPproc.RGBShiftRadialShader = {
 
 		'void main() {',
 
-/**
- * * compute vector to the center. toCenter vector2
- * * compute unit vector to center
- * * offset length depends on toCenter length
- */
+		/**
+		 * * compute vector to the center. toCenter vector2
+		 * * compute unit vector to center
+		 * * offset length depends on toCenter length
+		 */
 
- 			'vec2 vector2Center	= vec2(0.5)-vUv;',
- 			'vec2 unit2Center	= vector2Center / length(vector2Center);',
+		'vec2 vector2Center	= vec2(0.5)-vUv;',
+		'vec2 unit2Center	= vector2Center / length(vector2Center);',
 
- 			'float offsetLength	= length(vector2Center) * factor;',
- 			'offsetLength		= 1.0 - pow(1.0-offsetLength, power);',
- 			'vec2  offset		= unit2Center * offsetLength;',
+		'float offsetLength	= length(vector2Center) * factor;',
+		'offsetLength		= 1.0 - pow(1.0-offsetLength, power);',
+		'vec2  offset		= unit2Center * offsetLength;',
 
-			'vec4 cr	= texture2D(tDiffuse, vUv + offset);',
-			'vec4 cga	= texture2D(tDiffuse, vUv);',
-			'vec4 cb	= texture2D(tDiffuse, vUv - offset);',
-			'gl_FragColor	= vec4(cr.r, cga.g, cb.b, cga.a);',
+		'vec4 cr	= texture2D(tDiffuse, vUv + offset);',
+		'vec4 cga	= texture2D(tDiffuse, vUv);',
+		'vec4 cb	= texture2D(tDiffuse, vUv - offset);',
+		'gl_FragColor	= vec4(cr.r, cga.g, cb.b, cga.a);',
 		'}',
 	].join('\n'),
 };
@@ -328,24 +328,24 @@ THREEx.ToxicPproc.RGBShiftRadialShader = {
 
 THREEx.ToxicPproc.SeeDoubleShader = {
 	uniforms: {
-		tDiffuse: {type: 't', value: null},
+		tDiffuse: { type: 't', value: null },
 
-		time: {type: 'f', value: 0.0},
-		timeSpeed: {type: 'f', value: 1.0},
+		time: { type: 'f', value: 0.0 },
+		timeSpeed: { type: 'f', value: 1.0 },
 
 
-		radius: {type: 'f', value: 0.01},
+		radius: { type: 'f', value: 0.01 },
 
-                mixRatio: {type: 'f', value: 0.5},
-                opacity: {type: 'f', value: 1.0},
+		mixRatio: { type: 'f', value: 0.5 },
+		opacity: { type: 'f', value: 1.0 },
 	},
 
 	vertexShader: [
 		'varying vec2 vUv;',
 		'void main() {',
 
-			'vUv = uv;',
-			'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+		'vUv = uv;',
+		'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
 
 		'}',
 	].join('\n'),
@@ -360,11 +360,11 @@ THREEx.ToxicPproc.SeeDoubleShader = {
 		'uniform float mixRatio;',
 
 		'void main() {',
-			'float angle	= time;',
-			'vec2 offset	= vec2(cos(angle), sin(angle*2.0))*radius;',
-			'vec4 original	= texture2D(tDiffuse, vUv);',
-			'vec4 shifted	= texture2D(tDiffuse, vUv + offset);',
-			'gl_FragColor	= opacity * mix( original, shifted, mixRatio );',
+		'float angle	= time;',
+		'vec2 offset	= vec2(cos(angle), sin(angle*2.0))*radius;',
+		'vec4 original	= texture2D(tDiffuse, vUv);',
+		'vec4 shifted	= texture2D(tDiffuse, vUv + offset);',
+		'gl_FragColor	= opacity * mix( original, shifted, mixRatio );',
 		'}',
 	].join('\n'),
 };
@@ -375,26 +375,26 @@ THREEx.ToxicPproc.SeeDoubleShader = {
 
 
 // from http://devmaster.net/posts/3079/shader-effects-refraction#tabs-3
-THREEx.ToxicPproc.RefractionShader	= {
+THREEx.ToxicPproc.RefractionShader = {
 	uniforms: {
-		tDiffuse: {type: 't', value: null},
-		ImageSize: {type: 'v2', value: new THREE.Vector2(1440, 900)},
-		TexelSize: {type: 'v2', value: new THREE.Vector2(1.0/1440, 1.0/900)},
-		time: {type: 'f', value: 0.0},
-		timeSpeed: {type: 'f', value: 1.0},
+		tDiffuse: { type: 't', value: null },
+		ImageSize: { type: 'v2', value: new THREE.Vector2(1440, 900) },
+		TexelSize: { type: 'v2', value: new THREE.Vector2(1.0 / 1440, 1.0 / 900) },
+		time: { type: 'f', value: 0.0 },
+		timeSpeed: { type: 'f', value: 1.0 },
 
-		RandomNumber: {type: 'f', value: Math.random()},
-		Period: {type: 'f', value: Math.PI/2},
-		Frequency: {type: 'f', value: 10.0},
-		Amplitude: {type: 'f', value: 0},
+		RandomNumber: { type: 'f', value: Math.random() },
+		Period: { type: 'f', value: Math.PI / 2 },
+		Frequency: { type: 'f', value: 10.0 },
+		Amplitude: { type: 'f', value: 0 },
 	},
 	vertexShader: [
 		'varying vec2 vUv;',
 
 		'void main() {',
 
-			'vUv = uv;',
-			'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+		'vUv = uv;',
+		'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
 
 		'}',
 	].join('\n'),
