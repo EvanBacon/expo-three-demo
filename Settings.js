@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'AnimationCloth', //Home
+  initialRouteName: 'Toxic', //Home
 }

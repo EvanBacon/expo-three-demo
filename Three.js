@@ -2,6 +2,8 @@
 const THREE = require('three');
 global.THREE = THREE;
 
+global.THREEx = global.THREEx || {};
+
 export default THREE;
 
 require('three/examples/js/loaders/OBJLoader');
@@ -24,12 +26,19 @@ require('three/examples/js/shaders/DigitalGlitch');
 require('three/examples/js/shaders/ConvolutionShader');
 require('three/examples/js/shaders/FilmShader');
 
+require('three/examples/js/shaders/HorizontalBlurShader');
+require('three/examples/js/shaders/VerticalBlurShader');
+
+
 require('three/examples/js/effects/OutlineEffect');
 require('three/examples/js/effects/AnaglyphEffect');
 require('three/examples/js/effects/ParallaxBarrierEffect');
 
 require('three/examples/js/controls/DeviceOrientationControls');
 require('three/examples/js/controls/OrbitControls');
+
+require('./assets/components/threex.toxicpproc.js');
+require('./assets/components/threex.uniformstween.js');
 
 
 // const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');

@@ -9,8 +9,6 @@ import '../window/domElement';
 import '../window/resize';
 import Touches from '../window/Touches';
 
-const OrbitControls = require('three-orbit-controls')(THREE);
-
 THREE.PointLight.prototype.addSphere = function () {
     this.sphere = new THREE.Mesh(new THREE.SphereGeometry(2, 16, 16), new THREE.MeshBasicMaterial({
         color: this.color
@@ -42,6 +40,7 @@ class App extends React.Component {
 
         // renderer
 
+        
         this.renderer = ExpoTHREE.createRenderer({ gl });
         this.renderer.setPixelRatio(scale);
         this.renderer.setSize(width, height);
@@ -51,12 +50,14 @@ class App extends React.Component {
         this.scene = new THREE.Scene();
         // camera
 
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
+        this.camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
         this.camera.position.z = 500;
         this.camera.lookAt(new THREE.Vector3());
 
-        this.controls = new OrbitControls(this.camera);
-        this.controls.enableDamping = true;
+        // this.orthCamera	= new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2,  window.innerHeight / 2, window.innerHeight / -2, -100, 100);
+
+        
+        this.controls = new THREE.OrbitControls(this.camera);
         // custom scene
 
         this._setupScene();
@@ -69,6 +70,31 @@ class App extends React.Component {
     _setupScene = () => {
         const { innerWidth: width, innerHeight: height } = window;
         // Initialize Three.JS
+
+        // composer
+        this.composer = new THREE.EffectComposer(this.renderer);
+        this.renderPass = new THREE.RenderPass(this.scene, this.camera);
+        this.copyPass = new THREE.ShaderPass(THREE.CopyShader);
+        this.composer.addPass(this.renderPass);
+
+        console.warn(Object.keys(THREEx.ToxicPproc));
+        this.toxicPasses = new THREEx.ToxicPproc.Passes('high')
+        // onRenderFcts.push(function(delta, now){
+        //     toxicPasses.update(delta, now)
+        // })
+        // THREEx.addToxicPasses2DatGui(this.toxicPasses)
+        //////////////////////////////////////////////////////////////////////////////////
+        //		EffectComposer							//
+        //////////////////////////////////////////////////////////////////////////////////
+        this.composer	= new THREE.EffectComposer(this.renderer);
+        var renderPass	= new THREE.RenderPass( this.scene, this.camera );
+        this.composer.addPass( renderPass );
+        // add toxicPasses to composer	
+        this.toxicPasses.addPassesTo(this.composer)
+        this.composer.passes[this.composer.passes.length -1 ].renderToScreen	= true;
+ 
+        
+
 
         const geoms = [
             new THREE.TorusKnotGeometry(),
@@ -141,23 +167,17 @@ class App extends React.Component {
     }
 
     _animate = (delta) => {
+        const now = Date.now();
 
-        const timer = Date.now() * 0.00050;
-        this.light1.position.x = Math.cos(timer) * 250;
-        this.light1.position.z = Math.sin(timer) * 250;
-        this.light2.position.y = Math.cos(timer * 1.25) * 250;
-        this.light2.position.z = Math.sin(timer * 1.25) * 250;
-        this.mesh.rotation.x += 0.005;
-        this.mesh.rotation.y += 0.01;
-
-        this.controls.update();
-
+        this.toxicPasses.update(delta, now);
+        this.composer.render(delta)
+        
         this._render();
     }
 
     _render = () => {
         // Render Scene!
-        this.renderer.render(this.scene, this.camera);
+        // this.renderer.render(this.scene, this.camera);
     }
 }
 
