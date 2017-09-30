@@ -9,8 +9,6 @@ import '../window/domElement';
 import '../window/resize';
 import Touches from '../window/Touches';
 
-const OrbitControls = require('three-orbit-controls')(THREE);
-
 THREE.PointLight.prototype.addSphere = function () {
     this.sphere = new THREE.Mesh(new THREE.SphereGeometry(2, 16, 16), new THREE.MeshBasicMaterial({
         color: this.color
@@ -55,7 +53,7 @@ class App extends React.Component {
         this.camera.position.z = 500;
         this.camera.lookAt(new THREE.Vector3());
 
-        this.controls = new OrbitControls(this.camera);
+        this.controls = new THREE.OrbitControls(this.camera);
         this.controls.enableDamping = true;
         // custom scene
 

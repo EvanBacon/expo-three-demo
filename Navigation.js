@@ -20,55 +20,55 @@ export const Routes = {
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
-  // SkyShader: {
-  //   title: 'Sky Shader',
-  //   key: 'SkyShader',
-  //   description: 'Sky Shader',
-  //   link: 'https://threejs.org/examples/#webgl_shaders_sky',
-  //   screen: Scenes.SkyShader,
-  // },
-  // OceanShader: {
-  //   title: 'Ocean Shader',
-  //   key: 'OceanShader',
-  //   description: 'Ocean Shader',
-  //   link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
-  //   screen: Scenes.OceanShader,
-  // },
-  // LavaShader: {
-  //   title: 'Lava Shader',
-  //   key: 'LavaShader',
-  //   description: 'Lava Shader',
-  //   link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
-  //   screen: Scenes.LavaShader,
-  // },
-  // SkinningBlending: {
-  //   title: 'Skinning Blending',
-  //   key: 'SkinningBlending',
-  //   description: 'Skinning And Blending Models',
-  //   link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
-  //   screen: Scenes.SkinningBlending,
-  // },
-  // ParticleSystem: {
-  //   title: 'Particle System',
-  //   key: 'ParticleSystem',
-  //   description: 'GPU Particle System',
-  //   link: 'https://threejs.org/examples/?q=particl#webgl_gpu_particle_system',
-  //   screen: Scenes.ParticleSystem,
-  // },
-  // VoxelPainter: {
-  //   title: 'Voxel Painter',
-  //   key: 'VoxelPainter',
-  //   description: 'Interactive Voxel Scene',
-  //   link: 'https://threejs.org/examples/#webgl_interactive_voxelpainter',
-  //   screen: Scenes.VoxelPainter,
-  // },
-  // EditorLoader: {
-  //   title: 'Editor Loader',
-  //   key: 'EditorLoader',
-  //   description: 'Loader for app.json exported from editor',
-  //   link: 'https://github.com/mrdoob/three.js/tree/master/editor',
-  //   screen: Scenes.EditorLoader,
-  // },
+  SkyShader: {
+    title: 'Sky Shader',
+    key: 'SkyShader',
+    description: 'Sky Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_sky',
+    screen: Scenes.SkyShader,
+  },
+  OceanShader: {
+    title: 'Ocean Shader',
+    key: 'OceanShader',
+    description: 'Ocean Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.OceanShader,
+  },
+  LavaShader: {
+    title: 'Lava Shader',
+    key: 'LavaShader',
+    description: 'Lava Shader',
+    link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
+    screen: Scenes.LavaShader,
+  },
+  SkinningBlending: {
+    title: 'Skinning Blending',
+    key: 'SkinningBlending',
+    description: 'Skinning And Blending Models',
+    link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
+    screen: Scenes.SkinningBlending,
+  },
+  ParticleSystem: {
+    title: 'Particle System',
+    key: 'ParticleSystem',
+    description: 'GPU Particle System',
+    link: 'https://threejs.org/examples/?q=particl#webgl_gpu_particle_system',
+    screen: Scenes.ParticleSystem,
+  },
+  VoxelPainter: {
+    title: 'Voxel Painter',
+    key: 'VoxelPainter',
+    description: 'Interactive Voxel Scene',
+    link: 'https://threejs.org/examples/#webgl_interactive_voxelpainter',
+    screen: Scenes.VoxelPainter,
+  },
+  EditorLoader: {
+    title: 'Editor Loader',
+    key: 'EditorLoader',
+    description: 'Loader for app.json exported from editor',
+    link: 'https://github.com/mrdoob/three.js/tree/master/editor',
+    screen: Scenes.EditorLoader,
+  },
 
   GlitchEffect: {
     title: 'Glitch Effect',
@@ -204,12 +204,12 @@ export const configuration = [
     title: "Shader",
     key: "Shader",
     data: [
-      // Routes.WaterShader,
-      // Routes.ToonShader,
-      // Routes.HatchShader,
-      // Routes.FlameShader,
+      Routes.WaterShader,
+      Routes.ToonShader,
+      Routes.HatchShader,
+      Routes.FlameShader,
       
-      // Routes.SkyShader,
+      Routes.SkyShader,
 
       // Routes.LavaShader,
       // Routes.OceanShader,      
@@ -219,7 +219,7 @@ export const configuration = [
     title: "Controls",
     key: "Controls",
     data: [
-      // Routes.OrbitControls,
+      Routes.OrbitControls,
     ]
   },
   {
@@ -227,29 +227,29 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
-      // Routes.ColladaApp
-      // Routes.SkinningBlending
+      Routes.ColladaApp,
+      Routes.SkinningBlending
     ]
   },
   {
     title: "Particle",
     key: "Particle",
     data: [
-      // Routes.ParticleSystem,
+      Routes.ParticleSystem,
     ]
   },
   {
     title: "Interactive",
     key: "Interactive",
     data: [
-      // Routes.VoxelPainter,
+      Routes.VoxelPainter,
     ]
   },
   {
     title: "Loader",
     key: "Loader",
     data: [
-      // Routes.EditorLoader
+      Routes.EditorLoader
     ]
   },
 ]

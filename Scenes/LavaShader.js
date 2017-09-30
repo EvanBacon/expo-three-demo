@@ -7,7 +7,6 @@ import React from 'react';
 import Expo from 'expo';
 import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
-import OrbitControls from 'expo-three-orbit-controls'
 
 import { View } from 'react-native';
 
@@ -69,21 +68,12 @@ export default class LavaShader extends React.Component {
     this.scene.add(directionalLight);
   }
 
-
-  state = {
-    camera: null
-  }
-
+  shouldComponentUpdate = () => false;
   render = () => (
-    <OrbitControls
-      style={{ flex: 1 }}
-      camera={this.state.camera}>
-      <Expo.GLView
-        // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
+    <Expo.GLView
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}
       />
-    </OrbitControls>
   );
 
   _onGLContextCreate = async (gl) => {
@@ -98,7 +88,7 @@ export default class LavaShader extends React.Component {
 
     this.scene = this.configureScene();
     const camera = this.configureCamera({ width, height });
-
+    this.controls = new THREE.OrbitControls(camera);
     this.setupLights();
 
     var cloud = await ExpoTHREE.createTextureAsync({
@@ -150,7 +140,6 @@ export default class LavaShader extends React.Component {
     this.composer.addPass(effectFilm);
 
 
-    this.setState({ camera })
     let lastFrameTime;
 
     const render = () => {
@@ -197,13 +186,4 @@ export default class LavaShader extends React.Component {
     return camera
   }
 
-  onResize = ({ width, height }) => {
-    if (this.state.camera) {
-      this.state.camera.aspect = width / height;
-      this.state.camera.updateProjectionMatrix();
-    }
-    if (this.renderer) {
-      this.renderer.setSize(width, height);
-    }
-  }
 }

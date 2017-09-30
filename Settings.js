@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'Toxic', //Home
+  initialRouteName: 'Home', //Home
 }

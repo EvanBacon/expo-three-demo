@@ -10,9 +10,6 @@ import '../window/resize';
 import Touches from '../window/Touches';
 import DeviceMotion from '../window/DeviceMotion';
 
-const OrbitControls = require('three-orbit-controls')(THREE);
-
-
 
 class App extends React.Component {
 
@@ -35,8 +32,8 @@ class App extends React.Component {
         this.renderer.setSize(width, height);
         this.renderer.setClearColor(0x339ce2);
         // this.effect = new THREE.StereoEffect(this.renderer);
-        
-        
+
+
         // scene
         this.scene = new THREE.Scene();
         // camera

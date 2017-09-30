@@ -2,7 +2,6 @@ import Expo from 'expo';
 import React from 'react';
 import { View } from 'react-native';
 import ExpoTHREE from 'expo-three';
-const OrbitControls = require('three-orbit-controls')(THREE);
 
 import ThreeView from '../ThreeView';
 
@@ -44,7 +43,7 @@ class App extends React.Component {
         this.camera.lookAt(new THREE.Vector3());
 
         // controls
-        this.controls = new OrbitControls(this.camera);
+        this.controls = new THREE.OrbitControls(this.camera);
 
         this._setupScene();
         // resize listener

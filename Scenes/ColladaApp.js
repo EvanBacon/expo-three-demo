@@ -10,8 +10,6 @@ import Touches from '../window/Touches';
 
 import AnyLoader from '../utils/AnyLoader';
 
-const OrbitControls = require('three-orbit-controls')(THREE);
-
 class App extends React.Component {
 
     render = () => (
@@ -41,7 +39,7 @@ class App extends React.Component {
         this.camera.position.set(15, 10, - 15);
         this.camera.lookAt(new THREE.Vector3());
 
-        this.controls = new OrbitControls(this.camera);
+        this.controls = new THREE.OrbitControls(this.camera);
         this.controls.target.set(0, 2, 0);
         this.controls.update();
         // custom scene

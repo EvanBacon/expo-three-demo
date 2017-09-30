@@ -39,25 +39,17 @@ export default class ParticleSystem extends React.Component {
   tick = 0;
   clock = new THREE.Clock();
 
-  state = {
-    camera: null
-  }
-
   button = ({ text, onPress }) => (
     <Button.Link style={{ backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical: 12, margin: 4 }} onPress={onPress}>{text}
     </Button.Link>
   )
 
   renderScene = () => (
-    <OrbitControls
-      style={{ flex: 1 }}
-      camera={this.state.camera}>
       <Expo.GLView
         // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}
       />
-    </OrbitControls>
   )
 
   // renderInfo = () => (
@@ -91,7 +83,8 @@ export default class ParticleSystem extends React.Component {
     const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
 
     this.scene = this.configureScene();
-    const camera = this.configureCamera({ width, height });
+    this.camera = this.configureCamera({ width, height });
+    this.controls = new THREE.OrbitControls(this.camera);
     await this.configureParticles();
 
     // this.configureLights();
@@ -100,8 +93,6 @@ export default class ParticleSystem extends React.Component {
     this.renderer.setSize(width, height);
     this.renderer.setClearColor(0x000000);
 
-
-    this.setState({ camera })
     let lastFrameTime;
 
     const render = () => {
@@ -134,8 +125,8 @@ export default class ParticleSystem extends React.Component {
 
       // stats.update();
 
-      camera.lookAt(this.scene.position);
-      this.renderer.render(this.scene, camera);
+      this.camera.lookAt(this.scene.position);
+      this.renderer.render(this.scene, this.camera);
 
       // NOTE: At the end of each frame, notify `Expo.GLView` with the below
       gl.endFrameEXP();
@@ -201,10 +192,10 @@ export default class ParticleSystem extends React.Component {
   }
 
   onResize = ({ width, height }) => {
-    if (this.state.camera) {
-      this.state.camera.aspect = width / height;
-      this.state.camera.updateProjectionMatrix();
-    }
+    
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
+    
     if (this.renderer) {
       this.renderer.setSize(width, height);
     }

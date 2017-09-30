@@ -9,8 +9,6 @@ import '../window/domElement';
 import '../window/resize';
 import Touches from '../window/Touches';
 
-const OrbitControls = require('three-orbit-controls')(THREE);
-
 THREE.PointLight.prototype.addSphere = function () {
     this.sphere = new THREE.Mesh(new THREE.SphereGeometry(2, 16, 16), new THREE.MeshBasicMaterial({
         color: this.color
@@ -25,12 +23,12 @@ THREE.PointLight.prototype.changeColor = function (value) {
 class App extends React.Component {
 
     render = () => (
-            <ThreeView
-                style={{ flex: 1 }}
-                onContextCreate={this._onContextCreate}
-                render={this._animate}
-            />
-            
+        <ThreeView
+            style={{ flex: 1 }}
+            onContextCreate={this._onContextCreate}
+            render={this._animate}
+        />
+
     );
 
     _onContextCreate = async (gl) => {
@@ -42,8 +40,8 @@ class App extends React.Component {
         this.renderer = ExpoTHREE.createRenderer({ gl });
         this.renderer.setPixelRatio(scale);
         this.renderer.setSize(width, height);
-        this.renderer.setFaceCulling( THREE.CullFaceNone );
-        
+        this.renderer.setFaceCulling(THREE.CullFaceNone);
+
         this.renderer.setClearColor(0x339ce2);
         // scene
         this.scene = new THREE.Scene();
@@ -55,7 +53,7 @@ class App extends React.Component {
         this.camera.position.z = 400;
         this.camera.lookAt(new THREE.Vector3());
 
-        this.controls = new OrbitControls(this.camera);
+        this.controls = new THREE.OrbitControls(this.camera);
         // custom scene
 
         await this._setupScene();
@@ -102,7 +100,7 @@ class App extends React.Component {
         // Add Touch Listener
         window.document.addEventListener('touchstart', (e) => {
             if (e.touches.length > 2) {
-                this.render3D = !this.render3D;                
+                this.render3D = !this.render3D;
             }
         });
 
@@ -129,11 +127,11 @@ class App extends React.Component {
     _render = () => {
         // Render Scene!
         if (this.render3D) {
-            this.effect.render(this.scene, this.camera);    
+            this.effect.render(this.scene, this.camera);
         } else {
             this.renderer.render(this.scene, this.camera);
         }
-        
+
     }
 }
 

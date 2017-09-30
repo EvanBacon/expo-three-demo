@@ -8,7 +8,6 @@ import Expo from 'expo';
 import React from 'react';
 import { View } from 'react-native';
 import ExpoTHREE from 'expo-three';
-const OrbitControls = require('three-orbit-controls')(THREE);
 
 import ThreeView from '../ThreeView';
 
@@ -52,7 +51,7 @@ class App extends React.Component {
 
     // controls
 
-    this.controls = new OrbitControls(this.camera);
+    this.controls = new THREE.OrbitControls(this.camera);
 
     // lights
 
@@ -124,9 +123,6 @@ class App extends React.Component {
 
   _animate = (delta) => {
     const { renderer, scene, camera } = this;
-    //const { width, height } = this.renderer.getSize();
-
-    // this.controls.update();  // required if controls.enableDamping = true, or if controls.autoRotate = true
     this._render();
   }
 

@@ -9,7 +9,6 @@ import React from 'react';
 import Expo from 'expo';
 import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
-import OrbitControls from 'expo-three-orbit-controls'
 
 import { View } from 'react-native';
 
@@ -57,20 +56,13 @@ export default class OceanShader extends React.Component {
   }
 
 
-  state = {
-    camera: null
-  }
-
   render = () => (
-    <OrbitControls
-      style={{ flex: 1 }}
-      camera={this.state.camera}>
+
       <Expo.GLView
         // onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}
       />
-    </OrbitControls>
   );
 
   _onGLContextCreate = async (gl) => {
@@ -82,17 +74,12 @@ export default class OceanShader extends React.Component {
     this.camera = new THREE.OrthographicCamera(); //camera.clone();
     this.camera.position.z = 1;
 
-
-    // const camera = this.configureCamera({width, height});
-    // this.setupLights();
-
     this.renderer = ExpoTHREE.createRenderer({ gl, antialias: true });
     this.renderer.setSize(width, height);
     this.renderer.setClearColor(0x000000);
     this.setupOcean(this.camera);
 
-
-    this.setState({ camera: this.camera })
+    this.controls = new THREE.OrbitControls(this.camera);
     let lastFrameTime;
 
     const render = () => {
@@ -143,20 +130,9 @@ export default class OceanShader extends React.Component {
     return scene;
   }
 
-  configureCamera = ({ width, height }) => {
-    // camera
-    let camera = new THREE.PerspectiveCamera(60, width / height, 1, 20000);
-    camera.position.set(0, 100, 2000);
-    return camera
-  }
-
   onResize = ({ width, height }) => {
-    if (this.state.camera) {
-      this.state.camera.aspect = width / height;
-      this.state.camera.updateProjectionMatrix();
-    }
-    if (this.renderer) {
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
       this.renderer.setSize(width, height);
-    }
   }
 }

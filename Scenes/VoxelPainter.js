@@ -34,6 +34,7 @@ export default class VoxelPainter extends React.Component {
 
     return touch;
   }
+  shouldComponentUpdate = () => false;
 
   buildGestures = () => PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => true,

@@ -9,8 +9,6 @@ import Expo from 'expo';
 import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
 
-import OrbitControls from 'expo-three-orbit-controls'
-
 import {Text,Dimensions, View, PanResponder } from 'react-native';
 import {Button} from '../components';
 import APP from '../assets/components/Loader';

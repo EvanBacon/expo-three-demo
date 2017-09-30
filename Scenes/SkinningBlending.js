@@ -9,8 +9,6 @@ import Expo from 'expo';
 import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
 
-import OrbitControls from 'expo-three-orbit-controls'
-
 import { Text, View, Dimensions } from 'react-native';
 
 import { Button } from '../components';
@@ -34,29 +32,17 @@ export default class SkinningBlending extends React.Component {
 	singleStepMode = false;
 	sizeOfNextStep = 0;
 
-
-	state = {
-		camera: null
-	}
-
 	button = ({ text, onPress }) => (
 		<Button.Link style={{ backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4, paddingVertical: 12, margin: 4 }} onPress={onPress}>{text}
 		</Button.Link>
 	)
 
 	renderScene = () => (
-		<OrbitControls
-			maxPolarAngle={Math.PI * 0.5}
-			minDistance={1000}
-			maxDistance={7500}
-			style={{ flex: 1 }}
-			camera={this.state.camera}>
 			<Expo.GLView
 				// onLayout={({nativeEvent:{layout:{width, height}}}) => this.onResize({width, height}) }
 				style={{ flex: 1 }}
 				onContextCreate={this._onGLContextCreate}
 			/>
-		</OrbitControls>
 	)
 
 	renderInfo = () => (
@@ -161,7 +147,6 @@ export default class SkinningBlending extends React.Component {
 			}
 			// Update the animation mixer, the skeleton and the stats panel, and render this frame
 			this.mixer.update(dt);
-			this.skeleton.update();
 
 			this.renderer.render(this.scene, camera)
 
@@ -198,9 +183,9 @@ export default class SkinningBlending extends React.Component {
 		// Initialize camera and camera controls
 		const radius = mesh.geometry.boundingSphere.radius;
 		const aspect = screenWidth / screenHeight;
-		camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
+		const camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
 		camera.position.set(0.0, radius, radius * 3.5);
-		this.setState({ camera })
+		this.controls = new THREE.OrbitControls(camera);
 
 		// Create the control panel
 		// createPanel();
@@ -249,24 +234,6 @@ export default class SkinningBlending extends React.Component {
 		return scene
 	}
 
-	configureCamera = ({ width, height }) => {
-		// camera
-		let camera = new THREE.PerspectiveCamera(30, width / height, 1, 10000);
-		camera.position.x = 1000;
-		camera.position.y = 50;
-		camera.position.z = 1500;
-		return camera
-	}
-
-	onResize = ({ width, height }) => {
-		// if (this.state.camera) {
-		//   this.state.camera.aspect = width / height;
-		//   this.state.camera.updateProjectionMatrix();
-		// }
-		// if (this.renderer) {
-		//   this.renderer.setSize( width, height );
-		// }
-	}
 
 }
 

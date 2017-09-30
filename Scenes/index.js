@@ -4,13 +4,13 @@
 //
 
 export {default as AnimationCloth} from './AnimationCloth';
-// export {default as ParticleSystem} from './ParticleSystem';
-// export {default as VoxelPainter} from './VoxelPainter';
-// export {default as EditorLoader} from './EditorLoader';
-// export {default as SkinningBlending} from './SkinningBlending';
-// export {default as SkyShader} from './SkyShader';
-// export {default as OceanShader} from './OceanShader';
-// export {default as LavaShader} from './LavaShader';
+export {default as ParticleSystem} from './ParticleSystem';
+export {default as VoxelPainter} from './VoxelPainter';
+export {default as EditorLoader} from './EditorLoader';
+export {default as SkinningBlending} from './SkinningBlending';
+export {default as SkyShader} from './SkyShader';
+export {default as OceanShader} from './OceanShader';
+export {default as LavaShader} from './LavaShader';
 
 export {default as GlitchApp} from './GlitchApp';
 export {default as HatchApp} from './HatchApp';
