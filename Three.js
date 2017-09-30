@@ -54,7 +54,9 @@ if (!console.time) {
 if (!console.timeEnd) {
     console.timeEnd = () => { };
 }
-
+if (!console.assert) {
+    console.assert = () => { };
+}
 console.ignoredYellowBox = [
     'THREE.WebGLRenderer',
     'THREE.WebGLProgram',

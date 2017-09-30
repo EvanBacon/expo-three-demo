@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 
 import { StackNavigator } from 'react-navigation';
-import {Platform} from 'react-native';
+import { Platform, Button, Linking } from 'react-native';
 import * as Scenes from './Scenes';
 import * as Screens from './Screens';
 import Colors from './Colors'
@@ -95,7 +95,7 @@ export const Routes = {
     title: 'Vignette Effect',
     key: 'VignetteEffect',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VignetteApp.js',
     screen: Scenes.VignetteApp,
   },
   WaterShader: {
@@ -105,55 +105,55 @@ export const Routes = {
     link: 'https://codepen.io/EvanBacon/pen/yJQwbZ',
     screen: Scenes.WaterApp,
   },
-  
+
   OrbitControls: {
     title: 'Orbit Controls',
     key: 'OrbitControls',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/OrbitControlsApp.js',
     screen: Scenes.OrbitControlsApp,
-    
+
   },
   FlameShader: {
     title: 'Flame Shader',
     key: 'FlameShader',
     description: '',
-    link: 'https://codepen.io/EvanBacon/full/LzGpda',
+    link: 'https://codepen.io/EvanBacon/full/FlameApp',
     screen: Scenes.FlameApp,
   },
   VrHelloWorldApp: {
     title: 'Hello World',
     key: 'VrHelloWorldApp',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VrHelloWorldApp.js',
     screen: Scenes.VrHelloWorldApp,
   },
   Anaglyph3dApp: {
     title: 'Anaglyph',
     key: 'Anaglyph3dApp',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Anaglyph3dApp.js',
     screen: Scenes.Anaglyph3dApp,
   },
   ParallaxBarrierApp: {
     title: 'Parallax Barrier',
     key: 'ParallaxBarrierApp',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ParallaxBarrierApp.js',
     screen: Scenes.ParallaxBarrierApp,
   },
   ColladaApp: {
     title: 'Collada',
     key: 'ColladaApp',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ColladaApp.js',
     screen: Scenes.ColladaApp,
   },
   Toxic: {
     title: 'Toxic',
     key: 'Toxic',
     description: '',
-    link: '',
+    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Toxic.js',
     screen: Scenes.Toxic,
   }
 };
@@ -162,8 +162,27 @@ export const Routes = {
 
 Object.keys(Routes).map(key => {
   const obj = Routes[key];
-  obj.screen.navigationOptions = { 
-    title: obj.title 
+  obj.screen.navigationOptions = {
+    title: obj.title,
+    headerRight: ((() => {
+      const { link: url } = obj;
+      if (!url || url === "") {
+        return (null);
+      }
+      return (
+        <Button title={"Code"} onPress={() => {
+          Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+              console.log('Can\'t handle url: ' + url);
+            } else {
+              return Linking.openURL(url);
+            }
+          }).catch(err => console.error('An error occurred', err));
+        }
+        }
+        />
+      )
+    })())
   }
 });
 
@@ -172,7 +191,24 @@ const navigationOptions = {
   headerStyle: {
     backgroundColor: Colors.headerColor
   },
-  headerBackTitle: "Back"
+  headerBackTitle: "Back",
+  headerRight: ((() => {
+    const url = "https://github.com/EvanBacon/expo-three-demo";
+   
+    return (
+      <Button title={"Repo"} onPress={() => {
+        Linking.canOpenURL(url).then(supported => {
+          if (!supported) {
+            console.log('Can\'t handle url: ' + url);
+          } else {
+            return Linking.openURL(url);
+          }
+        }).catch(err => console.error('An error occurred', err));
+      }
+      }
+      />
+    )
+  })())
 }
 
 export const configuration = [
@@ -208,7 +244,7 @@ export const configuration = [
       Routes.ToonShader,
       Routes.HatchShader,
       Routes.FlameShader,
-      
+
       Routes.SkyShader,
 
       // Routes.LavaShader,
