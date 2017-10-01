@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'Trees', //Home
+  initialRouteName: 'Home', //Home
 }

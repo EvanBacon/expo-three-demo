@@ -234,6 +234,13 @@ export const configuration = [
     ]
   },
   {
+    title: "Game",
+    key: "Game",
+    data: [
+      Routes.Trees,
+    ]
+  },
+  {
     title: "Effects",
     key: "Effects",
     data: [
