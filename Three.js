@@ -39,6 +39,7 @@ require('three/examples/js/controls/OrbitControls');
 
 require('./assets/components/threex.toxicpproc.js');
 require('./assets/components/threex.uniformstween.js');
+require('./assets/components/threex.daynight.js');
 
 
 // const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');

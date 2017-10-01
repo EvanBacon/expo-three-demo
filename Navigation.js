@@ -162,7 +162,14 @@ export const Routes = {
     description: '',
     link: 'https://github.com/DungFu/TreeGen.js',
     screen: Scenes.Trees,
-  }
+  },
+  DayCycle: {
+    title: 'Day Cycle',
+    key: 'DayCycle',
+    description: '',
+    link: 'https://github.com/jeromeetienne/threex.daynight',
+    screen: Scenes.DayCycle,
+  },
 };
 
 
@@ -238,6 +245,7 @@ export const configuration = [
     key: "Game",
     data: [
       Routes.Trees,
+      Routes.DayCycle
     ]
   },
   {
