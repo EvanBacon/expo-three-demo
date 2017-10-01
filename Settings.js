@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'DayCycle', //Home
+  initialRouteName: 'Home', //Home
 }
