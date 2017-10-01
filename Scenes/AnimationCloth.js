@@ -10,6 +10,11 @@ import { View, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import ThreeView from '../ThreeView';
 
+
+require('../Three');
+require('../window/domElement');
+require('../window/resize');
+
 import Touches from '../window/Touches';
 
 
@@ -203,7 +208,7 @@ class App extends React.Component {
 
   configureSphere = () => {
     var ballGeo = new THREE.SphereBufferGeometry(ballSize, 20, 20);
-    var ballMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
+    var ballMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
     this.sphere = new THREE.Mesh(ballGeo, ballMaterial);
     this.sphere.castShadow = true;
     this.sphere.receiveShadow = true;
@@ -213,7 +218,7 @@ class App extends React.Component {
   configureCloth = async () => {
 
     const clothTexture = await this.clothTexture();
-    var clothMaterial = new THREE.MeshPhongMaterial({
+    var clothMaterial = new THREE.MeshBasicMaterial({
       specular: 0x030303,
       map: clothTexture,
       side: THREE.DoubleSide,
@@ -244,7 +249,7 @@ class App extends React.Component {
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set(25, 25);
     groundTexture.anisotropy = 16;
-    var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, map: groundTexture });
+    var groundMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, specular: 0x111111, map: groundTexture });
     var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
     mesh.position.y = - 250;
     mesh.rotation.x = - Math.PI / 2;
@@ -252,7 +257,7 @@ class App extends React.Component {
     this.scene.add(mesh);
     // poles
     var poleGeo = new THREE.BoxGeometry(5, 375, 5);
-    var poleMat = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, shininess: 100 });
+    var poleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, specular: 0x111111, shininess: 100 });
     var mesh = new THREE.Mesh(poleGeo, poleMat);
     mesh.position.x = - 125;
     mesh.position.y = - 62;

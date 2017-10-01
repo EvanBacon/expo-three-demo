@@ -72,7 +72,7 @@ class App extends React.Component {
         this.scene.add(this.object);
         const geometry = new THREE.SphereGeometry(1, 4, 4);
         for (var i = 0; i < 100; i++) {
-            const material = new THREE.MeshPhongMaterial({ color: 0xffffff * Math.random(), flatShading: true });
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random(), flatShading: true });
             const mesh = new THREE.Mesh(geometry, material);
             mesh.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
             mesh.position.multiplyScalar(Math.random() * 400);

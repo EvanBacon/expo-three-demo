@@ -10,7 +10,7 @@ export default (urls, onLoad) => {
         this.loader = new THREE.STLLoader();
         this.loader.addEventListener('load', function (event) {
             var geometry = event.content
-            var material = new THREE.MeshPhongMaterial();
+            var material = new THREE.MeshBasicMaterial();
             var object3d = new THREE.Mesh(geometry, material);
             onLoad(object3d)
         })

@@ -85,10 +85,10 @@ class App extends React.Component {
         light.position.set(0, 3000, 0);
         light.castShadow = true;
         // light.shadowMapBias = 0.001
-        light.shadowMapWidth = light.shadowMapHeight = 512;
-        light.shadowCameraVisible = true;
-        light.shadowCameraLeft = light.shadowCameraBottom = -2000;
-        light.shadowCameraRight = light.shadowCameraTop = 2000;
+        // light.shadow.map.width = light.shadow.map.height = 512;
+        // light.shadow.camera.visible = true;
+        // light.shadow.camera.left = light.shadow.camera.bottom = -2000;
+        // light.shadow.camera.right = light.shadow.camera.top = 2000;
         // light.shadowMapDarkness = .6;
         this.scene.add(light);
 

@@ -115,13 +115,13 @@ export default class Tree extends THREE.Object3D {
         }
 
         //bark.jpg
-        var trunkMat = new THREE.MeshPhongMaterial({
+        var trunkMat = new THREE.MeshBasicMaterial({
             map: await ExpoTHREE.createTextureAsync({
                 asset: Expo.Asset.fromModule(images.trunk),
             }),
-            wrapS: THREE.RepeatWrapping,
-            wrapT: THREE.RepeatWrapping,
-            anisotropy: 16
+            // wrapS: THREE.RepeatWrapping,
+            // wrapT: THREE.RepeatWrapping,
+            // anisotropy: 16
         })
 
         const trunk = new THREE.Mesh(trunkGeo, trunkMat);
@@ -244,7 +244,7 @@ export default class Tree extends THREE.Object3D {
                 var leavesGeo = new THREE.PlaneGeometry(leaveSize, leaveSize);
 
                 ///img/leaves.png
-                var leavesMat = new THREE.MeshPhongMaterial({
+                var leavesMat = new THREE.MeshBasicMaterial({
                     map: await ExpoTHREE.createTextureAsync({
                         asset: Expo.Asset.fromModule(images.leaves),
                     }),
@@ -301,7 +301,7 @@ export default class Tree extends THREE.Object3D {
                         asset: Expo.Asset.fromModule(images.fire),
                     });
                     this.explosions.push(new TextureAnimator(explosionTexture, 4, 4, 16, 90)); // texture, #horiz, #vert, #total, duration.
-                    var fireMat = new THREE.MeshPhongMaterial({
+                    var fireMat = new THREE.MeshBasicMaterial({
                         map: explosionTexture,
                         transparent: true,
                         side: THREE.DoubleSide,

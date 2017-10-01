@@ -49,7 +49,7 @@ class App extends React.Component {
     // world
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
-    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, flatShading: true });
 
     for (var i = 0; i < 500; i++) {
 

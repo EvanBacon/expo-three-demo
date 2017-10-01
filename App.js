@@ -8,7 +8,7 @@ import React from 'react';
 import { Platform, StyleSheet, StatusBar, Text, View } from 'react-native';
 import Navigation from './Navigation'
 
-import './Three';
+require('./Three');
 import './window/domElement';
 import './window/resize';
 

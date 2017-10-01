@@ -41,13 +41,13 @@ export const Routes = {
     link: 'https://threejs.org/examples/#webgl_shaders_ocean2',
     screen: Scenes.LavaShader,
   },
-  SkinningBlending: {
-    title: 'Skinning Blending',
-    key: 'SkinningBlending',
-    description: 'Skinning And Blending Models',
-    link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
-    screen: Scenes.SkinningBlending,
-  },
+  // SkinningBlending: {
+  //   title: 'Skinning Blending',
+  //   key: 'SkinningBlending',
+  //   description: 'Skinning And Blending Models',
+  //   link: 'https://threejs.org/examples/#webgl_animation_skinning_blending',
+  //   screen: Scenes.SkinningBlending,
+  // },
   ParticleSystem: {
     title: 'Particle System',
     key: 'ParticleSystem',
@@ -286,7 +286,7 @@ export const configuration = [
     data: [
       Routes.AnimationCloth,
       Routes.ColladaApp,
-      Routes.SkinningBlending
+      // Routes.SkinningBlending
     ]
   },
   {
