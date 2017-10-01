@@ -155,6 +155,13 @@ export const Routes = {
     description: '',
     link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Toxic.js',
     screen: Scenes.Toxic,
+  },
+  Trees: {
+    title: 'Trees',
+    key: 'Trees',
+    description: '',
+    link: 'https://github.com/DungFu/TreeGen.js',
+    screen: Scenes.Trees,
   }
 };
 
