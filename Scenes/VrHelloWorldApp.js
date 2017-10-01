@@ -4,9 +4,6 @@ import { View, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import ThreeView from '../ThreeView';
 
-import '../Three';
-import '../window/domElement';
-import '../window/resize';
 import Touches from '../window/Touches';
 import DeviceMotion from '../window/DeviceMotion';
 

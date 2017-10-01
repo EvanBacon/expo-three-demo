@@ -7,7 +7,6 @@ import '../assets/components/Ocean';
 import '../assets/components/OceanShaders';
 import React from 'react';
 import Expo from 'expo';
-import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
 
 import { View } from 'react-native';

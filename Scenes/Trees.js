@@ -8,9 +8,6 @@ const TWEEN = require('tween.js')
 
 require('three/examples/js/shaders/FXAAShader');
 
-import '../Three';
-import '../window/domElement';
-import '../window/resize';
 import Touches from '../window/Touches';
 
 

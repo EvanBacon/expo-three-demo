@@ -6,11 +6,17 @@
 import Expo, { AppLoading } from 'expo';
 import React from 'react';
 import { Platform, StyleSheet, StatusBar, Text, View } from 'react-native';
-import { AnimationCloth } from './Scenes'
 import Navigation from './Navigation'
-import { Loader } from './components'
+
+import './Three';
+import './window/domElement';
+import './window/resize';
 
 export default class App extends React.Component {
+  state = {
+    appIsReady: false
+  }
+  
   componentWillMount() {
     this.setState({ appIsReady: true });
 
@@ -31,9 +37,7 @@ export default class App extends React.Component {
       this.setState({ appIsReady: true });
     }
   }
-  state = {
-    appIsReady: false
-  }
+
   render() {
     if (this.state.appIsReady) {
       return (

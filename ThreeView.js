@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { findNodeHandle, NativeModules, View } from 'react-native';
+import { findNodeHandle, NativeModules, View, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import PropTypes from 'prop-types';
 export default class ThreeView extends React.Component {
@@ -10,12 +10,28 @@ export default class ThreeView extends React.Component {
         render: PropTypes.func.isRequired,
         enableAR: PropTypes.bool,
     }
-    render = () => (
-        <Expo.GLView
-            nativeRef_EXPERIMENTAL={this._setNativeGLView}
-            style={{ flex: 1 }}
-            onContextCreate={this._onGLContextCreate} />
-    );
+    render = () => {
+        if (!Expo.Constants.isDevice) {
+            return (
+                <View
+                    style={{
+                        backgroundColor: 'red',
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Text>Can't Run GLView in Simulator :(</Text>
+                </View>
+            )
+        }
+
+        return (
+            <Expo.GLView
+                nativeRef_EXPERIMENTAL={this._setNativeGLView}
+                style={{ flex: 1 }}
+                onContextCreate={this._onGLContextCreate} />
+        );
+    }
 
     _setNativeGLView = ref => {
         this._nativeGLView = ref;
@@ -40,8 +56,8 @@ export default class ThreeView extends React.Component {
 
         const render = () => {
             const now = 0.001 * global.nativePerformanceNow();
-            const dt = typeof this.lastFrameTime !== 'undefined'
-                ? now - this.lastFrameTime
+            const dt = typeof lastFrameTime !== 'undefined'
+                ? now - lastFrameTime
                 : 0.16666;
             requestAnimationFrame(render);
 
@@ -49,7 +65,7 @@ export default class ThreeView extends React.Component {
             // NOTE: At the end of each frame, notify `Expo.GLView` with the below
             gl.endFrameEXP();
 
-            this.lastFrameTime = now;
+            lastFrameTime = now;
         }
         render();
     }
