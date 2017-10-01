@@ -40,8 +40,8 @@ export default class ThreeView extends React.Component {
 
         const render = () => {
             const now = 0.001 * global.nativePerformanceNow();
-            const dt = typeof lastFrameTime !== 'undefined'
-                ? now - lastFrameTime
+            const dt = typeof this.lastFrameTime !== 'undefined'
+                ? now - this.lastFrameTime
                 : 0.16666;
             requestAnimationFrame(render);
 
@@ -49,7 +49,7 @@ export default class ThreeView extends React.Component {
             // NOTE: At the end of each frame, notify `Expo.GLView` with the below
             gl.endFrameEXP();
 
-            lastFrameTime = now;
+            this.lastFrameTime = now;
         }
         render();
     }

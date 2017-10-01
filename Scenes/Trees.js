@@ -126,7 +126,7 @@ class App extends React.Component {
         this.composer = new THREE.EffectComposer(this.renderer);
         this.composer.addPass(renderModel);
         this.composer.addPass(this.effectFXAA);
-        composer.addPass(effectBloom);
+        // this.composer.addPass(effectBloom);
         this.composer.addPass(effectCopy);
 
         // this.scene.add(new THREE.GridHelper(4, 10));
