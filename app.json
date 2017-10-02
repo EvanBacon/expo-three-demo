@@ -5,7 +5,6 @@
     "slug": "three-demo",
     "privacy": "public",
     "sdkVersion": "21.0.0",
-    "orientation": "portrait",
     "version": "1.0.0",
     "primaryColor": "#056ECF",
     "icon": "./assets/icons/app.png",

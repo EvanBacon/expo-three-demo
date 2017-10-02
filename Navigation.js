@@ -170,6 +170,13 @@ export const Routes = {
     link: 'https://github.com/jeromeetienne/threex.daynight',
     screen: Scenes.DayCycle,
   },
+  VirtualBoy: {
+    title: 'Virtual Boy',
+    key: 'VirtualBoy',
+    description: '',
+    link: '',
+    screen: Scenes.VirtualBoy,
+  }
 };
 
 
@@ -256,6 +263,7 @@ export const configuration = [
       Routes.VignetteEffect,
       Routes.ParallaxBarrierApp,
       Routes.Anaglyph3dApp,
+      Routes.VirtualBoy
     ]
   },
   {
