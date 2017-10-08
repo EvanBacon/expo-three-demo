@@ -40,7 +40,7 @@ class App extends React.Component {
         this.camera.lookAt(new THREE.Vector3());
 
         this.controls = new THREE.OrbitControls(this.camera);
-        this.controls.target.set(0, 2, 0);
+        // this.controls.target.set(0, 2, 0);
         this.controls.update();
         // custom scene
 
@@ -63,7 +63,6 @@ class App extends React.Component {
         this.scene.add(directionalLight);
 
         await this.setupColladaSceneAsync();
-
     }
 
 
@@ -73,7 +72,7 @@ class App extends React.Component {
             const file = await Expo.FileSystem.readAsStringAsync(localUri);
             return file;
         } catch (error) {
-            console.log("Error from _loadFile");
+            console.log("Error from loadRawFileAsync");
             console.error(error);
         }
     }
@@ -130,7 +129,7 @@ class App extends React.Component {
             return a reference for further control.
             A more expo-esque function signature would be playAnimationAsync();
         */
-        const action = this.mixer.clipAction(animations[0]).play();
+        // const action = this.mixer.clipAction(animations[0]).play();
 
         this.scene.add(scene);
 
