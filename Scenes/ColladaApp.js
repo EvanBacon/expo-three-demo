@@ -10,6 +10,8 @@ import AnyLoader from '../utils/AnyLoader';
 
 class App extends React.Component {
 
+    shouldComponentUpdate = () => false;
+
     render = () => (
         <ThreeView
             style={{ flex: 1 }}
@@ -42,14 +44,14 @@ class App extends React.Component {
         this.controls.update();
         // custom scene
 
-        await this._setupScene();
+        await this.setupSceneAsync();
 
         // resize listener
 
         window.addEventListener('resize', this._onWindowResize, false);
     }
 
-    _setupScene = async () => {
+    setupSceneAsync = async () => {
         const { innerWidth: width, innerHeight: height } = window;
         // Initialize Three.JS
 
@@ -60,12 +62,12 @@ class App extends React.Component {
         directionalLight.position.set(1, 1, - 1);
         this.scene.add(directionalLight);
 
-        await this._setupColladaModel();
+        await this.setupColladaSceneAsync();
 
     }
 
 
-    _loadFile = async (localUri) => {
+    loadRawFileAsync = async (localUri) => {
         console.log("Load local file", localUri);
         try {
             const file = await Expo.FileSystem.readAsStringAsync(localUri);
@@ -85,7 +87,7 @@ class App extends React.Component {
            scene: Scene;
            library: any;
     */
-    _loadColladaModel = async (staticResource) => {
+    loadColladaAsync = async (staticResource) => {
         //Load Asset
         const asset = Expo.Asset.fromModule(staticResource);
         if (!asset.localUri) {
@@ -97,7 +99,7 @@ class App extends React.Component {
         loader.options.convertUpAxis = true;
         // loader.setCrossOrigin('assets/models/stormtrooper/');
 
-        const file = await this._loadFile(asset.localUri);
+        const file = await this.loadRawFileAsync(asset.localUri);
         // Cheever method (Dire Dire Ducks)
         const collada = loader.parse(file);
 
@@ -107,13 +109,13 @@ class App extends React.Component {
         return collada;
     }
 
-    _setupColladaModel = async () => {
-        const collada = await this._loadColladaModel(require('../assets/models/stormtrooper/stormtrooper.dae'));
-        
+    setupColladaSceneAsync = async () => {
+        const collada = await this.loadColladaAsync(require('../assets/models/stormtrooper/stormtrooper.dae'));
+
         const {
             animations,
             kinematics,
-            scene: avatar,
+            scene,
             library
         } = collada;
 
@@ -121,16 +123,27 @@ class App extends React.Component {
             Build a control to manage the animations
             This breaks if the model doesn't have animations - this needs to be fixed as it's probably 80% of free models
         */
-        this.mixer = new THREE.AnimationMixer(avatar);
+        this.mixer = new THREE.AnimationMixer(scene);
 
+        /*
+            play the first animation.
+            return a reference for further control.
+            A more expo-esque function signature would be playAnimationAsync();
+        */
         const action = this.mixer.clipAction(animations[0]).play();
 
-        this.scene.add(avatar);
+        this.scene.add(scene);
 
-        const helper = new THREE.SkeletonHelper(avatar);
+        /*
+            This will help visualize the animation
+        */
+        this.setupSkeletonHelperForScene(scene);
+    }
+
+    setupSkeletonHelperForScene = (scene) => {
+        const helper = new THREE.SkeletonHelper(scene);
         helper.material.linewidth = 3;
         this.scene.add(helper);
-
     }
 
     _onWindowResize = () => {
@@ -150,10 +163,8 @@ class App extends React.Component {
         this.controls.update();
 
         if (this.mixer !== undefined) {
-
-            this.mixer.update(delta);
+            const animationMixer = this.mixer.update(delta); //returns THREE.AnimationMixer
         }
-
 
         this._render();
     }
