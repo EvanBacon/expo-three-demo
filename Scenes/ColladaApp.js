@@ -4,12 +4,35 @@ import { View, Text } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import ThreeView from '../ThreeView';
 
+const TWEEN = require('tween.js');
 import Touches from '../window/Touches';
 
 import AnyLoader from '../utils/AnyLoader';
 
-class App extends React.Component {
+const alignMesh = (mesh, axis = { x: 0.5, y: 0.5, z: 0.5 }) => {
+    axis = axis || {};
+    const box = new THREE.Box3().setFromObject(mesh);
+  
+    const size = box.getSize();
+    const min = { x: -box.min.x, y: -box.min.y, z: -box.min.z };
+  
+    Object.keys(axis).map(key => {
+      const scale = axis[key];
+      mesh.position[key] = min[key] - size[key] + size[key] * scale;
+    });
+  };
+  const scaleLongestSideToSize = (mesh, size) => {
+    const { x: width, y: height, z: depth } =
+      new THREE.Box3().setFromObject(mesh).getSize();
+    const longest = Math.max(width, Math.max(height, depth));
+    const scale = size / longest;
+    mesh.scale.set(scale, scale, scale);
+  }
+  
 
+class App extends React.Component {
+    tweenParameters = {};
+    
     shouldComponentUpdate = () => false;
 
     render = () => (
@@ -61,7 +84,6 @@ class App extends React.Component {
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
         directionalLight.position.set(1, 1, - 1);
         this.scene.add(directionalLight);
-
         await this.setupColladaSceneAsync();
     }
 
@@ -93,10 +115,7 @@ class App extends React.Component {
             await asset.downloadAsync();
         }
 
-
         const loader = new THREE.ColladaLoader();
-        loader.options.convertUpAxis = true;
-        // loader.setCrossOrigin('assets/models/stormtrooper/');
 
         const file = await this.loadRawFileAsync(asset.localUri);
         // Cheever method (Dire Dire Ducks)
@@ -109,14 +128,40 @@ class App extends React.Component {
     }
 
     setupColladaSceneAsync = async () => {
-        const collada = await this.loadColladaAsync(require('../assets/models/stormtrooper/stormtrooper.dae'));
-
+        const collada = await this.loadColladaAsync(require('../assets/models/robot.dae'));
+        // const collada = await this.loadColladaAsync(require('../assets/models/stormtrooper/stormtrooper.dae'));
+        // const collada = await this.loadColladaAsync(require('../assets/models/elf/elf.dae'));
+        
         const {
             animations,
             kinematics,
             scene,
             library
         } = collada;
+        this.kinematics = kinematics;
+        // console.warn("animations", Object.keys(animations));
+        // ['0']
+        // console.warn("kinematics", Object.keys(kinematics));
+        // []
+        // console.warn("scene", Object.keys(scene));
+        // console.warn("library", Object.keys(library));
+        // ['0']
+
+
+        scene.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                // model does not have normals
+                // child.material.flatShading = true;
+                child.material = new THREE.MeshNormalMaterial();	
+                child.material.skinning = true;
+                
+                
+            }
+        });
+        alignMesh(scene);
+        scaleLongestSideToSize(scene, 10);
+        scene.updateMatrix();
+
 
         /* 
             Build a control to manage the animations
@@ -137,12 +182,34 @@ class App extends React.Component {
             This will help visualize the animation
         */
         this.setupSkeletonHelperForScene(scene);
+
+        this.setupTween();
     }
 
     setupSkeletonHelperForScene = (scene) => {
         const helper = new THREE.SkeletonHelper(scene);
         helper.material.linewidth = 3;
         this.scene.add(helper);
+    }
+    
+    setupTween = () => {
+        var duration = THREE.Math.randInt( 1000, 5000 );
+        var target = {};
+        for ( var i = 0; i < this.kinematics.joints.length; i ++ ) {
+            var joint = this.kinematics.joints[ i ];
+            var old = this.tweenParameters[ i ];
+            var position = old ? old : joint.zeroPosition;
+            this.tweenParameters[ i ] = position;
+            target[ i ] = THREE.Math.randInt( joint.limits.min, joint.limits.max )
+        }
+        let kinematicsTween = new TWEEN.Tween( this.tweenParameters ).to( target, duration ).easing( TWEEN.Easing.Quadratic.Out );
+        kinematicsTween.onUpdate( function() {
+            for ( var i = 0; i < this.kinematics.joints.length; i ++ ) {
+                this.kinematics.setJointValue( i, this[ i ] );
+            }
+        } );
+        kinematicsTween.start();
+        setTimeout( this.setupTween, duration );
     }
 
     _onWindowResize = () => {
@@ -165,6 +232,8 @@ class App extends React.Component {
             const animationMixer = this.mixer.update(delta); //returns THREE.AnimationMixer
         }
 
+        TWEEN.update();
+        
         this._render();
     }
 

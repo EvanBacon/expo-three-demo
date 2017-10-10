@@ -8,4 +8,7 @@
 // }
 
 // global.DOMParser = DOMParser;
-window.DOMParser = require('xmldom').DOMParser;
+
+// import DOMParser from 'react-native-html-parser';
+window.DOMParser = require('xmldom-qsa').DOMParser;
+// window.DOMParser = require('xmldom').DOMParser;

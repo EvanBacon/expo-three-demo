@@ -8,6 +8,7 @@ export default THREE;
 
 require('three/examples/js/loaders/OBJLoader');
 require('three/examples/js/loaders/STLLoader');
+// require('three/examples/js/loaders/ColladaLoader');
 require('three/examples/js/loaders/ColladaLoader2');
 require('three/examples/js/loaders/OBJLoader2');
 
