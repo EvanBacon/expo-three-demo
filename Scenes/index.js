@@ -25,7 +25,6 @@ export {default as OrbitControlsApp} from './OrbitControlsApp';
 export {default as FlameApp} from './FlameApp';
 export {default as Anaglyph3dApp} from './Anaglyph3dApp';
 export {default as ParallaxBarrierApp} from './ParallaxBarrierApp';
-export {default as ColladaApp} from './ColladaApp';
 export {default as Toxic} from './Toxic';
 export {default as Trees} from './Trees';
 export {default as DayCycle} from './DayCycle';

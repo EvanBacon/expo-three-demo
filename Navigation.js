@@ -142,13 +142,6 @@ export const Routes = {
     link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ParallaxBarrierApp.js',
     screen: Scenes.ParallaxBarrierApp,
   },
-  ColladaApp: {
-    title: 'Collada',
-    key: 'ColladaApp',
-    description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ColladaApp.js',
-    screen: Scenes.ColladaApp,
-  },
   Toxic: {
     title: 'Toxic',
     key: 'Toxic',
@@ -293,7 +286,6 @@ export const configuration = [
     key: "Animation",
     data: [
       Routes.AnimationCloth,
-      Routes.ColladaApp,
       // Routes.SkinningBlending
     ]
   },
