@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'VirtualBoy', //Home
+  initialRouteName: 'Home', //Home
 }

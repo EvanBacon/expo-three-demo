@@ -19,7 +19,7 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        Expo.ScreenOrientation.allow(Expo.ScreenOrientation.Orientation.LANDSCAPE);
+        // Expo.ScreenOrientation.allow(Expo.ScreenOrientation.Orientation.LANDSCAPE);
 
     }
     componentWillUnmount() {

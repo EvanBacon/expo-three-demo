@@ -116,9 +116,9 @@ window.document.body = new DOMElement('body');
 global.document = window.document;
 
 window.performance = {
-    now: {
+    now: () => ({
         bind: ( ()=>  ( ()=> ({}) ) )
-    }
+    })
 }
 require('./DOMParser.js');
 global.HTMLCanvasElement = require('./HTMLCanvasElement');
