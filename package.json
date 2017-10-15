@@ -8,13 +8,13 @@
   "dependencies": {
     "expo": "^21.0.1",
     "expo-three": "^2.0.1",
-    "tween.js": "^16.6.0",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
     "react-navigation": "^1.0.0-beta.11",
     "three": "^0.87.1",
     "three-orbit-controls": "^82.1.0",
-    "xmldom": "^0.1.27"
+    "tween.js": "^16.6.0",
+    "xmldom-qsa": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "^4.0.0",

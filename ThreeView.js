@@ -15,7 +15,7 @@ export default class ThreeView extends React.Component {
             return (
                 <View
                     style={{
-                        backgroundColor: 'red',
+                        backgroundColor: 'orange',
                         flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center'

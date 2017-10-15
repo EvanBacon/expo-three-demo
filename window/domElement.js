@@ -72,7 +72,8 @@ class DOMElement extends DOMNode {
 
 class DOMDocument extends DOMElement {
     body = new DOMElement('BODY');
-
+    documentElement = new DOMElement('HTML');
+    
     constructor() {
         super('#document');
     }
@@ -114,6 +115,7 @@ window.removeEventListener = window.removeEventListener || ((eventName, listener
 window.document = new DOMDocument();
 window.document.body = new DOMElement('body');
 global.document = window.document;
+
 
 window.performance = {
     now: () => ({
