@@ -176,6 +176,20 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.AMFLoaderDemo,
+  },
+  ThreeMFLoaderDemo: {
+    title: '3MF',
+    key: 'ThreeMFLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.ThreeMFLoaderDemo,
+  },
+  TDSLoaderDemo: {
+    title: '3DS',
+    key: 'TDSLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.TDSLoaderDemo,
   }
 };
 
@@ -315,7 +329,10 @@ export const configuration = [
     key: "Loader",
     data: [
       Routes.EditorLoader,
-      Routes.AMFLoaderDemo
+      Routes.AMFLoaderDemo,
+      Routes.ThreeMFLoaderDemo,
+      Routes.TDSLoaderDemo
+      
     ]
   },
 ]

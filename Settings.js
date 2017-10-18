@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'AMFLoaderDemo', //Home
+  initialRouteName: 'TDSLoaderDemo', //Home
 }

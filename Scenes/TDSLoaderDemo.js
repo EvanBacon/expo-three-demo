@@ -4,8 +4,8 @@ import ExpoTHREE from 'expo-three';
 import Touches from '../window/Touches';
 import ThreeView from '../ThreeView';
 
-require('../assets/components/AMFLoader.js');
-
+// require('../assets/components/AMFLoader.js');
+require('three/examples/js/loaders/TDSLoader.js');
 class Scene extends React.Component {
     static defaultProps = {
         onLoadingUpdated: (({ loaded, total }) => { }),
@@ -69,14 +69,12 @@ class Scene extends React.Component {
             this.scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
             /// Standard Camera
-            this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 500);
-
-            this.camera.up.set( 0, 0, 1 );
-            this.camera.position.set( 0, -12, 6 );
+            this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10);
+            this.camera.position.set( 0, 0, 2 );
 
             // controls    
             this.controls = new THREE.OrbitControls(this.camera);
-            this.controls.target.set( 0, 1.2, 2 );
+            // this.controls.target.set( 0, 1.2, 2 );
             
             var grid = new THREE.GridHelper( 50, 50, 0xffffff, 0x555555 );
             grid.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), 90 * ( Math.PI/180 ) );
@@ -88,30 +86,55 @@ class Scene extends React.Component {
 
     setupLights = () => {
         // lights
-        let light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(1, 1, 1);
-        this.scene.add(light);
+        // let light = new THREE.DirectionalLight(0xffffff);
+        // light.position.set(1, 1, 1);
+        // this.scene.add(light);
+        this.scene.add( new THREE.HemisphereLight() );
+        
+        const directionalLight = new THREE.DirectionalLight( 0xffeedd );
+        directionalLight.position.set( 0, 0, 2 );
+        this.scene.add( directionalLight );
 
-        light = new THREE.DirectionalLight(0x002288);
-        light.position.set(-1, -1, -1);
-        this.scene.add(light);
+       
 
-        light = new THREE.AmbientLight(0x222222);
-        this.scene.add(light);
+        // light = new THREE.AmbientLight(0x222222);
+        // this.scene.add(light);
     }
 
     setupWorldAsync = async () => {
 
         this.setupLights();
 
-        const modelUri = require('../assets/models/amf/rook.amf');
+
+        const normalModelUri = require('../assets/models/3ds/portalgun/textures/normal.jpg');
+        const normalAsset = Expo.Asset.fromModule(normalModelUri);
+        if (!normalAsset.localUri) {
+            await normalAsset.downloadAsync();
+        }
+        const normalDownloadUri = normalAsset.localUri;
+
+        //3ds files dont store normal maps
+        const textureLoader = new THREE.TextureLoader();
+        const normal = textureLoader.load( normalDownloadUri );
+
+
+
+        const modelUri = require('../assets/models/3ds/portalgun/portalgun.3ds');
         const asset = Expo.Asset.fromModule(modelUri);
         if (!asset.localUri) {
             await asset.downloadAsync();
         }
         const downloadUri = asset.localUri;
-        const loader = new THREE.AMFLoader();
+        const loader = new THREE.TDSLoader();
+        loader.setPath( '../assets/models/3ds/portalgun/textures/' );  /// CANT LOAD FROM NAME 😭
         const object = await (new Promise((res, rej) => loader.load(downloadUri, res, () => {}, rej) ));
+
+        object.traverse( function ( child ) {
+            if ( child instanceof THREE.Mesh ) {
+                child.material.normalMap = normal;
+            }
+        });
+
         this.scene.add(object);
         const { x: width, y: height, z: depth } = new THREE.Box3().setFromObject(object).getSize();
         console.warn(width, height, depth);

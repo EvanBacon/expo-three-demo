@@ -4,7 +4,7 @@ import ExpoTHREE from 'expo-three';
 import Touches from '../window/Touches';
 import ThreeView from '../ThreeView';
 
-require('../assets/components/AMFLoader.js');
+require('../assets/components/3MFLoader.js');
 
 class Scene extends React.Component {
     static defaultProps = {
@@ -104,18 +104,18 @@ class Scene extends React.Component {
 
         this.setupLights();
 
-        const modelUri = require('../assets/models/amf/rook.amf');
+        const modelUri = require('../assets/models/3mf/cube_gears.3mf');
         const asset = Expo.Asset.fromModule(modelUri);
         if (!asset.localUri) {
             await asset.downloadAsync();
         }
         const downloadUri = asset.localUri;
-        const loader = new THREE.AMFLoader();
+        const loader = new THREE.ThreeMFLoader();
         const object = await (new Promise((res, rej) => loader.load(downloadUri, res, () => {}, rej) ));
         this.scene.add(object);
         const { x: width, y: height, z: depth } = new THREE.Box3().setFromObject(object).getSize();
         console.warn(width, height, depth);
-        
+
     }
 
     onWindowResize = () => {

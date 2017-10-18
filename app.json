@@ -19,7 +19,10 @@
         "mp4",
         "dae",
         "obj",
-        "amf"
+        "amf",
+        "3mf",
+        "3ds",
+        "jpg"
       ]
     },
     "ios": {
