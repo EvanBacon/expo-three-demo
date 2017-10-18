@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'AssimpLoaderDemo', //Home
+  initialRouteName: 'Home', //Home
 }
