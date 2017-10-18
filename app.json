@@ -18,7 +18,8 @@
         "ttf",
         "mp4",
         "dae",
-        "obj"
+        "obj",
+        "amf"
       ]
     },
     "ios": {

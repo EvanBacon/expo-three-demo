@@ -169,6 +169,13 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.VirtualBoy,
+  },
+  AMFLoaderDemo: {
+    title: 'AMF',
+    key: 'AMFLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.AMFLoaderDemo,
   }
 };
 
@@ -307,7 +314,8 @@ export const configuration = [
     title: "Loader",
     key: "Loader",
     data: [
-      Routes.EditorLoader
+      Routes.EditorLoader,
+      Routes.AMFLoaderDemo
     ]
   },
 ]

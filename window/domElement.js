@@ -123,6 +123,8 @@ window.performance = {
     })
 }
 require('./DOMParser.js');
+require('./TextDecoder.js');
+
 global.HTMLCanvasElement = require('./HTMLCanvasElement');
 
 

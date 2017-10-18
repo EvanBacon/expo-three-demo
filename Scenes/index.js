@@ -30,3 +30,4 @@ export {default as Trees} from './Trees';
 export {default as DayCycle} from './DayCycle';
 export {default as VirtualBoy} from './VirtualBoy';
 
+export {default as AMFLoaderDemo} from './AMFLoaderDemo';

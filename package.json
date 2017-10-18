@@ -11,6 +11,7 @@
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
     "react-navigation": "^1.0.0-beta.11",
+    "text-encoding": "^0.6.4",
     "three": "^0.87.1",
     "three-orbit-controls": "^82.1.0",
     "tween.js": "^16.6.0",
