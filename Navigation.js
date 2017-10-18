@@ -190,6 +190,13 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.TDSLoaderDemo,
+  },
+  AssimpLoaderDemo: {
+    title: 'Assimp',
+    key: 'AssimpLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.AssimpLoaderDemo,
   }
 };
 
@@ -331,8 +338,8 @@ export const configuration = [
       Routes.EditorLoader,
       Routes.AMFLoaderDemo,
       Routes.ThreeMFLoaderDemo,
-      Routes.TDSLoaderDemo
-      
+      Routes.TDSLoaderDemo,
+      Routes.AssimpLoader,
     ]
   },
 ]

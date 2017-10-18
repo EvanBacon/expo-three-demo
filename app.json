@@ -22,7 +22,9 @@
         "amf",
         "3mf",
         "3ds",
-        "jpg"
+        "jpg",
+        "assimp",
+        "fbx"
       ]
     },
     "ios": {

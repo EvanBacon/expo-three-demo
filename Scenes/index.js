@@ -33,3 +33,4 @@ export {default as VirtualBoy} from './VirtualBoy';
 export {default as AMFLoaderDemo} from './AMFLoaderDemo';
 export {default as ThreeMFLoaderDemo} from './ThreeMFLoaderDemo';
 export {default as TDSLoaderDemo} from './TDSLoaderDemo';
+export {default as AssimpLoaderDemo} from './AssimpLoaderDemo';

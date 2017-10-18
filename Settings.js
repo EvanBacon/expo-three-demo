@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'TDSLoaderDemo', //Home
+  initialRouteName: 'AssimpLoaderDemo', //Home
 }
