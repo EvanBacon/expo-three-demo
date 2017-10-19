@@ -38,4 +38,5 @@ export {default as MMDLoaderDemo} from './MMDLoaderDemo';
 export {default as PLYLoaderDemo} from './PLYLoaderDemo';
 export {default as STLLoaderDemo} from './STLLoaderDemo';
 export {default as VTKLoaderDemo} from './VTKLoaderDemo';
+export {default as Sea3DLoaderDemo} from './Sea3DLoaderDemo';
 

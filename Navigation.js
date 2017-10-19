@@ -225,6 +225,13 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.VTKLoaderDemo,
+  },
+  Sea3DLoaderDemo: {
+    title: 'Sea 3D',
+    key: 'Sea3DLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.Sea3DLoaderDemo,
   }
 };
 
@@ -371,7 +378,8 @@ export const configuration = [
       Routes.AssimpLoaderDemo,
       Routes.MMDLoaderDemo,
       Routes.STLLoaderDemo,
-      Routes.VTKLoaderDemo
+      Routes.VTKLoaderDemo,
+      Routes.Sea3DLoaderDemo
     ]
   },
 ]

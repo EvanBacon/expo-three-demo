@@ -30,7 +30,8 @@
         "ply",
         "stl",
         "vtk",
-        "vtp"
+        "vtp",
+        "sea"
       ]
     },
     "ios": {
