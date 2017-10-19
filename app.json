@@ -24,7 +24,9 @@
         "3ds",
         "jpg",
         "assimp",
-        "fbx"
+        "fbx",
+        "pmd",
+        "vmd"
       ]
     },
     "ios": {

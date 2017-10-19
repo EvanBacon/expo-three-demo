@@ -197,6 +197,13 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.AssimpLoaderDemo,
+  },
+  MMDLoaderDemo: {
+    title: 'MMD',
+    key: 'MMDLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.MMDLoaderDemo,
   }
 };
 
@@ -339,7 +346,8 @@ export const configuration = [
       Routes.AMFLoaderDemo,
       Routes.ThreeMFLoaderDemo,
       Routes.TDSLoaderDemo,
-      Routes.AssimpLoader,
+      Routes.AssimpLoaderDemo,
+      Routes.MMDLoaderDemo
     ]
   },
 ]
