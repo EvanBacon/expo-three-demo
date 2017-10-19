@@ -204,7 +204,15 @@ export const Routes = {
     description: '',
     link: '',
     screen: Scenes.MMDLoaderDemo,
-  }
+  },
+  PLYLoaderDemo: {
+    title: 'PLY',
+    key: 'PLYLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.PLYLoaderDemo,
+  },
+  
 };
 
 
@@ -342,6 +350,7 @@ export const configuration = [
     title: "Loader",
     key: "Loader",
     data: [
+      Routes.PLYLoaderDemo,
       Routes.EditorLoader,
       Routes.AMFLoaderDemo,
       Routes.ThreeMFLoaderDemo,

@@ -35,3 +35,4 @@ export {default as ThreeMFLoaderDemo} from './ThreeMFLoaderDemo';
 export {default as TDSLoaderDemo} from './TDSLoaderDemo';
 export {default as AssimpLoaderDemo} from './AssimpLoaderDemo';
 export {default as MMDLoaderDemo} from './MMDLoaderDemo';
+export {default as PLYLoaderDemo} from './PLYLoaderDemo';

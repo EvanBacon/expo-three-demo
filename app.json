@@ -26,7 +26,8 @@
         "assimp",
         "fbx",
         "pmd",
-        "vmd"
+        "vmd",
+        "ply"
       ]
     },
     "ios": {
