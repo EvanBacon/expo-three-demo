@@ -15,7 +15,8 @@
     "three": "^0.87.1",
     "three-orbit-controls": "^82.1.0",
     "tween.js": "^16.6.0",
-    "xmldom-qsa": "^1.0.3"
+    "xmldom-qsa": "^1.0.3",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "eslint": "^4.0.0",

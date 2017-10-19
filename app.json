@@ -28,7 +28,9 @@
         "pmd",
         "vmd",
         "ply",
-        "stl"
+        "stl",
+        "vtk",
+        "vtp"
       ]
     },
     "ios": {

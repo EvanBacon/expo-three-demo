@@ -219,6 +219,13 @@ export const Routes = {
     link: '',
     screen: Scenes.STLLoaderDemo,
   },
+  VTKLoaderDemo: {
+    title: 'VTK',
+    key: 'VTKLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.VTKLoaderDemo,
+  }
 };
 
 
@@ -363,7 +370,8 @@ export const configuration = [
       Routes.TDSLoaderDemo,
       Routes.AssimpLoaderDemo,
       Routes.MMDLoaderDemo,
-      Routes.STLLoaderDemo
+      Routes.STLLoaderDemo,
+      Routes.VTKLoaderDemo
     ]
   },
 ]
