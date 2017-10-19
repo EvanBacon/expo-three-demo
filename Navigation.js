@@ -212,7 +212,13 @@ export const Routes = {
     link: '',
     screen: Scenes.PLYLoaderDemo,
   },
-  
+  STLLoaderDemo: {
+    title: 'STL',
+    key: 'STLLoaderDemo',
+    description: '',
+    link: '',
+    screen: Scenes.STLLoaderDemo,
+  },
 };
 
 
@@ -356,7 +362,8 @@ export const configuration = [
       Routes.ThreeMFLoaderDemo,
       Routes.TDSLoaderDemo,
       Routes.AssimpLoaderDemo,
-      Routes.MMDLoaderDemo
+      Routes.MMDLoaderDemo,
+      Routes.STLLoaderDemo
     ]
   },
 ]

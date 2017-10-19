@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'PLYLoaderDemo', //Home
+  initialRouteName: 'Home', //Home
 }

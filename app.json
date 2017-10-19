@@ -27,7 +27,8 @@
         "fbx",
         "pmd",
         "vmd",
-        "ply"
+        "ply",
+        "stl"
       ]
     },
     "ios": {
