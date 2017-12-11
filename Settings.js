@@ -1,3 +1,3 @@
 export default {
-  initialRouteName: 'Sea3DLoaderDemo', //Home
-}
+  initialRouteName: 'Home', //Home
+};

@@ -18,13 +18,12 @@ class App extends React.Component {
     <ThreeView
       style={{ flex: 1 }}
       onContextCreate={this._onContextCreate}
-      render={this._animate}
+      onRender={this._animate}
     />
   );
   //render={_=> {}} to disable loop
 
-  _onContextCreate = async (gl) => {
-
+  _onContextCreate = async gl => {
     const { innerWidth: width, innerHeight: height } = window;
 
     // renderer
@@ -61,12 +60,11 @@ class App extends React.Component {
     directionalLight.position.set(1, 1, 0.5).normalize();
     this.scene.add(directionalLight);
 
-
     this._setupScene();
     // resize listener
 
     window.addEventListener('resize', this._onWindowResize, false);
-  }
+  };
 
   _setupScene = () => {
     this.scene.add(new THREE.GridHelper(10000, 2, 0xffffff, 0xffffff));
@@ -80,7 +78,7 @@ class App extends React.Component {
       new THREE.SphereBufferGeometry(2000, 16, 8),
       new THREE.MeshBasicMaterial({ color: 0xffffff })
     );
-    sunSphere.position.y = - 700000;
+    sunSphere.position.y = -700000;
     this.scene.add(sunSphere);
 
     let effectController = {
@@ -91,7 +89,7 @@ class App extends React.Component {
       luminance: 1,
       inclination: 0.49, // elevation / inclination
       azimuth: 0.25, // Facing front,
-      sun: true
+      sun: true,
     };
 
     let distance = 400000;
@@ -108,24 +106,23 @@ class App extends React.Component {
     sunSphere.position.z = distance * Math.sin(phi) * Math.cos(theta);
     sunSphere.visible = effectController.sun;
     sky.uniforms.sunPosition.value.copy(sunSphere.position);
-
-  }
+  };
 
   _onWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-  }
+  };
 
-  _animate = (delta) => {
+  _animate = delta => {
     const { renderer, scene, camera } = this;
     this._render();
-  }
+  };
 
   _render = () => {
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 }
 
 // Wrap Touches Event Listener

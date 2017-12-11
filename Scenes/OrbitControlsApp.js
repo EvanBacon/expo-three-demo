@@ -8,17 +8,15 @@ import ThreeView from '../ThreeView';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-
   render = () => (
     <ThreeView
       style={{ flex: 1 }}
       onContextCreate={this._onContextCreate}
-      render={this._animate}
+      onRender={this._animate}
     />
   );
 
-  _onContextCreate = async (gl) => {
-
+  _onContextCreate = async gl => {
     const { innerWidth: width, innerHeight: height } = window;
 
     // renderer
@@ -48,10 +46,12 @@ class App extends React.Component {
     // world
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, flatShading: true });
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      flatShading: true,
+    });
 
     for (var i = 0; i < 500; i++) {
-
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.x = (Math.random() - 0.5) * 1000;
       mesh.position.y = (Math.random() - 0.5) * 1000;
@@ -59,7 +59,6 @@ class App extends React.Component {
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       this.scene.add(mesh);
-
     }
 
     // lights
@@ -78,26 +77,26 @@ class App extends React.Component {
     // resize listener
 
     window.addEventListener('resize', this._onWindowResize, false);
-  }
+  };
 
   _onWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-  }
+  };
 
-  _animate = (delta) => {
+  _animate = delta => {
     const { renderer, scene, camera } = this;
     //const { width, height } = this.renderer.getSize();
 
     // this.controls.update();  // required if controls.enableDamping = true, or if controls.autoRotate = true
     this._render();
-  }
+  };
 
   _render = () => {
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 }
 
 // Wrap Touches Event Listener

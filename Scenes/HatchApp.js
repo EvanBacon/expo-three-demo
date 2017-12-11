@@ -13,7 +13,7 @@ class App extends React.Component {
         <ThreeView
             style={{ flex: 1, backgroundColor: 'black' }}
             onContextCreate={this._onContextCreate}
-            render={this._animate}
+            onRender={this._animate}
         />
     );
 

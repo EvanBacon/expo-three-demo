@@ -7,112 +7,115 @@ import ThreeView from '../ThreeView';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
+  render = () => (
+    <ThreeView
+      style={{ flex: 1 }}
+      onContextCreate={this._onContextCreate}
+      onRender={this.animate}
+    />
+  );
 
-    render = () => (
-        <ThreeView
-            style={{ flex: 1 }}
-            onContextCreate={this._onContextCreate}
-            render={this._animate}
-        />
-    );
+  _onContextCreate = async gl => {
+    const {
+      innerWidth: width,
+      innerHeight: height,
+      devicePixelRatio: scale,
+    } = window;
 
-    _onContextCreate = async (gl) => {
+    // renderer
 
-        const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
+    this.renderer = ExpoTHREE.createRenderer({ gl });
+    this.renderer.setPixelRatio(scale);
+    this.renderer.setSize(width, height);
+    this.renderer.setClearColor(0x000000);
 
-        // renderer
+    // scene
+    this.scene = new THREE.Scene();
+    // camera
 
-        this.renderer = ExpoTHREE.createRenderer({ gl });
-        this.renderer.setPixelRatio(scale);
-        this.renderer.setSize(width, height);
-        this.renderer.setClearColor(0x000000);
+    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    this.camera.position.set(100, 0, -100);
+    this.camera.lookAt(new THREE.Vector3());
 
-        // scene
-        this.scene = new THREE.Scene();
-        // camera
+    // custom scene
 
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-        this.camera.position.set(100, 0, -100);
-        this.camera.lookAt(new THREE.Vector3());
+    await this._setupScene();
 
-        // custom scene
+    // resize listener
 
-        await this._setupScene();
+    window.addEventListener('resize', this._onWindowResize, false);
+  };
 
-        // resize listener
+  _setupScene = async () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    // Initialize Three.JS
 
-        window.addEventListener('resize', this._onWindowResize, false);
+    const texture = await ExpoTHREE.createTextureAsync({
+      asset: Expo.Asset.fromModule(require('../assets/images/particle.png')),
+    });
+
+    const flame = new Flame(texture);
+    const scale = 100;
+    flame.scale.set(scale, scale, scale);
+    scene.add(flame);
+
+    const speed = 0.002;
+  };
+
+  _onWindowResize = () => {
+    const {
+      innerWidth: width,
+      innerHeight: height,
+      devicePixelRatio: scale,
+    } = window;
+
+    // On Orientation Change, or split screen on android.
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+
+    // Update Renderer
+    this.renderer.setPixelRatio(scale);
+    this.renderer.setSize(width, height);
+  };
+
+  animate = delta => {
+    // Update Shader
+    const time = Date.now();
+    if (flame) {
+      flame.update(time * speed);
     }
 
-    _setupScene = async () => {
-        const { innerWidth: width, innerHeight: height } = window;
-        // Initialize Three.JS
+    this._render();
+  };
 
-        const texture = await ExpoTHREE.createTextureAsync({
-            asset: Expo.Asset.fromModule(require('../assets/images/particle.png')),
-        });
-
-        const flame = new Flame(texture);
-        const scale = 100;
-        flame.scale.set(scale, scale, scale);
-        scene.add(flame);
-
-        const speed = 0.002;
-
-    }
-
-    _onWindowResize = () => {
-        const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
-
-        // On Orientation Change, or split screen on android.
-        this.camera.aspect = width / height;
-        this.camera.updateProjectionMatrix();
-
-        // Update Renderer
-        this.renderer.setPixelRatio(scale);
-        this.renderer.setSize(width, height);
-
-    }
-
-    _animate = (delta) => {
-        // Update Shader
-        const time = Date.now();
-        if (flame) {
-            flame.update(time * speed);
-        }
-
-        this._render();
-    }
-
-    _render = () => {
-        // Render Scene!
-        this.renderer.render(this.scene, this.camera);
-    }
+  _render = () => {
+    // Render Scene!
+    this.renderer.render(this.scene, this.camera);
+  };
 }
 
 // Wrap Touches Event Listener
 export default Touches(App);
 
-
 const shader = {
-    defines: {
-        ITERATIONS: "6", //20
-        OCTIVES: "3"
-    },
-    uniforms: {
-        flameTex: { type: "t", value: null },
-        color: { type: "c", value: null },
-        time: { type: "f", value: 0.0 },
-        seed: { type: "f", value: 0.0 },
-        invModelMatrix: { type: "m4", value: null },
-        scale: { type: "v3", value: null },
-        noiseScale: { type: "v4", value: new THREE.Vector4(1, 2, 1, 0.3) },
-        magnitude: { type: "f", value: 1.3 },
-        lacunarity: { type: "f", value: 2.0 },
-        gain: { type: "f", value: 0.5 }
-    },
+  defines: {
+    ITERATIONS: '6', //20
+    OCTIVES: '3',
+  },
+  uniforms: {
+    flameTex: { type: 't', value: null },
+    color: { type: 'c', value: null },
+    time: { type: 'f', value: 0.0 },
+    seed: { type: 'f', value: 0.0 },
+    invModelMatrix: { type: 'm4', value: null },
+    scale: { type: 'v3', value: null },
+    noiseScale: { type: 'v4', value: new THREE.Vector4(1, 2, 1, 0.3) },
+    magnitude: { type: 'f', value: 1.3 },
+    lacunarity: { type: 'f', value: 2.0 },
+    gain: { type: 'f', value: 0.5 },
+  },
 
-    vertexShader: `
+  vertexShader: `
         varying vec3 vWorldPos;
         void main() {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
@@ -120,7 +123,7 @@ const shader = {
         }
 		`,
 
-    fragmentShader: `
+  fragmentShader: `
 uniform vec3 color;
 uniform float time;
 uniform float seed;
@@ -227,45 +230,42 @@ col += samplerFlame(lp, noiseScale);
 col.a = col.r;
 gl_FragColor = col;
 }
-`
-}
+`,
+};
 class Flame extends THREE.Mesh {
+  constructor(flameTex, color) {
+    const flameMaterial = new THREE.ShaderMaterial({
+      defines: shader.defines,
+      uniforms: THREE.UniformsUtils.clone(shader.uniforms),
+      vertexShader: shader.vertexShader,
+      fragmentShader: shader.fragmentShader,
+      transparent: true,
+      depthWrite: false,
+      depthTest: false,
+    });
 
-    constructor(flameTex, color) {
-        const flameMaterial = new THREE.ShaderMaterial({
-            defines: shader.defines,
-            uniforms: THREE.UniformsUtils.clone(shader.uniforms),
-            vertexShader: shader.vertexShader,
-            fragmentShader: shader.fragmentShader,
-            transparent: true,
-            depthWrite: false,
-            depthTest: false
-        });
+    flameTex.magFilter = flameTex.minFilter = THREE.LinearFilter;
+    flameTex.wrapS = THREE.wrapT = THREE.ClampToEdgeWrapping;
 
-        flameTex.magFilter = flameTex.minFilter = THREE.LinearFilter;
-        flameTex.wrapS = THREE.wrapT = THREE.ClampToEdgeWrapping;
+    flameMaterial.uniforms.flameTex.value = flameTex;
+    flameMaterial.uniforms.color.value = color || new THREE.Color(0xeeeeee);
+    flameMaterial.uniforms.invModelMatrix.value = new THREE.Matrix4();
+    flameMaterial.uniforms.scale.value = new THREE.Vector3(1, 1, 1);
+    flameMaterial.uniforms.seed.value = Math.random() * 19.19;
 
-        flameMaterial.uniforms.flameTex.value = flameTex;
-        flameMaterial.uniforms.color.value = color || new THREE.Color(0xeeeeee);
-        flameMaterial.uniforms.invModelMatrix.value = new THREE.Matrix4();
-        flameMaterial.uniforms.scale.value = new THREE.Vector3(1, 1, 1);
-        flameMaterial.uniforms.seed.value = Math.random() * 19.19;
+    super(new THREE.BoxGeometry(1.0, 1.0, 1.0), flameMaterial);
+  }
 
-        super(new THREE.BoxGeometry(1.0, 1.0, 1.0), flameMaterial);
+  update(time) {
+    const invModelMatrix = this.material.uniforms.invModelMatrix.value;
+
+    this.updateMatrix();
+    invModelMatrix.getInverse(this.matrix);
+
+    if (time !== undefined) {
+      this.material.uniforms.time.value = time;
     }
-
-    update(time) {
-
-        const invModelMatrix = this.material.uniforms.invModelMatrix.value;
-
-        this.updateMatrix();
-        invModelMatrix.getInverse(this.matrix);
-
-        if (time !== undefined) {
-            this.material.uniforms.time.value = time;
-        }
-        this.material.uniforms.invModelMatrix.value = invModelMatrix;
-        this.material.uniforms.scale.value = this.scale;
-
-    }
+    this.material.uniforms.invModelMatrix.value = invModelMatrix;
+    this.material.uniforms.scale.value = this.scale;
+  }
 }

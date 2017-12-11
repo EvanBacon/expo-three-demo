@@ -8,7 +8,7 @@ export default THREE;
 
 require('three/examples/js/loaders/OBJLoader');
 require('three/examples/js/loaders/STLLoader');
-require('three/examples/js/loaders/OBJLoader2');
+// require('three/examples/js/loaders/OBJLoader2');
 
 require('three/examples/js/postprocessing/EffectComposer');
 require('three/examples/js/postprocessing/RenderPass');
@@ -28,7 +28,6 @@ require('three/examples/js/shaders/FilmShader');
 require('three/examples/js/shaders/HorizontalBlurShader');
 require('three/examples/js/shaders/VerticalBlurShader');
 
-
 require('three/examples/js/effects/OutlineEffect');
 require('three/examples/js/effects/AnaglyphEffect');
 require('three/examples/js/effects/ParallaxBarrierEffect');
@@ -40,24 +39,19 @@ require('./assets/components/threex.toxicpproc.js');
 require('./assets/components/threex.uniformstween.js');
 require('./assets/components/threex.daynight.js');
 
-
-// const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');
-// global.SEA3D = SEA3D;
-// require('three/examples/js/loaders/sea3d/SEA3DLoader');
+const SEA3D = require('three/examples/js/loaders/sea3d/SEA3D');
+global.SEA3D = SEA3D;
+// // require('three/examples/js/loaders/sea3d/SEA3DLoader');
 
 // require('three/examples/js/loaders/sea3d/SEA3DLZMA');
 
-
 if (!console.time) {
-    console.time = () => { };
+  console.time = () => {};
 }
 if (!console.timeEnd) {
-    console.timeEnd = () => { };
+  console.timeEnd = () => {};
 }
 if (!console.assert) {
-    console.assert = () => { };
+  console.assert = () => {};
 }
-console.ignoredYellowBox = [
-    'THREE.WebGLRenderer',
-    'THREE.WebGLProgram',
-];
+console.ignoredYellowBox = ['THREE.WebGLRenderer', 'THREE.WebGLProgram'];

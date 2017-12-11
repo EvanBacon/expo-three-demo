@@ -8,18 +8,16 @@ import ThreeView from '../ThreeView';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
-
   render = () => (
     <ThreeView
       style={{ flex: 1 }}
       onContextCreate={this._onContextCreate}
-      render={this._animate}
+      onRender={this._animate}
     />
   );
   //render={_=> {}} to disable loop
 
-  _onContextCreate = async (gl) => {
-
+  _onContextCreate = async gl => {
     const { innerWidth: width, innerHeight: height } = window;
 
     // renderer
@@ -49,10 +47,12 @@ class App extends React.Component {
     // world
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, flatShading: true });
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      flatShading: true,
+    });
 
     for (var i = 0; i < 500; i++) {
-
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.x = (Math.random() - 0.5) * 1000;
       mesh.position.y = (Math.random() - 0.5) * 1000;
@@ -60,7 +60,6 @@ class App extends React.Component {
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       this.scene.add(mesh);
-
     }
 
     // lights
@@ -80,15 +79,14 @@ class App extends React.Component {
     // resize listener
 
     window.addEventListener('resize', this._onWindowResize, false);
-  }
+  };
 
   _setupScene = () => {
     const { renderer, scene, camera, controls } = this;
 
     // Initialize Three.JS
 
-
-    camera.position.set(1000, - 300, 1000);
+    camera.position.set(1000, -300, 1000);
 
     // post-processing
     this.composer = new THREE.EffectComposer(renderer);
@@ -96,40 +94,26 @@ class App extends React.Component {
     var copyPass = new THREE.ShaderPass(THREE.CopyShader);
     this.composer.addPass(renderPass);
 
-    var vh = 1.4, vl = 1.2;
+    var vh = 1.4,
+      vl = 1.2;
     var colorCorrectionPass = new THREE.ShaderPass(THREE.ColorCorrectionShader);
-    colorCorrectionPass.uniforms["powRGB"].value = new THREE.Vector3(vh, vh, vh);
-    colorCorrectionPass.uniforms["mulRGB"].value = new THREE.Vector3(vl, vl, vl);
+    colorCorrectionPass.uniforms['powRGB'].value = new THREE.Vector3(
+      vh,
+      vh,
+      vh
+    );
+    colorCorrectionPass.uniforms['mulRGB'].value = new THREE.Vector3(
+      vl,
+      vl,
+      vl
+    );
     this.composer.addPass(colorCorrectionPass);
     var vignettePass = new THREE.ShaderPass(THREE.VignetteShader);
-    vignettePass.uniforms["darkness"].value = 1.0;
+    vignettePass.uniforms['darkness'].value = 1.0;
     this.composer.addPass(vignettePass);
     this.composer.addPass(copyPass);
     copyPass.renderToScreen = true;
-
-    //
-    // SEA3D Loader
-    //
-    // const loader = new THREE.SEA3D( {
-    //   autoPlay : true, // Auto play animations
-    //   container : scene // Container to add models
-    // } );
-    // loader.onComplete = function( e ) {
-    //   // Get camera from SEA3D Studio
-    //   // use loader.get... to get others objects
-    //   var cam = loader.getCamera( "Camera007" );
-    //   camera.position.copy( cam.position );
-    //   camera.rotation.copy( cam.rotation );
-
-    //   animate();
-    // };
-    // loader.load( './models/sea3d/mascot.tjs.sea' );
-    //
-
-
-
-
-  }
+  };
 
   _onWindowResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -137,23 +121,22 @@ class App extends React.Component {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.composer.setSize(window.innerWidth, window.innerHeight);
-  }
+  };
 
-  _animate = (delta) => {
+  _animate = delta => {
     const { renderer, scene, camera } = this;
     //const { width, height } = this.renderer.getSize();
 
-    // THREE.SEA3D.AnimationHandler.update( delta );    
+    // THREE.SEA3D.AnimationHandler.update( delta );
     this.composer.render(delta);
 
     // this.controls.update();  // required if controls.enableDamping = true, or if controls.autoRotate = true
     // this._render();
-
-  }
+  };
 
   _render = () => {
     // this.renderer.render(this.scene, this.camera);
-  }
+  };
 }
 
 // Wrap Touches Event Listener

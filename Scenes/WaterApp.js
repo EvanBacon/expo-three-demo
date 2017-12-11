@@ -7,140 +7,154 @@ import ThreeView from '../ThreeView';
 import Touches from '../window/Touches';
 
 class App extends React.Component {
+  render = () => (
+    <View style={{ flex: 1 }}>
+      <ThreeView
+        style={{ flex: 1 }}
+        onContextCreate={this._onContextCreate}
+        onRender={this._animate}
+      />
+      <Text
+        style={{
+          color: 'white',
+          textAlign: 'center',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 8,
+          backgroundColor: 'transparent',
+        }}
+      >
+        Tap Around
+      </Text>
+    </View>
+  );
 
-    render = () => (
-        <View style={{ flex: 1 }}>
-            <ThreeView
-                style={{ flex: 1 }}
-                onContextCreate={this._onContextCreate}
-                render={this._animate}
-            />
-            <Text style={{ color: 'white', textAlign: 'center', position: 'absolute', left: 0, right: 0, bottom: 8, backgroundColor: 'transparent' }}>Tap Around
-        </Text>
-        </View>
+  _onContextCreate = async gl => {
+    const {
+      innerWidth: width,
+      innerHeight: height,
+      devicePixelRatio: scale,
+    } = window;
+
+    // renderer
+
+    this.renderer = ExpoTHREE.createRenderer({ gl });
+    this.renderer.setPixelRatio(scale);
+    this.renderer.setSize(width, height);
+    this.renderer.setClearColor(0xc4c4c4);
+
+    // scene
+    this.scene = new THREE.Scene();
+    // camera
+
+    this.camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+    this.camera.position.z = 150;
+    this.camera.lookAt(new THREE.Vector3());
+
+    // custom scene
+
+    this._setupScene();
+
+    // resize listener
+
+    window.addEventListener('resize', this._onWindowResize, false);
+  };
+
+  _setupScene = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    // Initialize Three.JS
+
+    // Shader Variables
+    this.tuniform = {
+      iGlobalTime: {
+        type: 'f',
+        value: 0.1,
+      },
+      iResolution: {
+        type: 'v2',
+        value: new THREE.Vector2(),
+      },
+      iMouse: {
+        type: 'v4',
+        value: new THREE.Vector2(),
+      },
+    };
+
+    // Set Window size in shader
+    this.tuniform.iResolution.value.x = width;
+    this.tuniform.iResolution.value.y = height;
+
+    // Create Plane with shader material
+    const material = new THREE.ShaderMaterial({
+      uniforms: this.tuniform,
+      vertexShader: shaders.vertex,
+      fragmentShader: shaders.fragment,
+    });
+    // Assign Material to mesh
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneBufferGeometry(width, height, 40),
+      material
     );
+    // Add Mesh to the scene
+    this.scene.add(mesh);
 
-    _onContextCreate = async (gl) => {
+    // Add Touch Listener
+    window.document.addEventListener('touchstart', e => {
+      const { innerWidth: width, innerHeight: height } = window;
 
-        const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
+      // Get First Touch
+      const touch = e.touches[0];
 
-        // renderer
+      // Assign Touch (-1 — +1) to the shader material
+      this.tuniform.iMouse.value.x = touch.pageX / width * 2 - 1;
+      this.tuniform.iMouse.value.y = touch.pageY / height * 2 - 1;
+    });
+  };
 
-        this.renderer = ExpoTHREE.createRenderer({ gl });
-        this.renderer.setPixelRatio(scale);
-        this.renderer.setSize(width, height);
-        this.renderer.setClearColor(0xc4c4c4);
+  _onWindowResize = () => {
+    const {
+      innerWidth: width,
+      innerHeight: height,
+      devicePixelRatio: scale,
+    } = window;
 
-        // scene
-        this.scene = new THREE.Scene();
-        // camera
+    // On Orientation Change, or split screen on android.
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
 
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
-        this.camera.position.z = 150;
-        this.camera.lookAt(new THREE.Vector3());
+    // Update Renderer
+    this.renderer.setPixelRatio(scale);
+    this.renderer.setSize(width, height);
 
-        // custom scene
+    // Update Shader
+    this.tuniform.iResolution.value.x = width;
+    this.tuniform.iResolution.value.y = height;
+  };
 
-        this._setupScene();
+  _animate = delta => {
+    // Update Shader
+    this.tuniform.iGlobalTime.value += delta;
+    this._render();
+  };
 
-        // resize listener
-
-        window.addEventListener('resize', this._onWindowResize, false);
-    }
-
-    _setupScene = () => {
-        const { innerWidth: width, innerHeight: height } = window;
-        // Initialize Three.JS
-
-        // Shader Variables
-        this.tuniform = {
-            iGlobalTime: {
-                type: 'f',
-                value: 0.1
-            },
-            iResolution: {
-                type: 'v2',
-                value: new THREE.Vector2()
-            },
-            iMouse: {
-                type: 'v4',
-                value: new THREE.Vector2()
-            }
-        };
-
-        // Set Window size in shader
-        this.tuniform.iResolution.value.x = width;
-        this.tuniform.iResolution.value.y = height;
-
-        // Create Plane with shader material
-        const material = new THREE.ShaderMaterial({
-            uniforms: this.tuniform,
-            vertexShader: shaders.vertex,
-            fragmentShader: shaders.fragment
-        });
-        // Assign Material to mesh
-        const mesh = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry(width, height, 40),
-            material
-        );
-        // Add Mesh to the scene
-        this.scene.add(mesh);
-
-
-        // Add Touch Listener
-        window.document.addEventListener('touchstart', (e) => {
-            const { innerWidth: width, innerHeight: height } = window;
-
-            // Get First Touch
-            const touch = e.touches[0];
-
-            // Assign Touch (-1 — +1) to the shader material
-            this.tuniform.iMouse.value.x = ((touch.pageX / width) * 2) - 1;
-            this.tuniform.iMouse.value.y = ((touch.pageY / height) * 2) - 1;
-        });
-
-    }
-
-    _onWindowResize = () => {
-        const { innerWidth: width, innerHeight: height, devicePixelRatio: scale } = window;
-
-        // On Orientation Change, or split screen on android.
-        this.camera.aspect = width / height;
-        this.camera.updateProjectionMatrix();
-
-        // Update Renderer
-        this.renderer.setPixelRatio(scale);
-        this.renderer.setSize(width, height);
-
-        // Update Shader
-        this.tuniform.iResolution.value.x = width;
-        this.tuniform.iResolution.value.y = height;
-    }
-
-    _animate = (delta) => {
-        // Update Shader
-        this.tuniform.iGlobalTime.value += delta;
-        this._render();
-    }
-
-    _render = () => {
-        // Render Scene!
-        this.renderer.render(this.scene, this.camera);
-    }
+  _render = () => {
+    // Render Scene!
+    this.renderer.render(this.scene, this.camera);
+  };
 }
 
 // Wrap Touches Event Listener
 export default Touches(App);
 
-
 // Define Shaders
 const shaders = {
-    vertex: `
+  vertex: `
     void main()	{
         gl_Position = vec4( position, 1.0 );
     }
     `,
-    fragment: `
+  fragment: `
     uniform float iGlobalTime;
 	uniform vec2 iResolution;
 	uniform vec4 iMouse;
@@ -327,5 +341,5 @@ void main() {
     // post
 	gl_FragColor = vec4(pow(color,vec3(0.75)), 1.0);
 	}
-    `
+    `,
 };

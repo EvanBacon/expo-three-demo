@@ -9,14 +9,15 @@ import { StackNavigator } from 'react-navigation';
 import { Platform, Button, Linking } from 'react-native';
 import * as Scenes from './Scenes';
 import * as Screens from './Screens';
-import Colors from './Colors'
-import Settings from './Settings'
+import Colors from './Colors';
+import Settings from './Settings';
 
 export const Routes = {
   AnimationCloth: {
     title: 'Animation Cloth',
     key: 'AnimationCloth',
-    description: 'Simple Cloth Simulation Verlet integration with relaxed constraints',
+    description:
+      'Simple Cloth Simulation Verlet integration with relaxed constraints',
     link: 'https://threejs.org/examples/webgl_animation_cloth.html',
     screen: Scenes.AnimationCloth,
   },
@@ -95,7 +96,8 @@ export const Routes = {
     title: 'Vignette Effect',
     key: 'VignetteEffect',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VignetteApp.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VignetteApp.js',
     screen: Scenes.VignetteApp,
   },
   WaterShader: {
@@ -110,9 +112,9 @@ export const Routes = {
     title: 'Orbit Controls',
     key: 'OrbitControls',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/OrbitControlsApp.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/OrbitControlsApp.js',
     screen: Scenes.OrbitControlsApp,
-
   },
   FlameShader: {
     title: 'Flame Shader',
@@ -125,28 +127,32 @@ export const Routes = {
     title: 'Hello World',
     key: 'VrHelloWorldApp',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VrHelloWorldApp.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/VrHelloWorldApp.js',
     screen: Scenes.VrHelloWorldApp,
   },
   Anaglyph3dApp: {
     title: 'Anaglyph',
     key: 'Anaglyph3dApp',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Anaglyph3dApp.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Anaglyph3dApp.js',
     screen: Scenes.Anaglyph3dApp,
   },
   ParallaxBarrierApp: {
     title: 'Parallax Barrier',
     key: 'ParallaxBarrierApp',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ParallaxBarrierApp.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/ParallaxBarrierApp.js',
     screen: Scenes.ParallaxBarrierApp,
   },
   Toxic: {
     title: 'Toxic',
     key: 'Toxic',
     description: '',
-    link: 'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Toxic.js',
+    link:
+      'https://github.com/EvanBacon/expo-three-demo/blob/master/Scenes/Toxic.js',
     screen: Scenes.Toxic,
   },
   Trees: {
@@ -226,67 +232,71 @@ export const Routes = {
     link: '',
     screen: Scenes.VTKLoaderDemo,
   },
-  Sea3DLoaderDemo: {
-    title: 'Sea 3D',
-    key: 'Sea3DLoaderDemo',
-    description: '',
-    link: '',
-    screen: Scenes.Sea3DLoaderDemo,
-  }
+  // Sea3DLoaderDemo: {
+  //   title: 'Sea 3D',
+  //   key: 'Sea3DLoaderDemo',
+  //   description: '',
+  //   link: '',
+  //   screen: Scenes.Sea3DLoaderDemo,
+  // },
 };
-
-
 
 Object.keys(Routes).map(key => {
   const obj = Routes[key];
   obj.screen.navigationOptions = {
     title: obj.title,
-    headerRight: ((() => {
+    headerRight: (() => {
       const { link: url } = obj;
-      if (!url || url === "") {
-        return (null);
+      if (!url || url === '') {
+        return null;
       }
       return (
-        <Button title={"Code"} onPress={() => {
-          Linking.canOpenURL(url).then(supported => {
-            if (!supported) {
-              console.log('Can\'t handle url: ' + url);
-            } else {
-              return Linking.openURL(url);
-            }
-          }).catch(err => console.error('An error occurred', err));
-        }
-        }
+        <Button
+          title={'Code'}
+          onPress={() => {
+            Linking.canOpenURL(url)
+              .then(supported => {
+                if (!supported) {
+                  console.log("Can't handle url: " + url);
+                } else {
+                  return Linking.openURL(url);
+                }
+              })
+              .catch(err => console.error('An error occurred', err));
+          }}
         />
-      )
-    })())
-  }
+      );
+    })(),
+  };
 });
 
 const navigationOptions = {
   headerTintColor: Colors.tintColor,
   headerStyle: {
-    backgroundColor: Colors.headerColor
+    backgroundColor: Colors.headerColor,
   },
-  headerBackTitle: "Back",
-  headerRight: ((() => {
-    const url = "https://github.com/EvanBacon/expo-three-demo";
-   
+  headerBackTitle: 'Back',
+  headerRight: (() => {
+    const url = 'https://github.com/EvanBacon/expo-three-demo';
+
     return (
-      <Button title={"Repo"} onPress={() => {
-        Linking.canOpenURL(url).then(supported => {
-          if (!supported) {
-            console.log('Can\'t handle url: ' + url);
-          } else {
-            return Linking.openURL(url);
-          }
-        }).catch(err => console.error('An error occurred', err));
-      }
-      }
+      <Button
+        title={'Repo'}
+        onPress={() => {
+          Linking.canOpenURL(url)
+            .then(supported => {
+              if (!supported) {
+                console.log("Can't handle url: " + url);
+              } else {
+                return Linking.openURL(url);
+              }
+            })
+            .catch(err => console.error('An error occurred', err));
+        }}
       />
-    )
-  })())
-}
+    );
+  })(),
+};
 
 export const configuration = [
   // {
@@ -297,34 +307,29 @@ export const configuration = [
   //   ]
   // },
   {
-    title: "AR",
-    key: "AR",
-    data: [
-      Routes.Toxic,
-    ]
+    title: 'AR',
+    key: 'AR',
+    data: [Routes.Toxic],
   },
   {
-    title: "Game",
-    key: "Game",
-    data: [
-      Routes.Trees,
-      Routes.DayCycle
-    ]
+    title: 'Game',
+    key: 'Game',
+    data: [Routes.Trees, Routes.DayCycle],
   },
   {
-    title: "Effects",
-    key: "Effects",
+    title: 'Effects',
+    key: 'Effects',
     data: [
       Routes.GlitchEffect,
       Routes.VignetteEffect,
       Routes.ParallaxBarrierApp,
       Routes.Anaglyph3dApp,
-      Routes.VirtualBoy
-    ]
+      Routes.VirtualBoy,
+    ],
   },
   {
-    title: "Shader",
-    key: "Shader",
+    title: 'Shader',
+    key: 'Shader',
     data: [
       Routes.WaterShader,
       Routes.ToonShader,
@@ -334,41 +339,35 @@ export const configuration = [
       Routes.SkyShader,
 
       // Routes.LavaShader,
-      // Routes.OceanShader,      
-    ]
+      // Routes.OceanShader,
+    ],
   },
   {
-    title: "Controls",
-    key: "Controls",
-    data: [
-      Routes.OrbitControls,
-    ]
+    title: 'Controls',
+    key: 'Controls',
+    data: [Routes.OrbitControls],
   },
   {
-    title: "Animation",
-    key: "Animation",
+    title: 'Animation',
+    key: 'Animation',
     data: [
       Routes.AnimationCloth,
       // Routes.SkinningBlending
-    ]
+    ],
   },
   {
-    title: "Particle",
-    key: "Particle",
-    data: [
-      Routes.ParticleSystem,
-    ]
+    title: 'Particle',
+    key: 'Particle',
+    data: [Routes.ParticleSystem],
   },
   {
-    title: "Interactive",
-    key: "Interactive",
-    data: [
-      Routes.VoxelPainter,
-    ]
+    title: 'Interactive',
+    key: 'Interactive',
+    data: [Routes.VoxelPainter],
   },
   {
-    title: "Loader",
-    key: "Loader",
+    title: 'Loader',
+    key: 'Loader',
     data: [
       Routes.PLYLoaderDemo,
       Routes.EditorLoader,
@@ -379,11 +378,10 @@ export const configuration = [
       Routes.MMDLoaderDemo,
       Routes.STLLoaderDemo,
       Routes.VTKLoaderDemo,
-      Routes.Sea3DLoaderDemo
-    ]
+      // Routes.Sea3DLoaderDemo
+    ],
   },
-]
-
+];
 
 const AppNavigator = StackNavigator(
   {
@@ -394,7 +392,7 @@ const AppNavigator = StackNavigator(
   },
   {
     initialRouteName: Settings.initialRouteName,
-    navigationOptions
+    navigationOptions,
     // headerMode: 'none',
     // mode: Platform.OS === 'ios' ? 'modal' : 'card',
   }
